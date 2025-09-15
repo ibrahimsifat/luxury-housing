@@ -115,7 +115,6 @@ export function ProductsSection() {
   ]
 
   const currentProducts = activeTab === "residential" ? residentialProducts : financialProducts
-  const infiniteProducts = [...currentProducts, ...currentProducts, ...currentProducts]
   const totalSlides = Math.ceil(currentProducts.length / cardsPerSlide)
 
   useEffect(() => {
@@ -261,9 +260,39 @@ export function ProductsSection() {
     </Card>
   )
 
-  const getVisibleProducts = () => {
-    const startIndex = currentSlide * cardsPerSlide
-    return currentProducts.slice(startIndex, startIndex + cardsPerSlide)
+  const renderProductSlides = () => {
+    const slides = []
+    for (let i = 0; i < totalSlides; i++) {
+      const startIndex = i * cardsPerSlide
+      const slideProducts = currentProducts.slice(startIndex, startIndex + cardsPerSlide)
+
+      slides.push(
+        <div
+          key={i}
+          className={`flex gap-4 transition-all duration-500 ease-in-out ${
+            cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-full" : "w-full"
+          }`}
+          style={{ minWidth: "100%" }}
+        >
+          {slideProducts.map((product, index) => (
+            <div
+              key={product.slug}
+              className={`${cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-1/2" : "w-1/4"} flex-shrink-0`}
+            >
+              <ProductCard product={product} index={startIndex + index} />
+            </div>
+          ))}
+          {slideProducts.length < cardsPerSlide &&
+            Array.from({ length: cardsPerSlide - slideProducts.length }).map((_, emptyIndex) => (
+              <div
+                key={`empty-${emptyIndex}`}
+                className={`${cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-1/2" : "w-1/4"} flex-shrink-0`}
+              />
+            ))}
+        </div>,
+      )
+    }
+    return slides
   }
 
   return (
@@ -367,16 +396,12 @@ export function ProductsSection() {
             >
               <div className="relative">
                 <div
-                  className={`grid gap-4 px-2 transition-all duration-500 ${
-                    cardsPerSlide === 1 ? "grid-cols-1" : cardsPerSlide === 2 ? "grid-cols-2" : "grid-cols-4"
-                  }`}
+                  className="flex transition-transform duration-500 ease-in-out"
                   style={{
                     transform: `translateX(-${currentSlide * 100}%)`,
                   }}
                 >
-                  {getVisibleProducts().map((product, index) => (
-                    <ProductCard key={product.slug} product={product} index={index} />
-                  ))}
+                  {renderProductSlides()}
                 </div>
               </div>
             </div>
@@ -390,16 +415,12 @@ export function ProductsSection() {
             >
               <div className="relative">
                 <div
-                  className={`grid gap-4 px-2 transition-all duration-500 ${
-                    cardsPerSlide === 1 ? "grid-cols-1" : cardsPerSlide === 2 ? "grid-cols-2" : "grid-cols-4"
-                  }`}
+                  className="flex transition-transform duration-500 ease-in-out"
                   style={{
                     transform: `translateX(-${currentSlide * 100}%)`,
                   }}
                 >
-                  {getVisibleProducts().map((product, index) => (
-                    <ProductCard key={product.slug} product={product} index={index} />
-                  ))}
+                  {renderProductSlides()}
                 </div>
               </div>
             </div>

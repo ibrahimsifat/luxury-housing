@@ -4,6 +4,8 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProductDetailsClient } from "@/components/product-details-client"
 import Link from "next/link"
+import WhatsAppFloat from "@/components/whatsapp-float"
+import { MobileNavigation } from "@/components/mobile-navigation"
 
 interface ProductDetailsPageProps {
   product: Product
@@ -11,7 +13,7 @@ interface ProductDetailsPageProps {
 
 export function ProductDetailsPage({ product }: ProductDetailsPageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30 pt-6">
       <Header />
 
       {/* Hero Section */}
@@ -96,7 +98,8 @@ export function ProductDetailsPage({ product }: ProductDetailsPageProps) {
       </section>
 
       <ProductDetailsClient product={product} />
-
+      <WhatsAppFloat />
+      <MobileNavigation />
       <Footer />
     </div>
   )

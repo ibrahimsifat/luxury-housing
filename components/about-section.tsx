@@ -111,7 +111,10 @@ export function AboutSection() {
               <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white/10 backdrop-blur-sm border border-white/20 p-2">
                 <div className="relative overflow-hidden rounded-2xl">
                   <video className="w-full h-auto object-cover" autoPlay muted loop playsInline preload="metadata">
-                    <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hero-video-OSHBxp2Ct675IUZzyzo2WXLwh6asa1.mp4" type="video/mp4" />
+                   <source
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luxury-about-qFUeXMFblcRXZdSfQ00GicsrMgCAha.mp4"
+                      type="video/mp4"
+                    />
                     Your browser does not support the video tag.
                   </video>
 

@@ -20,7 +20,7 @@ export default function Header() {
 
   const navItems = [
     { name: "الرئيسية", href: "/" },
-    { name: "من نحن", href: "/#about" },
+    { name: "من نحن", href: "/about" },
     { name: "خدماتنا", href: "/services" },
     { name: "منتجاتنا", href: "/products" },
     { name: "تواصل معنا", href: "/contact" },
@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-700 mb-4 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-700  ${
         isScrolled
           ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-xl shadow-slate-900/5"
           : "bg-transparent border-b border-transparent"
