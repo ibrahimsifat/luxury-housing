@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
-import Link from "next/link"
-import { FiPhone, FiMail } from "react-icons/fi"
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FiMail, FiPhone } from "react-icons/fi";
 
-export { Header }
+export { Header };
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { name: "الرئيسية", href: "/" },
@@ -24,11 +24,11 @@ export default function Header() {
     { name: "خدماتنا", href: "/services" },
     { name: "منتجاتنا", href: "/products" },
     { name: "تواصل معنا", href: "/contact" },
-  ]
+  ];
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-700  ${
+      className={`fixed top-0 w-full z-50 transition-all duration-700${
         isScrolled
           ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-xl shadow-slate-900/5"
           : "bg-transparent border-b border-transparent"
@@ -37,7 +37,9 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div
           className={`hidden md:flex justify-between items-center py-3 text-sm border-b transition-all duration-500 ${
-            isScrolled ? "text-slate-600 border-slate-200/30" : "text-white border-white/10"
+            isScrolled
+              ? "text-slate-600 border-slate-200/30"
+              : "text-white border-white/10"
           }`}
         >
           <div className="flex items-center gap-8">
@@ -78,7 +80,9 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={`font-semibold text-base transition-all duration-300 hover:scale-105 relative group ${
-                  isScrolled ? "text-slate-800 hover:text-blue-600" : "text-white hover:text-blue-200 drop-shadow-lg"
+                  isScrolled
+                    ? "text-slate-800 hover:text-blue-600"
+                    : "text-white hover:text-blue-200 drop-shadow-lg"
                 }`}
               >
                 {item.name}
@@ -91,8 +95,11 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link className="hidden md:flex items-center gap-4" key='contact123'
-                href='/contact'>
+          <Link
+            className="hidden md:flex items-center gap-4"
+            key="contact123"
+            href="/contact"
+          >
             <Button
               className={`transition-all duration-300 transform hover:scale-105 font-semibold px-6 py-2.5 shadow-lg text-white ${
                 isScrolled
@@ -106,5 +113,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

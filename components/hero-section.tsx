@@ -1,14 +1,22 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { ArrowLeft, Phone, Mail, User, MessageSquare, CheckCircle, Loader2, ArrowDown } from "lucide-react"
-import Image from "next/image"
-import { useState } from "react"
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { motion, useInView } from "framer-motion";
+import {
+  ArrowDown,
+  ArrowLeft,
+  CheckCircle,
+  Loader2,
+  Mail,
+  MessageSquare,
+  Phone,
+  User,
+} from "lucide-react";
+import Image from "next/image";
+import type React from "react";
+import { useRef, useState } from "react";
 
 export function HeroSection() {
   const [formData, setFormData] = useState({
@@ -16,46 +24,46 @@ export function HeroSection() {
     email: "",
     phone: "",
     message: "",
-  })
+  });
 
-  const [phoneError, setPhoneError] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [phoneError, setPhoneError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const containerRef = useRef(null)
-  const inView = useInView(containerRef, { once: true, margin: "-100px" })
+  const containerRef = useRef(null);
+  const inView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const validateSaudiPhone = (phone: string) => {
     // Remove any spaces or special characters
-    const cleanPhone = phone.replace(/\s+/g, "")
+    const cleanPhone = phone.replace(/\s+/g, "");
 
     // Check if it starts with 05 and is exactly 10 digits
-    const saudiPhoneRegex = /^05\d{8}$/
+    const saudiPhoneRegex = /^05\d{8}$/;
 
     if (!cleanPhone) {
-      return "رقم الهاتف مطلوب"
+      return "رقم الهاتف مطلوب";
     }
 
     if (!saudiPhoneRegex.test(cleanPhone)) {
-      return "يجب أن يبدأ رقم الهاتف بـ 05 ويكون 10 أرقام"
+      return "يجب أن يبدأ رقم الهاتف بـ 05 ويكون 10 أرقام";
     }
 
-    return ""
-  }
+    return "";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const phoneValidationError = validateSaudiPhone(formData.phone)
+    const phoneValidationError = validateSaudiPhone(formData.phone);
     if (phoneValidationError) {
-      setPhoneError(phoneValidationError)
-      return
+      setPhoneError(phoneValidationError);
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
-      console.log("[v0] Starting email submission process")
+      console.log("[v0] Starting email submission process");
 
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -66,64 +74,71 @@ export function HeroSection() {
           ...formData,
           formType: "hero",
         }),
-      })
+      });
 
-      console.log("[v0] Email API response status:", response.status)
+      console.log("[v0] Email API response status:", response.status);
 
-      let responseData
-      const contentType = response.headers.get("content-type")
+      let responseData;
+      const contentType = response.headers.get("content-type");
 
       if (contentType && contentType.includes("application/json")) {
-        responseData = await response.json()
+        responseData = await response.json();
       } else {
         // If response is not JSON (like HTML error page), get text
-        const responseText = await response.text()
-        console.log("[v0] Non-JSON response received:", responseText.substring(0, 100))
-        responseData = { error: "Server error occurred" }
+        const responseText = await response.text();
+        console.log(
+          "[v0] Non-JSON response received:",
+          responseText.substring(0, 100)
+        );
+        responseData = { error: "Server error occurred" };
       }
 
       if (response.ok) {
-        console.log("[v0] Email sent successfully")
-        setIsSubmitted(true)
+        console.log(" Email sent successfully");
+        setIsSubmitted(true);
         // Reset form after 5 seconds
         setTimeout(() => {
-          setIsSubmitted(false)
+          setIsSubmitted(false);
           setFormData({
             name: "",
             email: "",
             phone: "",
             message: "",
-          })
-        }, 5000)
+          });
+        }, 5000);
       } else {
-        console.log("[v0] Email API error response:", responseData)
-        throw new Error(responseData.error || "Failed to send email")
+        console.log("[v0] Email API error response:", responseData);
+        throw new Error(responseData.error || "Failed to send email");
       }
     } catch (error) {
-      console.error("[v0] Error sending email:", error)
-      alert("حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة على 0581111488")
+      console.error("[v0] Error sending email:", error);
+      alert(
+        "حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة على 0581111488"
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
 
     setFormData({
       ...formData,
       [name]: value,
-    })
+    });
 
     if (name === "phone") {
       if (value) {
-        const error = validateSaudiPhone(value)
-        setPhoneError(error)
+        const error = validateSaudiPhone(value);
+        setPhoneError(error);
       } else {
-        setPhoneError("")
+        setPhoneError("");
       }
     }
-  }
+  };
 
   return (
     <section
@@ -219,10 +234,16 @@ export function HeroSection() {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 }}
                 >
-                  <span className="relative z-10 text-amber-400">للحلول العقارية</span>
+                  <span className="relative z-10 text-amber-400">
+                    للحلول العقارية
+                  </span>
                   <motion.svg
                     initial={{ pathLength: 0, opacity: 0 }}
-                    animate={inView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+                    animate={
+                      inView
+                        ? { pathLength: 1, opacity: 1 }
+                        : { pathLength: 0, opacity: 0 }
+                    }
                     transition={{ duration: 1, delay: 0.8 }}
                     className="absolute -bottom-2 left-0 w-full h-3 text-amber-400/30"
                     viewBox="0 0 200 8"
@@ -273,18 +294,20 @@ export function HeroSection() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.9 }}
               >
-                {["استشارة مجانية", "تمويل عقاري", "حلول استثمارية"].map((badge, index) => (
-                  <motion.span
-                    key={badge}
-                    className="px-3 py-1 bg-amber-600/80 border border-amber-500 rounded-full text-white text-sm font-medium"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.3, delay: 0.9 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {badge}
-                  </motion.span>
-                ))}
+                {["استشارة مجانية", "تمويل عقاري", "حلول استثمارية"].map(
+                  (badge, index) => (
+                    <motion.span
+                      key={badge}
+                      className="px-3 py-1 bg-amber-600/80 border border-amber-500 rounded-full text-white text-sm font-medium"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={inView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ duration: 0.3, delay: 0.9 + index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {badge}
+                    </motion.span>
+                  )
+                )}
               </motion.div>
             </motion.div>
           </motion.div>
@@ -295,7 +318,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <motion.div
-              className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 max-w-md mx-auto lg:mx-0 lg:mr-auto shadow-2xl"
+              className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-2xl md:p-8 p-4 max-w-md mx-auto lg:mx-0 lg:mr-auto shadow-2xl"
               whileHover={{
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
                 transition: { duration: 0.3 },
@@ -306,25 +329,39 @@ export function HeroSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-scale-in">
                     <CheckCircle className="w-8 h-8 text-white animate-bounce" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3 animate-slide-up">تم إرسال طلبك بنجاح!</h3>
-                  <p className="text-gray-300 mb-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                  <h3 className="text-xl font-bold text-white mb-3 animate-slide-up">
+                    تم إرسال طلبك بنجاح!
+                  </h3>
+                  <p
+                    className="text-gray-300 mb-4 animate-slide-up"
+                    style={{ animationDelay: "0.2s" }}
+                  >
                     شكراً لك على طلب الاستشارة المجانية
                   </p>
                   <div
                     className="bg-green-900/30 border border-green-700 rounded-lg p-3 mb-4 animate-slide-up"
                     style={{ animationDelay: "0.4s" }}
                   >
-                    <p className="text-green-300 text-sm">سيتواصل معك مستشار تمويل معتمد خلال 24 ساعة</p>
+                    <p className="text-green-300 text-sm">
+                      سيتواصل معك مستشار تمويل معتمد خلال 24 ساعة
+                    </p>
                   </div>
-                  <p className="text-gray-400 text-xs animate-slide-up" style={{ animationDelay: "0.6s" }}>
+                  <p
+                    className="text-gray-400 text-xs animate-slide-up"
+                    style={{ animationDelay: "0.6s" }}
+                  >
                     للاستفسارات العاجلة: 0581111488
                   </p>
                 </div>
               ) : (
                 <>
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-white mb-2">احصل على استشارة مجانية</h3>
-                    <p className="text-gray-300 text-sm">تواصل معنا الآن وسنساعدك في تحقيق حلمك</p>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      احصل على استشارة مجانية
+                    </h3>
+                    <p className="text-gray-300 text-sm">
+                      تواصل معنا الآن وسنساعدك في تحقيق حلمك
+                    </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -363,12 +400,18 @@ export function HeroSection() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         className={`pr-10 bg-white text-gray-800 placeholder:text-gray-500 rounded-lg h-12 text-right focus:ring-primary focus:border-primary ${
-                          phoneError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-300"
+                          phoneError
+                            ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                            : "border-gray-300"
                         }`}
                         maxLength={10}
                         required
                       />
-                      {phoneError && <p className="text-red-500 text-xs mt-1 text-right">{phoneError}</p>}
+                      {phoneError && (
+                        <p className="text-red-500 text-xs mt-1 text-right">
+                          {phoneError}
+                        </p>
+                      )}
                     </div>
 
                     <div className="relative">
@@ -405,7 +448,9 @@ export function HeroSection() {
                   </form>
 
                   <div className="mt-6 text-center">
-                    <p className="text-gray-400 text-xs">سنتواصل معك خلال 24 ساعة</p>
+                    <p className="text-gray-400 text-xs">
+                      سنتواصل معك خلال 24 ساعة
+                    </p>
                   </div>
                 </>
               )}
@@ -432,7 +477,7 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }
 
-export default HeroSection
+export default HeroSection;

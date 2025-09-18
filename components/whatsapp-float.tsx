@@ -1,17 +1,19 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { FaWhatsapp } from "react-icons/fa"
+import { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppFloat() {
-  const [isHovered, setIsHovered] = useState(false)
-  const phoneNumber = "966581111488" // Saudi format without + for WhatsApp URL
-  const message = "مرحباً، أود الاستفسار عن خدماتكم" // Hello, I would like to inquire about your services
+  const [isHovered, setIsHovered] = useState(false);
+  const phoneNumber = "966581111488"; // Saudi format without + for WhatsApp URL
+  const message = "مرحباً، أود الاستفسار عن خدماتكم"; // Hello, I would like to inquire about your services
 
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    message
+  )}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-28 right-6 z-50">
       <a
         href={whatsappUrl}
         target="_blank"
@@ -35,7 +37,9 @@ export default function WhatsAppFloat() {
               zIndex: 9999,
             }}
           >
-            <span style={{ color: "#ffffff !important" }}>تواصل عبر واتساب</span>
+            <span style={{ color: "#ffffff !important" }}>
+              تواصل عبر واتساب
+            </span>
             <div
               className="absolute left-full top-1/2 transform -translate-y-1/2"
               style={{
@@ -50,5 +54,5 @@ export default function WhatsAppFloat() {
         )}
       </a>
     </div>
-  )
+  );
 }

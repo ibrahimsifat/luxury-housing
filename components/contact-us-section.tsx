@@ -1,27 +1,36 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  Phone,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  AlertCircle,
+  Award,
+  Building2,
+  CheckCircle,
+  Clock,
+  Globe,
   Mail,
   MapPin,
-  Clock,
   MessageCircle,
+  Phone,
   Send,
-  CheckCircle,
-  AlertCircle,
-  Building2,
   Users,
-  Award,
-  Globe,
-} from "lucide-react"
+} from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+import Footer from "./footer";
+import { MobileNavigation } from "./mobile-navigation";
+import WhatsAppFloat from "./whatsapp-float";
 
 export function ContactUsSection() {
   const [formData, setFormData] = useState({
@@ -30,47 +39,50 @@ export function ContactUsSection() {
     phone: "",
     service: "",
     message: "",
-  })
+  });
 
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [phoneError, setPhoneError] = useState("")
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!validateSaudiPhone(formData.phone)) {
-      setPhoneError("يرجى إدخال رقم هاتف سعودي صحيح (05xxxxxxxx)")
-      return
+      setPhoneError("يرجى إدخال رقم هاتف سعودي صحيح (05xxxxxxxx)");
+      return;
     }
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
-  }
+    setIsSubmitted(true);
+    setTimeout(() => setIsSubmitted(false), 3000);
+  };
 
   const validateSaudiPhone = (phone: string): boolean => {
-    const cleanPhone = phone.replace(/[\s\-()]/g, "")
-    const saudiMobileRegex = /^05\d{8}$/
-    return saudiMobileRegex.test(cleanPhone)
-  }
+    const cleanPhone = phone.replace(/[\s\-()]/g, "");
+    const saudiMobileRegex = /^05\d{8}$/;
+    return saudiMobileRegex.test(cleanPhone);
+  };
 
   const handlePhoneChange = (value: string) => {
-    let cleanValue = value.replace(/[^\d\s-]/g, "")
+    let cleanValue = value.replace(/[^\d\s-]/g, "");
     if (cleanValue.length >= 2 && cleanValue.startsWith("05")) {
-      cleanValue = cleanValue.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, "$1 $2 $3 $4")
+      cleanValue = cleanValue.replace(
+        /(\d{2})(\d{3})(\d{3})(\d{2})/,
+        "$1 $2 $3 $4"
+      );
     }
     if (cleanValue.length <= 13) {
-      setFormData((prev) => ({ ...prev, phone: cleanValue }))
+      setFormData((prev) => ({ ...prev, phone: cleanValue }));
       if (validateSaudiPhone(cleanValue)) {
-        setPhoneError("")
+        setPhoneError("");
       } else if (cleanValue.length >= 8) {
-        setPhoneError("يرجى إدخال رقم هاتف سعودي صحيح (05xxxxxxxx)")
+        setPhoneError("يرجى إدخال رقم هاتف سعودي صحيح (05xxxxxxxx)");
       } else {
-        setPhoneError("")
+        setPhoneError("");
       }
     }
-  }
+  };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const contactInfo = [
     {
@@ -104,7 +116,7 @@ export function ContactUsSection() {
       color: "text-accent",
       bgColor: "bg-accent/10",
     },
-  ]
+  ];
 
   const companyStats = [
     {
@@ -131,7 +143,7 @@ export function ContactUsSection() {
       label: "مدينة نخدمها",
       color: "text-accent",
     },
-  ]
+  ];
 
   const services = [
     "تقفيل المديونيات",
@@ -147,7 +159,7 @@ export function ContactUsSection() {
     "فك العقار المرهون",
     "رهن العقار الحر",
     "تمويل قطاع الأعمال",
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -156,19 +168,24 @@ export function ContactUsSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.1),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,215,0,0.05),transparent_50%)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-16">
           <div className="text-center text-white">
             <div className="inline-flex items-center justify-center p-2 bg-accent/20 backdrop-blur-sm rounded-full border border-accent/30 shadow-lg mb-8">
-              <span className="text-sm font-semibold text-accent px-6 py-2 bg-white/10 rounded-full">تواصل معنا</span>
+              <span className="text-sm font-semibold text-accent px-6 py-2 bg-white/10 rounded-full">
+                تواصل معنا
+              </span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance text-white">نحن هنا لخدمتك</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance text-white">
+              نحن هنا لخدمتك
+            </h1>
             <div className="flex items-center justify-center gap-2 mb-8">
               <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-accent rounded-full" />
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-accent rounded-full" />
             </div>
             <p className="text-xl text-white max-w-3xl mx-auto text-pretty leading-relaxed mb-12">
-              مستشار تمويل عقاري معتمد من الهيئة العامة للعقار - نحقق أحلامكم في تملك المسكن المثالي
+              مستشار تمويل عقاري معتمد من الهيئة العامة للعقار - نحقق أحلامكم في
+              تملك المسكن المثالي
             </p>
 
             {/* Company Stats */}
@@ -178,7 +195,9 @@ export function ContactUsSection() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-4 shadow-lg">
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
+                  <div className="text-3xl font-bold text-white mb-2">
+                    {stat.number}
+                  </div>
                   <div className="text-white text-sm">{stat.label}</div>
                 </div>
               ))}
@@ -214,9 +233,14 @@ export function ContactUsSection() {
                         >
                           <info.icon className={`w-7 h-7 ${info.color}`} />
                         </div>
-                        <h4 className="font-bold text-slate-900 mb-3 text-lg">{info.title}</h4>
+                        <h4 className="font-bold text-slate-900 mb-3 text-lg">
+                          {info.title}
+                        </h4>
                         {info.details.map((detail, detailIndex) => (
-                          <p key={detailIndex} className="text-sm text-slate-800 leading-relaxed mb-1">
+                          <p
+                            key={detailIndex}
+                            className="text-sm text-slate-800 leading-relaxed mb-1"
+                          >
                             {detail}
                           </p>
                         ))}
@@ -238,7 +262,9 @@ export function ContactUsSection() {
                   </div>
                   أرسل لنا رسالة
                 </CardTitle>
-                <p className="text-muted-foreground mt-2">سنتواصل معك خلال 24 ساعة</p>
+                <p className="text-muted-foreground mt-2">
+                  سنتواصل معك خلال 24 ساعة
+                </p>
               </CardHeader>
               <CardContent className="pt-0 bg-white">
                 {isSubmitted ? (
@@ -246,21 +272,30 @@ export function ContactUsSection() {
                     <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                       <CheckCircle className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-card-foreground mb-3">تم إرسال رسالتك بنجاح!</h3>
-                    <p className="text-muted-foreground text-lg">سنتواصل معك في أقرب وقت ممكن</p>
+                    <h3 className="text-2xl font-bold text-card-foreground mb-3">
+                      تم إرسال رسالتك بنجاح!
+                    </h3>
+                    <p className="text-muted-foreground text-lg">
+                      سنتواصل معك في أقرب وقت ممكن
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="space-y-3">
-                        <Label htmlFor="name" className="text-slate-900 font-semibold">
+                        <Label
+                          htmlFor="name"
+                          className="text-slate-900 font-semibold"
+                        >
                           الاسم الكامل *
                         </Label>
                         <div className="relative group">
                           <Input
                             id="name"
                             value={formData.name}
-                            onChange={(e) => handleInputChange("name", e.target.value)}
+                            onChange={(e) =>
+                              handleInputChange("name", e.target.value)
+                            }
                             placeholder="أدخل اسمك الكامل"
                             className="h-14 border-2 border-border focus:border-primary focus:ring-4 focus:ring-ring bg-white rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-md focus:shadow-lg text-foreground placeholder:text-muted-foreground"
                             required
@@ -268,13 +303,18 @@ export function ContactUsSection() {
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <Label htmlFor="phone" className="text-slate-900 font-semibold">
+                        <Label
+                          htmlFor="phone"
+                          className="text-slate-900 font-semibold"
+                        >
                           رقم الهاتف *
                         </Label>
                         <div className="relative group">
                           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center z-10">
                             <div className="w-8 h-6 bg-gradient-to-b from-green-600 to-green-700 rounded-md flex items-center justify-center shadow-sm">
-                              <span className="text-xs text-white font-bold">SA</span>
+                              <span className="text-xs text-white font-bold">
+                                SA
+                              </span>
                             </div>
                           </div>
                           <Input
@@ -287,8 +327,8 @@ export function ContactUsSection() {
                               phoneError
                                 ? "border-destructive focus:border-destructive focus:ring-4 focus:ring-destructive/20"
                                 : validateSaudiPhone(formData.phone)
-                                  ? "border-green-400 focus:border-green-500 focus:ring-4 focus:ring-green-500/20"
-                                  : "border-border focus:border-primary focus:ring-4 focus:ring-ring hover:border-primary/50"
+                                ? "border-green-400 focus:border-green-500 focus:ring-4 focus:ring-green-500/20"
+                                : "border-border focus:border-primary focus:ring-4 focus:ring-ring hover:border-primary/50"
                             }`}
                             required
                           />
@@ -314,14 +354,18 @@ export function ContactUsSection() {
                         )}
                         {!phoneError && !validateSaudiPhone(formData.phone) && (
                           <p className="text-sm text-muted-foreground bg-muted p-2 rounded-lg">
-                            مثال: 05 123 456 78 (يجب أن يبدأ بـ 05 ويحتوي على 10 أرقام)
+                            مثال: 05 123 456 78 (يجب أن يبدأ بـ 05 ويحتوي على 10
+                            أرقام)
                           </p>
                         )}
                       </div>
                     </div>
 
                     <div className="space-y-3">
-                      <Label htmlFor="email" className="text-slate-900 font-semibold">
+                      <Label
+                        htmlFor="email"
+                        className="text-slate-900 font-semibold"
+                      >
                         البريد الإلكتروني *
                       </Label>
                       <div className="relative group">
@@ -329,7 +373,9 @@ export function ContactUsSection() {
                           id="email"
                           type="email"
                           value={formData.email}
-                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
                           placeholder="example@email.com"
                           className="h-14 border-2 border-border focus:border-primary focus:ring-4 focus:ring-ring bg-white rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-md focus:shadow-lg text-foreground placeholder:text-muted-foreground"
                           required
@@ -338,11 +384,19 @@ export function ContactUsSection() {
                     </div>
 
                     <div className="space-y-3">
-                      <Label htmlFor="service" className="text-slate-900 font-semibold">
+                      <Label
+                        htmlFor="service"
+                        className="text-slate-900 font-semibold"
+                      >
                         الخدمة المطلوبة
                       </Label>
                       <div className="relative group">
-                        <Select value={formData.service} onValueChange={(value) => handleInputChange("service", value)}>
+                        <Select
+                          value={formData.service}
+                          onValueChange={(value) =>
+                            handleInputChange("service", value)
+                          }
+                        >
                           <SelectTrigger className="w-full h-14 border-2 border-border focus:border-primary focus:ring-4 focus:ring-ring bg-white rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-md focus:shadow-lg text-foreground data-[placeholder]:text-slate-800">
                             <SelectValue placeholder="اختر الخدمة المطلوبة" />
                           </SelectTrigger>
@@ -367,14 +421,19 @@ export function ContactUsSection() {
                     </div>
 
                     <div className="space-y-3">
-                      <Label htmlFor="message" className="text-slate-900 font-semibold">
+                      <Label
+                        htmlFor="message"
+                        className="text-slate-900 font-semibold"
+                      >
                         الرسالة *
                       </Label>
                       <div className="relative group">
                         <Textarea
                           id="message"
                           value={formData.message}
-                          onChange={(e) => handleInputChange("message", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("message", e.target.value)
+                          }
                           placeholder="اكتب رسالتك هنا..."
                           rows={5}
                           className="border-2 border-border focus:border-primary focus:ring-4 focus:ring-ring bg-white rounded-xl resize-none transition-all duration-300 hover:border-primary/50 hover:shadow-md focus:shadow-lg text-foreground placeholder:text-muted-foreground"
@@ -400,8 +459,11 @@ export function ContactUsSection() {
           </div>
         </div>
       </section>
+      <Footer />
+      <MobileNavigation />
+      <WhatsAppFloat />
     </div>
-  )
+  );
 }
 
-export default ContactUsSection
+export default ContactUsSection;

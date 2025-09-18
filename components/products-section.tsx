@@ -1,33 +1,32 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { FiExternalLink, FiCheckCircle } from "react-icons/fi"
-import { useState, useEffect, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import Image from "next/image"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { FiCheckCircle, FiExternalLink } from "react-icons/fi";
 import {
+  HiBriefcase,
+  HiCog,
   HiHome,
   HiLocationMarker,
-  HiCog,
-  HiOfficeBuilding,
-  HiLockOpen,
   HiLockClosed,
-  HiBriefcase,
-} from "react-icons/hi"
+  HiLockOpen,
+  HiOfficeBuilding,
+} from "react-icons/hi";
 
 export function ProductsSection() {
-  const [activeTab, setActiveTab] = useState("residential")
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [cardsPerSlide, setCardsPerSlide] = useState(4)
-  const sliderRef = useRef<HTMLDivElement>(null)
-  const autoPlayRef = useRef<NodeJS.Timeout>()
+  const [activeTab, setActiveTab] = useState("residential");
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [cardsPerSlide, setCardsPerSlide] = useState(4);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout>();
 
   const residentialProducts = [
     {
@@ -35,7 +34,12 @@ export function ProductsSection() {
       title: "وحدات جاهزة من السوق",
       description:
         "تمويل شراء عقار جاهز من السوق سواء كان (فيلا، شقة، عمارة سكنية) أو أحد مشاريع وزارة الإسكان الجاهزة",
-      features: ["فلل وشقق جاهزة", "مشاريع وزارة الإسكان", "تمويل فوري", "إجراءات مبسطة"],
+      features: [
+        "فلل وشقق جاهزة",
+        "مشاريع وزارة الإسكان",
+        "تمويل فوري",
+        "إجراءات مبسطة",
+      ],
       badge: "الأكثر طلباً",
       gradient: "from-cyan-500 to-blue-500",
       slug: "ready-market-units",
@@ -45,7 +49,12 @@ export function ProductsSection() {
       title: "قرض وأرض من السوق",
       description:
         "تمويل الأراضي الخارجية من السوق من خلال شراء أرض من السوق وبناء الأرض عن طريق مقاول خارجي معتمد وتوفير باقة كاملة",
-      features: ["شراء الأرض", "البناء بمقاول معتمد", "باقة شاملة", "متابعة المشروع"],
+      features: [
+        "شراء الأرض",
+        "البناء بمقاول معتمد",
+        "باقة شاملة",
+        "متابعة المشروع",
+      ],
       badge: "حل متكامل",
       gradient: "from-green-500 to-emerald-500",
       slug: "land-and-loan",
@@ -55,7 +64,12 @@ export function ProductsSection() {
       title: "بيت عظم وقرض",
       description:
         "تمويل قرض البيت العظم الذي يملكه العميل واستكمال بناءه على المراحل المتبقية وتوفير باقة كاملة للعميل",
-      features: ["استكمال البناء", "تمويل على مراحل", "للبيوت العظم", "باقة متكاملة"],
+      features: [
+        "استكمال البناء",
+        "تمويل على مراحل",
+        "للبيوت العظم",
+        "باقة متكاملة",
+      ],
       badge: "مرونة في السداد",
       gradient: "from-orange-500 to-red-500",
       slug: "large-house-loan",
@@ -65,7 +79,12 @@ export function ProductsSection() {
       title: "البناء الذاتي",
       description:
         "تمويل بناء ذاتي لمن لديه أرض ويرغب ببناء منزله حسب رغبته، وذلك من خلال تمويل عقاري على دفعات عبر جهات معتمدة",
-      features: ["بناء حسب الرغبة", "تمويل على دفعات", "جهات معتمدة", "مرونة في التصميم"],
+      features: [
+        "بناء حسب الرغبة",
+        "تمويل على دفعات",
+        "جهات معتمدة",
+        "مرونة في التصميم",
+      ],
       badge: "تصميم مخصص",
       gradient: "from-purple-500 to-pink-500",
       slug: "self-build",
@@ -75,19 +94,30 @@ export function ProductsSection() {
       title: "وحدة تحت الإنشاء",
       description:
         "تمويل شراء عقار تحت الإنشاء (عظم) سواء كان (فيلا، شقة، دبلكس) المقدمة من خلال العميل أو مقاولين معتمدين",
-      features: ["عقارات تحت الإنشاء", "فلل ودبلكس", "مقاولين معتمدين", "أسعار تنافسية"],
+      features: [
+        "عقارات تحت الإنشاء",
+        "فلل ودبلكس",
+        "مقاولين معتمدين",
+        "أسعار تنافسية",
+      ],
       badge: "وفر أكثر",
       gradient: "from-teal-500 to-cyan-500",
       slug: "unit-under-construction",
     },
-  ]
+  ];
 
   const financialProducts = [
     {
       icon: "HiLockOpen",
       title: "فك العقار المرهون",
-      description: "فك الرهن عن العقار المرهون للبنوك (حسب السياسة) وإعادة التمويل، المنتج متاح لجميع العملاء",
-      features: ["فك الرهن البنكي", "إعادة التمويل", "شروط أفضل", "لجميع العملاء"],
+      description:
+        "فك الرهن عن العقار المرهون للبنوك (حسب السياسة) وإعادة التمويل، المنتج متاح لجميع العملاء",
+      features: [
+        "فك الرهن البنكي",
+        "إعادة التمويل",
+        "شروط أفضل",
+        "لجميع العملاء",
+      ],
       badge: "حرية مالية",
       gradient: "from-red-500 to-pink-500",
       slug: "property-mortgage-release",
@@ -97,7 +127,12 @@ export function ProductsSection() {
       title: "رهن العقار الحر",
       description:
         "رهن العقار الحر والمملوك للعميل (شقة- فيلا-عمارة) شريطة أن يكون العقار سكنياً وأن لا يتجاوز عمر العقار 20 سنة",
-      features: ["عقارات حرة", "عمر العقار أقل من 20 سنة", "سكني فقط", "سيولة فورية"],
+      features: [
+        "عقارات حرة",
+        "عمر العقار أقل من 20 سنة",
+        "سكني فقط",
+        "سيولة فورية",
+      ],
       badge: "سيولة سريعة",
       gradient: "from-indigo-500 to-purple-500",
       slug: "free-property-mortgage",
@@ -107,95 +142,114 @@ export function ProductsSection() {
       title: "تمويل قطاع الأعمال",
       description:
         "يتم تمويل قطاع الأعمال للمنشآت الصغيرة أو المتوسطة أو الكبيرة عن طريق عدة برامج مرنة تخدم أغلب شرائح قطاع الأعمال",
-      features: ["منشآت صغيرة ومتوسطة", "برامج مرنة", "جميع القطاعات", "حلول مخصصة"],
+      features: [
+        "منشآت صغيرة ومتوسطة",
+        "برامج مرنة",
+        "جميع القطاعات",
+        "حلول مخصصة",
+      ],
       badge: "نمو الأعمال",
       gradient: "from-yellow-500 to-orange-500",
       slug: "business-sector-funding",
     },
-  ]
+  ];
 
-  const currentProducts = activeTab === "residential" ? residentialProducts : financialProducts
-  const totalSlides = Math.ceil(currentProducts.length / cardsPerSlide)
+  const currentProducts =
+    activeTab === "residential" ? residentialProducts : financialProducts;
+  const totalSlides = Math.ceil(currentProducts.length / cardsPerSlide);
 
   useEffect(() => {
     const updateCardsPerSlide = () => {
       if (window.innerWidth >= 1024) {
-        setCardsPerSlide(4) // Desktop: 4 cards
+        setCardsPerSlide(4); // Desktop: 4 cards
       } else if (window.innerWidth >= 768) {
-        setCardsPerSlide(2) // Tablet: 2 cards
+        setCardsPerSlide(2); // Tablet: 2 cards
       } else {
-        setCardsPerSlide(1) // Mobile: 1 card
+        setCardsPerSlide(1); // Mobile: 1 card
       }
-    }
+    };
 
-    updateCardsPerSlide()
-    window.addEventListener("resize", updateCardsPerSlide)
-    return () => window.removeEventListener("resize", updateCardsPerSlide)
-  }, [])
+    updateCardsPerSlide();
+    window.addEventListener("resize", updateCardsPerSlide);
+    return () => window.removeEventListener("resize", updateCardsPerSlide);
+  }, []);
 
   useEffect(() => {
     if (isAutoPlaying && !isHovered) {
       autoPlayRef.current = setInterval(() => {
-        nextSlide()
-      }, 3000)
+        nextSlide();
+      }, 3000);
     }
     return () => {
       if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current)
+        clearInterval(autoPlayRef.current);
       }
-    }
-  }, [isAutoPlaying, isHovered])
+    };
+  }, [isAutoPlaying, isHovered]);
 
   useEffect(() => {
-    setCurrentSlide(0)
-    setIsTransitioning(false)
-  }, [activeTab, cardsPerSlide])
+    setCurrentSlide(0);
+    setIsTransitioning(false);
+  }, [activeTab, cardsPerSlide]);
 
   const nextSlide = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    setCurrentSlide((prev) => (prev + 1) % totalSlides)
-  }
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
 
   const prevSlide = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
-  }
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
 
   useEffect(() => {
     if (isTransitioning) {
       const timer = setTimeout(() => {
-        setIsTransitioning(false)
-      }, 500)
-      return () => clearTimeout(timer)
+        setIsTransitioning(false);
+      }, 500);
+      return () => clearTimeout(timer);
     }
-  }, [isTransitioning])
+  }, [isTransitioning]);
 
   const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying)
-  }
+    setIsAutoPlaying(!isAutoPlaying);
+  };
 
   const goToSlide = (index: number) => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    setCurrentSlide(index)
-  }
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide(index);
+  };
 
   const getIconComponent = (iconName: string) => {
-    const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-      HiHome,
-      HiLocationMarker,
-      HiCog,
-      HiOfficeBuilding,
-      HiLockOpen,
-      HiLockClosed,
-      HiBriefcase,
+    switch (iconName) {
+      case "HiHome":
+        // @ts-ignore - React Icons type issue
+        return <HiHome className="w-5 h-5 text-white" />;
+      case "HiLocationMarker":
+        // @ts-ignore - React Icons type issue
+        return <HiLocationMarker className="w-5 h-5 text-white" />;
+      case "HiCog":
+        // @ts-ignore - React Icons type issue
+        return <HiCog className="w-5 h-5 text-white" />;
+      case "HiOfficeBuilding":
+        // @ts-ignore - React Icons type issue
+        return <HiOfficeBuilding className="w-5 h-5 text-white" />;
+      case "HiLockOpen":
+        // @ts-ignore - React Icons type issue
+        return <HiLockOpen className="w-5 h-5 text-white" />;
+      case "HiLockClosed":
+        // @ts-ignore - React Icons type issue
+        return <HiLockClosed className="w-5 h-5 text-white" />;
+      case "HiBriefcase":
+        // @ts-ignore - React Icons type issue
+        return <HiBriefcase className="w-5 h-5 text-white" />;
+      default:
+        return null;
     }
-
-    const IconComponent = iconMap[iconName]
-    return IconComponent ? <IconComponent className="w-5 h-5 text-white" /> : null
-  }
+  };
 
   const ProductCard = ({ product, index }: { product: any; index: number }) => (
     <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative flex-shrink-0 w-full">
@@ -208,7 +262,9 @@ export function ProductsSection() {
         />
         <div className="absolute top-2 right-2 rtl:right-2 rtl:left-auto z-20">
           <Badge className="bg-slate-900 text-white border-0 shadow-xl backdrop-blur-sm font-semibold text-xs px-2 py-1 rounded-full relative overflow-hidden">
-            <span className="relative z-10 drop-shadow-sm text-white text-xs">{product.badge}</span>
+            <span className="relative z-10 drop-shadow-sm text-white text-xs">
+              {product.badge}
+            </span>
             <div className="absolute inset-0 bg-black/20 rounded-full"></div>
           </Badge>
         </div>
@@ -218,7 +274,9 @@ export function ProductsSection() {
         />
       </div>
 
-      <div className={`h-1 bg-gradient-to-r ${product.gradient} shadow-sm`}></div>
+      <div
+        className={`h-1 bg-gradient-to-r ${product.gradient} shadow-sm`}
+      ></div>
       <CardHeader className="relative pb-2 pt-3 px-4">
         <CardTitle className="text-lg font-bold text-slate-800 text-center font-cairo leading-tight flex items-center justify-center gap-3">
           <div
@@ -235,22 +293,35 @@ export function ProductsSection() {
         </p>
 
         <div className="space-y-1.5 bg-slate-50/80 rounded-lg p-2 backdrop-blur-sm">
-          {product.features.slice(0, 3).map((feature: string, featureIndex: number) => (
-            <div key={featureIndex} className="flex items-center text-xs group/feature">
-              <FiCheckCircle className="w-3 h-3 text-green-600 mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 group-hover/feature:scale-110 transition-transform duration-200" />
-              <span className="text-slate-900 font-cairo font-medium">{feature}</span>
-            </div>
-          ))}
+          {product.features
+            .slice(0, 3)
+            .map((feature: string, featureIndex: number) => (
+              <div
+                key={featureIndex}
+                className="flex items-center text-xs group/feature"
+              >
+                {/* @ts-ignore - React Icons type issue */}
+                <FiCheckCircle className="w-3 h-3 text-green-600 mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 group-hover/feature:scale-110 transition-transform duration-200" />
+                <span className="text-slate-900 font-cairo font-medium">
+                  {feature}
+                </span>
+              </div>
+            ))}
         </div>
 
         <div className="relative mt-3">
-          <Link href={`/products/${product.slug || product.title.replace(/\s+/g, "-").toLowerCase()}`}>
+          <Link
+            href={`/products/${
+              product.slug || product.title.replace(/\s+/g, "-").toLowerCase()
+            }`}
+          >
             <Button
               size="sm"
               className="w-full py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-cairo font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="flex items-center justify-center gap-2 text-white drop-shadow-sm">
                 <span className="text-white font-bold">تفاصيل المنتج</span>
+                {/* @ts-ignore - React Icons type issue */}
                 <FiExternalLink className="w-3 h-3 group-hover:rotate-12 transition-transform duration-300 text-white" />
               </span>
             </Button>
@@ -258,42 +329,63 @@ export function ProductsSection() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 
   const renderProductSlides = () => {
-    const slides = []
+    const slides = [];
     for (let i = 0; i < totalSlides; i++) {
-      const startIndex = i * cardsPerSlide
-      const slideProducts = currentProducts.slice(startIndex, startIndex + cardsPerSlide)
+      const startIndex = i * cardsPerSlide;
+      const slideProducts = currentProducts.slice(
+        startIndex,
+        startIndex + cardsPerSlide
+      );
 
       slides.push(
         <div
           key={i}
           className={`flex gap-4 transition-all duration-500 ease-in-out ${
-            cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-full" : "w-full"
+            cardsPerSlide === 1
+              ? "w-full"
+              : cardsPerSlide === 2
+              ? "w-full"
+              : "w-full"
           }`}
           style={{ minWidth: "100%" }}
         >
           {slideProducts.map((product, index) => (
             <div
               key={product.slug}
-              className={`${cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-1/2" : "w-1/4"} flex-shrink-0`}
+              className={`${
+                cardsPerSlide === 1
+                  ? "w-full"
+                  : cardsPerSlide === 2
+                  ? "w-1/2"
+                  : "w-1/4"
+              } flex-shrink-0`}
             >
               <ProductCard product={product} index={startIndex + index} />
             </div>
           ))}
           {slideProducts.length < cardsPerSlide &&
-            Array.from({ length: cardsPerSlide - slideProducts.length }).map((_, emptyIndex) => (
-              <div
-                key={`empty-${emptyIndex}`}
-                className={`${cardsPerSlide === 1 ? "w-full" : cardsPerSlide === 2 ? "w-1/2" : "w-1/4"} flex-shrink-0`}
-              />
-            ))}
-        </div>,
-      )
+            Array.from({ length: cardsPerSlide - slideProducts.length }).map(
+              (_, emptyIndex) => (
+                <div
+                  key={`empty-${emptyIndex}`}
+                  className={`${
+                    cardsPerSlide === 1
+                      ? "w-full"
+                      : cardsPerSlide === 2
+                      ? "w-1/2"
+                      : "w-1/4"
+                  } flex-shrink-0`}
+                />
+              )
+            )}
+        </div>
+      );
     }
-    return slides
-  }
+    return slides;
+  };
 
   return (
     <section id="products" className="py-24 relative overflow-hidden">
@@ -309,10 +401,13 @@ export function ProductsSection() {
               منتجاتنا المميزة
             </span>
           </div>
-          <h2 className="text-4xl font-bold text-slate-900 mb-4 text-balance font-cairo">منتجاتنا</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4 text-balance font-cairo">
+            منتجاتنا
+          </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mb-6 rounded-full"></div>
           <p className="text-lg text-slate-800 max-w-3xl mx-auto text-pretty leading-relaxed font-cairo">
-            مجموعة شاملة من المنتجات التمويلية المصممة لتلبية احتياجاتكم العقارية والتجارية
+            مجموعة شاملة من المنتجات التمويلية المصممة لتلبية احتياجاتكم
+            العقارية والتجارية
           </p>
         </div>
 
@@ -338,9 +433,15 @@ export function ProductsSection() {
                 <button
                   onClick={toggleAutoPlay}
                   className="p-2 rounded-full hover:bg-slate-100 transition-colors duration-200"
-                  aria-label={isAutoPlaying ? "Pause auto-scroll" : "Start auto-scroll"}
+                  aria-label={
+                    isAutoPlaying ? "Pause auto-scroll" : "Start auto-scroll"
+                  }
                 >
-                  <span className="text-lg" role="img" aria-label={isAutoPlaying ? "pause" : "play"}>
+                  <span
+                    className="text-lg"
+                    role="img"
+                    aria-label={isAutoPlaying ? "pause" : "play"}
+                  >
                     {isAutoPlaying ? "⏸️" : "▶️"}
                   </span>
                 </button>
@@ -350,7 +451,9 @@ export function ProductsSection() {
                       key={index}
                       onClick={() => goToSlide(index)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentSlide ? "bg-slate-900 w-6" : "bg-slate-300"
+                        index === currentSlide
+                          ? "bg-slate-900 w-6"
+                          : "bg-slate-300"
                       }`}
                       aria-label={`Go to slide ${index + 1}`}
                     />
@@ -428,7 +531,7 @@ export function ProductsSection() {
         </Tabs>
       </div>
     </section>
-  )
+  );
 }
 
-export default ProductsSection
+export default ProductsSection;

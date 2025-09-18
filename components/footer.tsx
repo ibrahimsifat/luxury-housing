@@ -1,21 +1,30 @@
-"use client"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin, ArrowUp } from "lucide-react"
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowUp,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const quickLinks = [
-    { name: "الرئيسية", href: "#home" },
-    { name: "من نحن", href: "#about" },
-    { name: "خدماتنا", href: "#services" },
-    { name: "منتجاتنا", href: "#products" },
-    { name: "اتصل بنا", href: "#contact" },
-  ]
+    { name: "الرئيسية", href: "/home" },
+    { name: "من نحن", href: "/about" },
+    { name: "خدماتنا", href: "/services" },
+    { name: "منتجاتنا", href: "/products" },
+    { name: "اتصل بنا", href: "/contact" },
+  ];
 
   const services = [
     { name: "تقفيل المديونيات", href: "#services" },
@@ -23,7 +32,7 @@ export function Footer() {
     { name: "حلول الضريبة", href: "#services" },
     { name: "أعلى مبلغ تمويلي", href: "#services" },
     { name: "دمج الراتب مع الدعم السكني", href: "#services" },
-  ]
+  ];
 
   const products = [
     { name: "وحدات جاهزة من السوق", href: "#products" },
@@ -31,10 +40,13 @@ export function Footer() {
     { name: "بيت عظم وقرض", href: "#products" },
     { name: "البناء الذاتي", href: "#products" },
     { name: "فك العقار المرهون", href: "#products" },
-  ]
+  ];
 
   return (
-    <footer className="!bg-slate-900 text-white relative overflow-hidden" style={{ backgroundColor: "#0f172a" }}>
+    <footer
+      className="!bg-slate-900 text-white relative overflow-hidden"
+      style={{ backgroundColor: "#0f172a" }}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] opacity-60"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),transparent_50%)] opacity-60"></div>
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-pink-500 to-cyan-500"></div>
@@ -63,7 +75,9 @@ export function Footer() {
                   <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 bg-clip-text text-white font-cairo">
                     لوكسري هاوسينغ
                   </div>
-                  <div className="text-sm text-slate-300 font-cairo mt-1">مستشار تمويل عقاري معتمد</div>
+                  <div className="text-sm text-slate-300 font-cairo mt-1">
+                    مستشار تمويل عقاري معتمد
+                  </div>
                 </div>
               </div>
             </Link>
@@ -71,14 +85,20 @@ export function Footer() {
             <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
               <div className="flex flex-row items-center justify-between space-x-6 rtl:space-x-reverse">
                 <div className="flex-1 text-right">
-              <div className="flex items-center space-x-3 rtl:space-x-reverse mb-2">
-                <div className="p-2 ml-2 bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 rounded-lg">
-                  <Phone className="w-5 h-5 text-cyan-400" />
-                </div>
-                <h4 className="text-lg font-semibold text-white font-cairo">تواصل سريع</h4>
-              </div>
-                  <p className="text-slate-300 text-base font-cairo leading-relaxed mb-2">امسح الكود للتواصل المباشر</p>
-                  <p className="text-slate-400 text-sm font-cairo">أو اتصل بنا على الرقم المجاني</p>
+                  <div className="flex items-center space-x-3 rtl:space-x-reverse mb-2">
+                    <div className="p-2 ml-2 bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 rounded-lg">
+                      <Phone className="w-5 h-5 text-cyan-400" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-white font-cairo">
+                      تواصل سريع
+                    </h4>
+                  </div>
+                  <p className="text-slate-300 text-base font-cairo leading-relaxed mb-2">
+                    امسح الكود للتواصل المباشر
+                  </p>
+                  <p className="text-slate-400 text-sm font-cairo">
+                    أو اتصل بنا على الرقم المجاني
+                  </p>
                 </div>
                 <div className="relative group flex-shrink-0">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-pink-400/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -96,12 +116,15 @@ export function Footer() {
             </div>
 
             <p className="text-gray-300 leading-relaxed font-cairo text-lg max-w-md">
-              شركة لوكسري هاوسينغ العقارية - مستشار تمويل عقاري معتمد من الهيئة العامة للعقار. نحقق أحلامكم في تملك
-              المسكن المثالي بأفضل الحلول التمويلية المبتكرة.
+              شركة لوكسري هاوسينغ العقارية - مستشار تمويل عقاري معتمد من الهيئة
+              العامة للعقار. نحقق أحلامكم في تملك المسكن المثالي بأفضل الحلول
+              التمويلية المبتكرة.
             </p>
 
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white font-cairo">تابعونا على</h4>
+              <h4 className="text-lg font-semibold text-white font-cairo">
+                تابعونا على
+              </h4>
               <div className="flex space-x-3 rtl:space-x-reverse">
                 <Button
                   size="icon"
@@ -187,8 +210,12 @@ export function Footer() {
                   <Phone className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">0581111488</p>
-                  <p className="text-slate-300 text-sm font-cairo">خدمة العملاء</p>
+                  <p className="text-white font-semibold font-cairo">
+                    0581111488
+                  </p>
+                  <p className="text-slate-300 text-sm font-cairo">
+                    خدمة العملاء
+                  </p>
                 </div>
               </div>
 
@@ -197,8 +224,12 @@ export function Footer() {
                   <Mail className="w-5 h-5 text-pink-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">info@luxuryhousing.sa</p>
-                  <p className="text-slate-300 text-sm font-cairo">البريد الإلكتروني</p>
+                  <p className="text-white font-semibold font-cairo">
+                    info@luxuryhousing.sa
+                  </p>
+                  <p className="text-slate-300 text-sm font-cairo">
+                    البريد الإلكتروني
+                  </p>
                 </div>
               </div>
 
@@ -207,9 +238,12 @@ export function Footer() {
                   <MapPin className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">الدمام، السعودية</p>
+                  <p className="text-white font-semibold font-cairo">
+                    الدمام، السعودية
+                  </p>
                   <p className="text-slate-300 text-sm font-cairo">
-                    نوفوتيل بيزنس بارك، شارع الوليد بن سلامة، الخالدية الشمالية، الدمام 32232
+                    نوفوتيل بيزنس بارك، شارع الوليد بن سلامة، الخالدية الشمالية،
+                    الدمام 32232
                   </p>
                 </div>
               </div>
@@ -255,7 +289,7 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
