@@ -1,14 +1,15 @@
-import Header from "@/components/header"
-import HeroSection from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { VisionMissionSection } from "@/components/vision-mission-section"
-import { ServicesSection } from "@/components/services-section"
-import { ProductsSection } from "@/components/products-section"
-import { ContactSection } from "@/components/contact-section"
-import { Footer } from "@/components/footer"
-import { ScrollAnimation } from "@/components/scroll-animations"
-import WhatsAppFloat from "@/components/whatsapp-float"
-import { MobileNavigation } from "@/components/mobile-navigation"
+import { AboutSection } from "@/components/about-section";
+import Header from "@/components/header";
+import HeroSection from "@/components/hero-section";
+import { ProductsSection } from "@/components/products-section";
+import { ServicesSection } from "@/components/services-section";
+import { VisionMissionSection } from "@/components/vision-mission-section";
+
+import { ContactSection } from "@/components/contact-section";
+import { Footer } from "@/components/footer";
+import { MobileNavigation } from "@/components/mobile-navigation";
+import { ScrollAnimation } from "@/components/scroll-animations";
+import WhatsAppFloat from "@/components/whatsapp-float";
 
 export default function HomePage() {
   return (
@@ -42,5 +43,5 @@ export default function HomePage() {
 
       <MobileNavigation />
     </div>
-  )
+  );
 }

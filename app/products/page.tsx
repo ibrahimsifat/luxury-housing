@@ -67,7 +67,7 @@ export default function ProductsPage() {
 
             <div className="space-y-2 bg-slate-100 rounded-lg p-2 md:p-3 backdrop-blur-sm">
               {product.features
-                .slice(0, 4)
+                ?.slice(0, 4)
                 .map((feature: string, featureIndex: number) => (
                   <div
                     key={featureIndex}
