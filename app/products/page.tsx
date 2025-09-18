@@ -31,7 +31,7 @@ export default function ProductsPage() {
         <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/70 backdrop-blur-md hover:bg-white/95 overflow-hidden relative h-full">
           <div className="relative h-48 overflow-hidden">
             <Image
-              src="/images/product-image.jpg"
+              src={product.image || "/images/product-image.jpg"}
               alt={product.title}
               fill
               className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 h-full w-full"
