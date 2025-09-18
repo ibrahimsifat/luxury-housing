@@ -70,7 +70,7 @@ export function ServiceDetailsClient({ service }: ServiceDetailsClientProps) {
             </Link>
             <ArrowLeft className="w-4 h-4" />
             <Link
-              href="/#services"
+              href="/services"
               className="hover:text-white transition-colors"
             >
               الخدمات

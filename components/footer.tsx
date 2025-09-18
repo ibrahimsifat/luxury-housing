@@ -27,19 +27,19 @@ export function Footer() {
   ];
 
   const services = [
-    { name: "تقفيل المديونيات", href: "#services" },
-    { name: "حلول الدفعة المقدمة", href: "#services" },
-    { name: "حلول الضريبة", href: "#services" },
-    { name: "أعلى مبلغ تمويلي", href: "#services" },
-    { name: "دمج الراتب مع الدعم السكني", href: "#services" },
+    { name: "تقفيل المديونيات", href: "/services/debt-settlement" },
+    { name: "حلول الدفعة المقدمة", href: "/services/down-payment-solutions" },
+    { name: "حلول الضريبة", href: "/services/tax-solutions" },
+    { name: "أعلى مبلغ تمويلي", href: "/services/highest-financing" },
+    {
+      name: "دمج الراتب مع الدعم السكني",
+      href: "/services/salary-housing-integration",
+    },
   ];
 
-  const products = [
-    { name: "وحدات جاهزة من السوق", href: "#products" },
-    { name: "قرض وأرض من السوق", href: "#products" },
-    { name: "بيت عظم وقرض", href: "#products" },
-    { name: "البناء الذاتي", href: "#products" },
-    { name: "فك العقار المرهون", href: "#products" },
+  const legalLinks = [
+    { name: "الشروط والأحكام", href: "/terms" },
+    { name: "سياسة الخصوصية", href: "/privacy" },
   ];
 
   return (
@@ -265,13 +265,13 @@ export function Footer() {
             </div>
             <div className="flex items-center space-x-8 rtl:space-x-reverse">
               <Link
-                href="#"
+                href="/privacy"
                 className="text-gray-100 hover:text-cyan-400 transition-colors duration-200 font-cairo hover:underline"
               >
                 سياسة الخصوصية
               </Link>
               <Link
-                href="#"
+                href="/terms"
                 className="text-gray-100 hover:text-pink-400 transition-colors duration-200 font-cairo hover:underline"
               >
                 الشروط والأحكام
