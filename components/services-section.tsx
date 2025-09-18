@@ -1,10 +1,18 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { getAllServices } from "@/lib/services"
-import { FiCreditCard, FiHome, FiActivity, FiTrendingUp, FiUsers, FiStar, FiExternalLink } from "react-icons/fi"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import servicesData from "@/lib/services.json";
+import Link from "next/link";
+import {
+  FiActivity,
+  FiCreditCard,
+  FiExternalLink,
+  FiHome,
+  FiStar,
+  FiTrendingUp,
+  FiUsers,
+} from "react-icons/fi";
 
 const iconMap = {
   CreditCard: FiCreditCard,
@@ -12,10 +20,10 @@ const iconMap = {
   Calculator: FiActivity,
   TrendingUp: FiTrendingUp,
   Users: FiUsers,
-}
+};
 
 export function ServicesSection() {
-  const services = getAllServices()
+  const services = servicesData;
 
   return (
     <section
@@ -48,13 +56,15 @@ export function ServicesSection() {
           </div>
 
           <p className="text-lg text-slate-600 max-w-2xl mx-auto text-pretty leading-relaxed">
-            نقدم حلولاً عقارية متكاملة ومبتكرة تلبي جميع احتياجاتكم بأعلى معايير الجودة والاحترافية
+            نقدم حلولاً عقارية متكاملة ومبتكرة تلبي جميع احتياجاتكم بأعلى معايير
+            الجودة والاحترافية
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {services.map((service, index) => {
-            const IconComponent = iconMap[service.icon as keyof typeof iconMap] || FiCreditCard
+            const IconComponent =
+              iconMap[service.icon as keyof typeof iconMap] || FiCreditCard;
 
             return (
               <Card
@@ -123,12 +133,12 @@ export function ServicesSection() {
                   </Link>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default ServicesSection
+export default ServicesSection;

@@ -2,12 +2,12 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-const PRODUCTS_FILE = path.join(process.cwd(), "lib", "products.ts");
+const PRODUCTS_FILE = path.join(process.cwd(), "lib", "products.json");
 
-// Helper function to get products from module
-async function getProductsFromModule() {
-  const { products } = await import("../../../../../lib/products");
-  return products;
+// Helper function to get products from JSON file
+async function getProductsFromFile() {
+  const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
+  return JSON.parse(fileContent);
 }
 
 // GET - Fetch single product
@@ -16,7 +16,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const products = await getProductsFromModule();
+    const products = await getProductsFromFile();
     const product = products.find((p: any) => p.id === params.id);
 
     if (!product) {
@@ -40,7 +40,7 @@ export async function PUT(
 ) {
   try {
     const productData = await request.json();
-    const products = await getProductsFromModule();
+    const products = await getProductsFromFile();
 
     const productIndex = products.findIndex((p: any) => p.id === params.id);
     if (productIndex === -1) {
@@ -54,80 +54,12 @@ export async function PUT(
       id: params.id, // Ensure ID doesn't change
     };
 
-    // Read the file content to update it
-    const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
-
-    // Find the start of the products array
-    const arrayStart = fileContent.indexOf(
-      "export const products: Product[] = ["
+    // Update the JSON file
+    await fs.writeFile(
+      PRODUCTS_FILE,
+      JSON.stringify(products, null, 2),
+      "utf8"
     );
-
-    if (arrayStart === -1) {
-      return NextResponse.json(
-        { error: "Could not find products array in file" },
-        { status: 500 }
-      );
-    }
-
-    // Find the matching closing bracket by counting brackets
-    let bracketCount = 0;
-    let arrayEnd = -1;
-    let inString = false;
-    let escapeNext = false;
-
-    for (
-      let i = arrayStart + "export const products: Product[] = [".length;
-      i < fileContent.length;
-      i++
-    ) {
-      const char = fileContent[i];
-
-      if (escapeNext) {
-        escapeNext = false;
-        continue;
-      }
-
-      if (char === "\\") {
-        escapeNext = true;
-        continue;
-      }
-
-      if (char === '"' || char === "'") {
-        inString = !inString;
-        continue;
-      }
-
-      if (!inString) {
-        if (char === "[") {
-          bracketCount++;
-        } else if (char === "]") {
-          bracketCount--;
-          if (bracketCount === 0) {
-            arrayEnd = i;
-            break;
-          }
-        }
-      }
-    }
-
-    if (arrayEnd === -1) {
-      return NextResponse.json(
-        { error: "Could not find matching closing bracket" },
-        { status: 500 }
-      );
-    }
-
-    // Update the file
-    const updatedContent =
-      fileContent.substring(0, arrayStart) +
-      `export const products: Product[] = ${JSON.stringify(
-        products,
-        null,
-        2
-      )}` +
-      fileContent.substring(arrayEnd + 1);
-
-    await fs.writeFile(PRODUCTS_FILE, updatedContent, "utf8");
 
     return NextResponse.json(products[productIndex]);
   } catch (error) {
@@ -145,7 +77,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const products = await getProductsFromModule();
+    const products = await getProductsFromFile();
 
     const productIndex = products.findIndex((p: any) => p.id === params.id);
     if (productIndex === -1) {
@@ -155,80 +87,12 @@ export async function DELETE(
     // Remove product
     products.splice(productIndex, 1);
 
-    // Read the file content to update it
-    const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
-
-    // Find the start of the products array
-    const arrayStart = fileContent.indexOf(
-      "export const products: Product[] = ["
+    // Update the JSON file
+    await fs.writeFile(
+      PRODUCTS_FILE,
+      JSON.stringify(products, null, 2),
+      "utf8"
     );
-
-    if (arrayStart === -1) {
-      return NextResponse.json(
-        { error: "Could not find products array in file" },
-        { status: 500 }
-      );
-    }
-
-    // Find the matching closing bracket by counting brackets
-    let bracketCount = 0;
-    let arrayEnd = -1;
-    let inString = false;
-    let escapeNext = false;
-
-    for (
-      let i = arrayStart + "export const products: Product[] = [".length;
-      i < fileContent.length;
-      i++
-    ) {
-      const char = fileContent[i];
-
-      if (escapeNext) {
-        escapeNext = false;
-        continue;
-      }
-
-      if (char === "\\") {
-        escapeNext = true;
-        continue;
-      }
-
-      if (char === '"' || char === "'") {
-        inString = !inString;
-        continue;
-      }
-
-      if (!inString) {
-        if (char === "[") {
-          bracketCount++;
-        } else if (char === "]") {
-          bracketCount--;
-          if (bracketCount === 0) {
-            arrayEnd = i;
-            break;
-          }
-        }
-      }
-    }
-
-    if (arrayEnd === -1) {
-      return NextResponse.json(
-        { error: "Could not find matching closing bracket" },
-        { status: 500 }
-      );
-    }
-
-    // Update the file
-    const updatedContent =
-      fileContent.substring(0, arrayStart) +
-      `export const products: Product[] = ${JSON.stringify(
-        products,
-        null,
-        2
-      )}` +
-      fileContent.substring(arrayEnd + 1);
-
-    await fs.writeFile(PRODUCTS_FILE, updatedContent, "utf8");
 
     return NextResponse.json({ message: "Product deleted successfully" });
   } catch (error) {

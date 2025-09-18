@@ -1,13 +1,21 @@
-import Header from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ScrollAnimation } from "@/components/scroll-animations"
-import WhatsAppFloat from "@/components/whatsapp-float"
-import { MobileNavigation } from "@/components/mobile-navigation"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { getAllServices } from "@/lib/services"
-import { FiCreditCard, FiHome, FiActivity, FiTrendingUp, FiUsers, FiStar, FiExternalLink } from "react-icons/fi"
+import { Footer } from "@/components/footer";
+import Header from "@/components/header";
+import { MobileNavigation } from "@/components/mobile-navigation";
+import { ScrollAnimation } from "@/components/scroll-animations";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import WhatsAppFloat from "@/components/whatsapp-float";
+import servicesData from "@/lib/services.json";
+import Link from "next/link";
+import {
+  FiActivity,
+  FiCreditCard,
+  FiExternalLink,
+  FiHome,
+  FiStar,
+  FiTrendingUp,
+  FiUsers,
+} from "react-icons/fi";
 
 const iconMap = {
   CreditCard: FiCreditCard,
@@ -15,15 +23,16 @@ const iconMap = {
   Calculator: FiActivity,
   TrendingUp: FiTrendingUp,
   Users: FiUsers,
-}
+};
 
 export default function ServicesPage() {
-  const services = getAllServices()
+  const services = servicesData;
 
   const getIconComponent = (iconName: string) => {
-    const IconComponent = iconMap[iconName as keyof typeof iconMap] || FiCreditCard
-    return <IconComponent className="w-8 h-8 text-white" />
-  }
+    const IconComponent =
+      iconMap[iconName as keyof typeof iconMap] || FiCreditCard;
+    return <IconComponent className="w-8 h-8 text-white" />;
+  };
 
   return (
     <div className="min-h-screen" dir="rtl">
@@ -47,7 +56,9 @@ export default function ServicesPage() {
           </ScrollAnimation>
 
           <ScrollAnimation animation="fadeInUp" delay={100}>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance leading-tight">خدماتنا</h1>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance leading-tight">
+              خدماتنا
+            </h1>
           </ScrollAnimation>
 
           <ScrollAnimation animation="fadeInUp" delay={200}>
@@ -60,8 +71,8 @@ export default function ServicesPage() {
 
           <ScrollAnimation animation="fadeInUp" delay={300}>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto text-pretty leading-relaxed">
-              نقدم مجموعة شاملة من الخدمات العقارية والتمويلية المتخصصة لتلبية جميع احتياجاتكم بأعلى معايير الجودة
-              والاحترافية
+              نقدم مجموعة شاملة من الخدمات العقارية والتمويلية المتخصصة لتلبية
+              جميع احتياجاتكم بأعلى معايير الجودة والاحترافية
             </p>
           </ScrollAnimation>
         </div>
@@ -72,7 +83,11 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <ScrollAnimation key={service.id} animation="fadeInUp" delay={index * 100}>
+              <ScrollAnimation
+                key={service.id}
+                animation="fadeInUp"
+                delay={index * 100}
+              >
                 <Card className="group relative overflow-hidden bg-white/90 backdrop-blur-xl border-0 shadow-xl hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 hover:rotate-1 rounded-3xl h-full">
                   <div className="relative p-6 pb-4">
                     {/* Icon with enhanced styling */}
@@ -122,7 +137,10 @@ export default function ServicesPage() {
                       ))}
                     </div>
 
-                    <Link href={`/services/${service.slug}`} className="mt-auto">
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="mt-auto"
+                    >
                       <Button className="w-full mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-black hover:via-slate-900 hover:to-black text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 rounded-2xl py-6 h-14 font-semibold text-base relative overflow-hidden">
                         <span className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                         <span className="relative z-10 flex items-center justify-center gap-3 text-white drop-shadow-lg">
@@ -143,9 +161,12 @@ export default function ServicesPage() {
       <section className="py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollAnimation animation="fadeInUp">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">هل تحتاج إلى استشارة مخصصة؟</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              هل تحتاج إلى استشارة مخصصة؟
+            </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              فريقنا من الخبراء جاهز لمساعدتك في اختيار الخدمة المناسبة لاحتياجاتك
+              فريقنا من الخبراء جاهز لمساعدتك في اختيار الخدمة المناسبة
+              لاحتياجاتك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -170,5 +191,5 @@ export default function ServicesPage() {
       <WhatsAppFloat />
       <MobileNavigation />
     </div>
-  )
+  );
 }

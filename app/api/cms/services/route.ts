@@ -2,13 +2,13 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-const SERVICES_FILE = path.join(process.cwd(), "lib", "services.ts");
+const SERVICES_FILE = path.join(process.cwd(), "lib", "services.json");
 
 // GET - Fetch all services
 export async function GET() {
   try {
-    // Import the services directly from the module
-    const { services } = await import("../../../../lib/services");
+    const fileContent = await fs.readFile(SERVICES_FILE, "utf8");
+    const services = JSON.parse(fileContent);
     console.log("Loaded services count:", services.length);
     return NextResponse.json(services);
   } catch (error) {
@@ -27,15 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Read current services
     const fileContent = await fs.readFile(SERVICES_FILE, "utf8");
-    const servicesMatch = fileContent.match(
-      /export const services: Service\[\] = \[([\s\S]*?)\]/
-    );
-
-    let services = [];
-    if (servicesMatch) {
-      const servicesString = `[${servicesMatch[1]}]`;
-      services = JSON.parse(servicesString);
-    }
+    const services = JSON.parse(fileContent);
 
     // Add new service
     const newService = {
@@ -48,13 +40,12 @@ export async function POST(request: NextRequest) {
 
     services.push(newService);
 
-    // Update the file
-    const updatedContent = fileContent.replace(
-      /export const services: Service\[\] = \[[\s\S]*?\]/,
-      `export const services: Service[] = ${JSON.stringify(services, null, 2)}`
+    // Update the JSON file
+    await fs.writeFile(
+      SERVICES_FILE,
+      JSON.stringify(services, null, 2),
+      "utf8"
     );
-
-    await fs.writeFile(SERVICES_FILE, updatedContent, "utf8");
 
     return NextResponse.json(newService);
   } catch (error) {

@@ -1,41 +1,40 @@
-import { notFound } from "next/navigation"
-import { getProductBySlug, getAllProducts } from "@/lib/products"
-import { ProductDetailsPage } from "@/components/product-details-page"
+import { ProductDetailsPage } from "@/components/product-details-page";
+import productsData from "@/lib/products.json";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export async function generateStaticParams() {
-  const products = getAllProducts()
-  return products.map((product) => ({
+  return productsData.map((product: any) => ({
     slug: product.slug,
-  }))
+  }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug)
+  const product = productsData.find((p: any) => p.slug === params.slug);
 
   if (!product) {
     return {
       title: "المنتج غير موجود",
-    }
+    };
   }
 
   return {
     title: `${product.title} - منتجات الإسكان الفاخر`,
     description: product.description,
-  }
+  };
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug)
+  const product = productsData.find((p: any) => p.slug === params.slug);
 
   if (!product) {
-    notFound()
+    notFound();
   }
 
-  return <ProductDetailsPage product={product} />
+  return <ProductDetailsPage product={product} />;
 }

@@ -2,13 +2,13 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-const PRODUCTS_FILE = path.join(process.cwd(), "lib", "products.ts");
+const PRODUCTS_FILE = path.join(process.cwd(), "lib", "products.json");
 
 // GET - Fetch all products
 export async function GET() {
   try {
-    // Import the products directly from the module
-    const { products } = await import("../../../../lib/products");
+    const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
+    const products = JSON.parse(fileContent);
     console.log("Loaded products count:", products.length);
     return NextResponse.json(products);
   } catch (error) {
@@ -27,15 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Read current products
     const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
-    const productsMatch = fileContent.match(
-      /export const products: Product\[\] = \[([\s\S]*?)\]/
-    );
-
-    let products = [];
-    if (productsMatch) {
-      const productsString = `[${productsMatch[1]}]`;
-      products = JSON.parse(productsString);
-    }
+    const products = JSON.parse(fileContent);
 
     // Add new product
     const newProduct = {
@@ -48,13 +40,12 @@ export async function POST(request: NextRequest) {
 
     products.push(newProduct);
 
-    // Update the file
-    const updatedContent = fileContent.replace(
-      /export const products: Product\[\] = \[[\s\S]*?\]/,
-      `export const products: Product[] = ${JSON.stringify(products, null, 2)}`
+    // Update the JSON file
+    await fs.writeFile(
+      PRODUCTS_FILE,
+      JSON.stringify(products, null, 2),
+      "utf8"
     );
-
-    await fs.writeFile(PRODUCTS_FILE, updatedContent, "utf8");
 
     return NextResponse.json(newProduct);
   } catch (error) {
