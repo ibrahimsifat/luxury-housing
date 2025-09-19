@@ -128,10 +128,10 @@ export default function AddServicePage() {
         router.push("/cms/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.error || "Failed to create service");
+        setError(errorData.error || "فشل في إنشاء الخدمة");
       }
     } catch (error) {
-      setError("An error occurred while creating the service");
+      setError("حدث خطأ أثناء إنشاء الخدمة");
     } finally {
       setIsLoading(false);
     }
@@ -147,16 +147,14 @@ export default function AddServicePage() {
               <Link href="/cms/dashboard">
                 <Button variant="outline" size="sm">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Dashboard
+                  العودة للوحة التحكم
                 </Button>
               </Link>
               <div>
                 <h1 className="text-3xl font-bold text-slate-900 font-cairo">
-                  Add New Service
+                  إضافة خدمة جديدة
                 </h1>
-                <p className="text-slate-600">
-                  Create a new service for your website
-                </p>
+                <p className="text-slate-600">إنشاء خدمة جديدة لموقعك</p>
               </div>
             </div>
           </div>
@@ -165,70 +163,66 @@ export default function AddServicePage() {
             {/* Basic Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
-                <CardDescription>
-                  Enter the basic details of the service
-                </CardDescription>
+                <CardTitle>المعلومات الأساسية</CardTitle>
+                <CardDescription>أدخل التفاصيل الأساسية للخدمة</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="title">Service Title *</Label>
+                    <Label htmlFor="title">عنوان الخدمة *</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) =>
                         handleInputChange("title", e.target.value)
                       }
-                      placeholder="Enter service title"
+                      placeholder="أدخل عنوان الخدمة"
                       required
                     />
                   </div>
                   <div>
-                    <Label htmlFor="icon">Icon Name</Label>
+                    <Label htmlFor="icon">اسم الأيقونة</Label>
                     <Input
                       id="icon"
                       value={formData.icon}
                       onChange={(e) =>
                         handleInputChange("icon", e.target.value)
                       }
-                      placeholder="e.g., CreditCard, Home, Calculator"
+                      placeholder="مثال: CreditCard, Home, Calculator"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Short Description *</Label>
+                  <Label htmlFor="description">وصف مختصر *</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) =>
                       handleInputChange("description", e.target.value)
                     }
-                    placeholder="Enter a brief description"
+                    placeholder="أدخل وصف مختصر"
                     rows={3}
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="detailedDescription">
-                    Detailed Description
-                  </Label>
+                  <Label htmlFor="detailedDescription">الوصف التفصيلي</Label>
                   <Textarea
                     id="detailedDescription"
                     value={formData.detailedDescription}
                     onChange={(e) =>
                       handleInputChange("detailedDescription", e.target.value)
                     }
-                    placeholder="Enter detailed description"
+                    placeholder="أدخل وصف تفصيلي"
                     rows={4}
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="gradient">Gradient</Label>
+                    <Label htmlFor="gradient">التدرج اللوني</Label>
                     <Input
                       id="gradient"
                       value={formData.gradient}
@@ -239,7 +233,7 @@ export default function AddServicePage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="iconBg">Icon Background</Label>
+                    <Label htmlFor="iconBg">خلفية الأيقونة</Label>
                     <Input
                       id="iconBg"
                       value={formData.iconBg}
@@ -250,7 +244,7 @@ export default function AddServicePage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="accentColor">Accent Color</Label>
+                    <Label htmlFor="accentColor">اللون المميز</Label>
                     <Input
                       id="accentColor"
                       value={formData.accentColor}
@@ -267,9 +261,9 @@ export default function AddServicePage() {
             {/* Features */}
             <Card>
               <CardHeader>
-                <CardTitle>Features</CardTitle>
+                <CardTitle>الميزات</CardTitle>
                 <CardDescription>
-                  List the key features of this service
+                  اذكر الميزات الرئيسية لهذه الخدمة
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -281,7 +275,7 @@ export default function AddServicePage() {
                         onChange={(e) =>
                           handleArrayChange("features", index, e.target.value)
                         }
-                        placeholder="Enter feature"
+                        placeholder="أدخل ميزة"
                       />
                       <Button
                         type="button"
@@ -301,7 +295,7 @@ export default function AddServicePage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Feature
+                    إضافة ميزة
                   </Button>
                 </div>
               </CardContent>
@@ -310,10 +304,8 @@ export default function AddServicePage() {
             {/* Benefits */}
             <Card>
               <CardHeader>
-                <CardTitle>Benefits</CardTitle>
-                <CardDescription>
-                  List the benefits of this service
-                </CardDescription>
+                <CardTitle>الفوائد</CardTitle>
+                <CardDescription>اذكر فوائد هذه الخدمة</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -324,7 +316,7 @@ export default function AddServicePage() {
                         onChange={(e) =>
                           handleArrayChange("benefits", index, e.target.value)
                         }
-                        placeholder="Enter benefit"
+                        placeholder="أدخل فائدة"
                       />
                       <Button
                         type="button"
@@ -344,7 +336,7 @@ export default function AddServicePage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Benefit
+                    إضافة فائدة
                   </Button>
                 </div>
               </CardContent>
@@ -353,10 +345,8 @@ export default function AddServicePage() {
             {/* Requirements */}
             <Card>
               <CardHeader>
-                <CardTitle>Requirements</CardTitle>
-                <CardDescription>
-                  List the requirements for this service
-                </CardDescription>
+                <CardTitle>المتطلبات</CardTitle>
+                <CardDescription>اذكر متطلبات هذه الخدمة</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -371,7 +361,7 @@ export default function AddServicePage() {
                             e.target.value
                           )
                         }
-                        placeholder="Enter requirement"
+                        placeholder="أدخل متطلب"
                       />
                       <Button
                         type="button"
@@ -391,7 +381,7 @@ export default function AddServicePage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Requirement
+                    إضافة متطلب
                   </Button>
                 </div>
               </CardContent>
@@ -400,9 +390,9 @@ export default function AddServicePage() {
             {/* Process */}
             <Card>
               <CardHeader>
-                <CardTitle>Process Steps</CardTitle>
+                <CardTitle>خطوات العملية</CardTitle>
                 <CardDescription>
-                  List the process steps for this service
+                  اذكر خطوات العملية لهذه الخدمة
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -414,7 +404,7 @@ export default function AddServicePage() {
                         onChange={(e) =>
                           handleArrayChange("process", index, e.target.value)
                         }
-                        placeholder="Enter process step"
+                        placeholder="أدخل خطوة العملية"
                       />
                       <Button
                         type="button"
@@ -434,7 +424,7 @@ export default function AddServicePage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Process Step
+                    إضافة خطوة عملية
                   </Button>
                 </div>
               </CardContent>
@@ -443,10 +433,8 @@ export default function AddServicePage() {
             {/* FAQ */}
             <Card>
               <CardHeader>
-                <CardTitle>FAQ</CardTitle>
-                <CardDescription>
-                  Add frequently asked questions
-                </CardDescription>
+                <CardTitle>الأسئلة الشائعة</CardTitle>
+                <CardDescription>أضف الأسئلة المتكررة</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -456,7 +444,7 @@ export default function AddServicePage() {
                       className="border rounded-lg p-4 space-y-3"
                     >
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium">FAQ {index + 1}</h4>
+                        <h4 className="font-medium">سؤال {index + 1}</h4>
                         <Button
                           type="button"
                           variant="outline"
@@ -468,23 +456,23 @@ export default function AddServicePage() {
                         </Button>
                       </div>
                       <div>
-                        <Label>Question</Label>
+                        <Label>السؤال</Label>
                         <Input
                           value={faq.question}
                           onChange={(e) =>
                             handleFaqChange(index, "question", e.target.value)
                           }
-                          placeholder="Enter question"
+                          placeholder="أدخل السؤال"
                         />
                       </div>
                       <div>
-                        <Label>Answer</Label>
+                        <Label>الإجابة</Label>
                         <Textarea
                           value={faq.answer}
                           onChange={(e) =>
                             handleFaqChange(index, "answer", e.target.value)
                           }
-                          placeholder="Enter answer"
+                          placeholder="أدخل الإجابة"
                           rows={2}
                         />
                       </div>
@@ -497,7 +485,7 @@ export default function AddServicePage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add FAQ
+                    إضافة سؤال
                   </Button>
                 </div>
               </CardContent>
@@ -514,7 +502,7 @@ export default function AddServicePage() {
             <div className="flex justify-end space-x-4">
               <Link href="/cms/dashboard">
                 <Button type="button" variant="outline">
-                  Cancel
+                  إلغاء
                 </Button>
               </Link>
               <Button
@@ -522,7 +510,7 @@ export default function AddServicePage() {
                 disabled={isLoading}
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
               >
-                {isLoading ? "Creating..." : "Create Service"}
+                {isLoading ? "جاري الإنشاء..." : "إنشاء الخدمة"}
               </Button>
             </div>
           </form>

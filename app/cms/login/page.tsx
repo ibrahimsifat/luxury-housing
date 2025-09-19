@@ -43,7 +43,7 @@ export default function CMSLoginPage() {
       // Redirect to dashboard
       router.push("/cms/dashboard");
     } else {
-      setError("Invalid email or password");
+      setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
     }
 
     setIsLoading(false);
@@ -62,10 +62,10 @@ export default function CMSLoginPage() {
                 <Lock className="w-8 h-8 text-white" />
               </div>
               <CardTitle className="text-2xl font-bold text-slate-900 font-cairo">
-                CMS Dashboard
+                لوحة تحكم إدارة المحتوى
               </CardTitle>
               <CardDescription className="text-slate-600">
-                Luxury Housing Content Management System
+                نظام إدارة محتوى الإسكان الفاخر
               </CardDescription>
             </CardHeader>
 
@@ -82,14 +82,14 @@ export default function CMSLoginPage() {
                     htmlFor="email"
                     className="text-sm font-medium text-slate-700"
                   >
-                    Email Address
+                    عنوان البريد الإلكتروني
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                     <Input
                       id="email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder="أدخل بريدك الإلكتروني"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10 bg-white/80 border-slate-200 focus:border-blue-500 focus:ring-blue-500"
@@ -103,14 +103,14 @@ export default function CMSLoginPage() {
                     htmlFor="password"
                     className="text-sm font-medium text-slate-700"
                   >
-                    Password
+                    كلمة المرور
                   </Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
+                      placeholder="أدخل كلمة المرور"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="pl-10 pr-10 bg-white/80 border-slate-200 focus:border-blue-500 focus:ring-blue-500"
@@ -135,7 +135,7 @@ export default function CMSLoginPage() {
                   className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Signing in..." : "Sign In"}
+                  {isLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
                 </Button>
               </form>
             </CardContent>

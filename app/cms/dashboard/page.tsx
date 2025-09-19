@@ -110,7 +110,7 @@ export default function CMSDashboard() {
   };
 
   const handleDeleteService = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this service?")) return;
+    if (!confirm("هل أنت متأكد من حذف هذه الخدمة؟")) return;
 
     try {
       const response = await fetch(`/api/cms/services/${id}`, {
@@ -130,7 +130,7 @@ export default function CMSDashboard() {
   };
 
   const handleDeleteProduct = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm("هل أنت متأكد من حذف هذا المنتج؟")) return;
 
     try {
       const response = await fetch(`/api/cms/products/${id}`, {
@@ -150,7 +150,7 @@ export default function CMSDashboard() {
   };
 
   if (!isLoggedIn) {
-    return <div>Loading...</div>;
+    return <div>جاري التحميل...</div>;
   }
 
   return (
@@ -165,10 +165,10 @@ export default function CMSDashboard() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-slate-900 font-cairo">
-                  CMS Dashboard
+                  لوحة تحكم إدارة المحتوى
                 </h1>
                 <p className="text-sm text-slate-600">
-                  Luxury Housing Content Management
+                  إدارة محتوى الإسكان الفاخر
                 </p>
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function CMSDashboard() {
               className="text-slate-600 hover:text-slate-900"
             >
               <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              تسجيل الخروج
             </Button>
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function CMSDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-blue-600">
-                      Total Services
+                      إجمالي الخدمات
                     </p>
                     <p className="text-3xl font-bold text-blue-900">
                       {Array.isArray(services) ? services.length : 0}
@@ -209,7 +209,7 @@ export default function CMSDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-green-600">
-                      Total Products
+                      إجمالي المنتجات
                     </p>
                     <p className="text-3xl font-bold text-green-900">
                       {Array.isArray(products) ? products.length : 0}
@@ -225,7 +225,7 @@ export default function CMSDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-purple-600">
-                      Total Items
+                      إجمالي العناصر
                     </p>
                     <p className="text-3xl font-bold text-purple-900">
                       {(Array.isArray(services) ? services.length : 0) +
@@ -251,7 +251,7 @@ export default function CMSDashboard() {
                   }`}
                 >
                   <Briefcase className="w-4 h-4 inline mr-2" />
-                  Services ({Array.isArray(services) ? services.length : 0})
+                  الخدمات ({Array.isArray(services) ? services.length : 0})
                 </button>
                 <button
                   onClick={() => setActiveTab("products")}
@@ -262,7 +262,7 @@ export default function CMSDashboard() {
                   }`}
                 >
                   <Package className="w-4 h-4 inline mr-2" />
-                  Products ({Array.isArray(products) ? products.length : 0})
+                  المنتجات ({Array.isArray(products) ? products.length : 0})
                 </button>
               </nav>
             </div>
@@ -272,13 +272,14 @@ export default function CMSDashboard() {
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-slate-900">
                   {activeTab === "services"
-                    ? "Services Management"
-                    : "Products Management"}
+                    ? "إدارة الخدمات"
+                    : "إدارة المنتجات"}
                 </h2>
                 <Link href={`/cms/${activeTab}/add`}>
                   <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
                     <Plus className="w-4 h-4 mr-2" />
-                    Add New {activeTab === "services" ? "Service" : "Product"}
+                    إضافة{" "}
+                    {activeTab === "services" ? "خدمة جديدة" : "منتج جديد"}
                   </Button>
                 </Link>
               </div>
@@ -287,7 +288,7 @@ export default function CMSDashboard() {
               {isLoading ? (
                 <div className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                  <p className="mt-2 text-slate-600">Loading...</p>
+                  <p className="mt-2 text-slate-600">جاري التحميل...</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -295,7 +296,7 @@ export default function CMSDashboard() {
                     !Array.isArray(services) || services.length === 0 ? (
                       <div className="text-center py-8 text-slate-500">
                         <Briefcase className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                        <p>No services found. Add your first service!</p>
+                        <p>لم يتم العثور على خدمات. أضف خدمتك الأولى!</p>
                       </div>
                     ) : (
                       services.map((service) => (
@@ -313,24 +314,24 @@ export default function CMSDashboard() {
                                   {service.description}
                                 </p>
                                 <div className="flex items-center space-x-4 text-sm text-slate-500">
-                                  <span>ID: {service.id}</span>
-                                  <span>Slug: {service.slug}</span>
+                                  <span>المعرف: {service.id}</span>
+                                  <span>الرابط: {service.slug}</span>
                                   <span>
-                                    Features: {service.features.length}
+                                    الميزات: {service.features.length}
                                   </span>
                                 </div>
                               </div>
                               <div className="flex items-center space-x-2">
-                                <Link href={`/cms/services/${service.id}`}>
+                                <Link href={`/services/${service.id}`}>
                                   <Button variant="outline" size="sm">
                                     <Eye className="w-4 h-4 mr-1" />
-                                    View
+                                    عرض
                                   </Button>
                                 </Link>
                                 <Link href={`/cms/services/${service.id}/edit`}>
                                   <Button variant="outline" size="sm">
                                     <Edit className="w-4 h-4 mr-1" />
-                                    Edit
+                                    تعديل
                                   </Button>
                                 </Link>
                                 <Button
@@ -342,7 +343,7 @@ export default function CMSDashboard() {
                                   className="text-red-600 hover:text-red-700 hover:border-red-300"
                                 >
                                   <Trash2 className="w-4 h-4 mr-1" />
-                                  Delete
+                                  حذف
                                 </Button>
                               </div>
                             </div>
@@ -353,7 +354,7 @@ export default function CMSDashboard() {
                   ) : !Array.isArray(products) || products.length === 0 ? (
                     <div className="text-center py-8 text-slate-500">
                       <Package className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                      <p>No products found. Add your first product!</p>
+                      <p>لم يتم العثور على منتجات. أضف منتجك الأول!</p>
                     </div>
                   ) : (
                     products.map((product) => (
@@ -371,10 +372,10 @@ export default function CMSDashboard() {
                                 {product.description}
                               </p>
                               <div className="flex items-center space-x-4 text-sm text-slate-500">
-                                <span>ID: {product.id}</span>
-                                <span>Category: {product.category}</span>
+                                <span>المعرف: {product.id}</span>
+                                <span>الفئة: {product.category}</span>
                                 <span>
-                                  Amount: {product.minAmount} -{" "}
+                                  المبلغ: {product.minAmount} -{" "}
                                   {product.maxAmount}
                                 </span>
                               </div>

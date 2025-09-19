@@ -218,10 +218,10 @@ export default function AddProductPage() {
         router.push("/cms/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.error || "Failed to create product");
+        setError(errorData.error || "فشل في إنشاء المنتج");
       }
     } catch (error) {
-      setError("An error occurred while creating the product");
+      setError("حدث خطأ أثناء إنشاء المنتج");
     } finally {
       setIsLoading(false);
     }
@@ -237,16 +237,14 @@ export default function AddProductPage() {
               <Link href="/cms/dashboard">
                 <Button variant="outline" size="sm">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Dashboard
+                  العودة للوحة التحكم
                 </Button>
               </Link>
               <div>
                 <h1 className="text-3xl font-bold text-slate-900 font-cairo">
-                  Add New Product
+                  إضافة منتج جديد
                 </h1>
-                <p className="text-slate-600">
-                  Create a new product for your website
-                </p>
+                <p className="text-slate-600">إنشاء منتج جديد لموقعك</p>
               </div>
             </div>
           </div>
@@ -255,27 +253,25 @@ export default function AddProductPage() {
             {/* Basic Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
-                <CardDescription>
-                  Enter the basic details of the product
-                </CardDescription>
+                <CardTitle>المعلومات الأساسية</CardTitle>
+                <CardDescription>أدخل التفاصيل الأساسية للمنتج</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="title">Product Title *</Label>
+                    <Label htmlFor="title">عنوان المنتج *</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) =>
                         handleInputChange("title", e.target.value)
                       }
-                      placeholder="Enter product title"
+                      placeholder="أدخل عنوان المنتج"
                       required
                     />
                   </div>
                   <div>
-                    <Label htmlFor="category">Category *</Label>
+                    <Label htmlFor="category">الفئة *</Label>
                     <select
                       id="category"
                       value={formData.category}
@@ -296,18 +292,18 @@ export default function AddProductPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="icon">Icon Name</Label>
+                    <Label htmlFor="icon">اسم الأيقونة</Label>
                     <Input
                       id="icon"
                       value={formData.icon}
                       onChange={(e) =>
                         handleInputChange("icon", e.target.value)
                       }
-                      placeholder="e.g., HiHome, HiLocationMarker"
+                      placeholder="مثال: HiHome, HiLocationMarker"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="badge">Badge</Label>
+                    <Label htmlFor="badge">الشارة</Label>
                     <Input
                       id="badge"
                       value={formData.badge}
@@ -321,7 +317,7 @@ export default function AddProductPage() {
 
                 {/* Image Upload */}
                 <div>
-                  <Label htmlFor="image">Product Image</Label>
+                  <Label htmlFor="image">صورة المنتج</Label>
                   <div className="space-y-4">
                     <Input
                       id="image"
@@ -332,7 +328,7 @@ export default function AddProductPage() {
                     />
                     {imagePreview && (
                       <div className="mt-4">
-                        <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                        <p className="text-sm text-gray-600 mb-2">معاينة:</p>
                         <img
                           src={imagePreview}
                           alt="Preview"
@@ -343,7 +339,7 @@ export default function AddProductPage() {
                     {formData.image && !imageFile && (
                       <div className="mt-4">
                         <p className="text-sm text-gray-600 mb-2">
-                          Current image:
+                          الصورة الحالية:
                         </p>
                         <img
                           src={formData.image}
@@ -356,36 +352,34 @@ export default function AddProductPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Short Description *</Label>
+                  <Label htmlFor="description">وصف مختصر *</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) =>
                       handleInputChange("description", e.target.value)
                     }
-                    placeholder="Enter a brief description"
+                    placeholder="أدخل وصف مختصر"
                     rows={3}
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="detailedDescription">
-                    Detailed Description
-                  </Label>
+                  <Label htmlFor="detailedDescription">الوصف التفصيلي</Label>
                   <Textarea
                     id="detailedDescription"
                     value={formData.detailedDescription}
                     onChange={(e) =>
                       handleInputChange("detailedDescription", e.target.value)
                     }
-                    placeholder="Enter detailed description"
+                    placeholder="أدخل وصف تفصيلي"
                     rows={4}
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="gradient">Gradient</Label>
+                  <Label htmlFor="gradient">التدرج اللوني</Label>
                   <Input
                     id="gradient"
                     value={formData.gradient}
@@ -401,66 +395,64 @@ export default function AddProductPage() {
             {/* Financial Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Financial Information</CardTitle>
-                <CardDescription>
-                  Enter the financial details of the product
-                </CardDescription>
+                <CardTitle>المعلومات المالية</CardTitle>
+                <CardDescription>أدخل التفاصيل المالية للمنتج</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="minAmount">Minimum Amount</Label>
+                    <Label htmlFor="minAmount">المبلغ الأدنى</Label>
                     <Input
                       id="minAmount"
                       value={formData.minAmount}
                       onChange={(e) =>
                         handleInputChange("minAmount", e.target.value)
                       }
-                      placeholder="e.g., 100,000 ريال"
+                      placeholder="مثال: 100,000 ريال"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="maxAmount">Maximum Amount</Label>
+                    <Label htmlFor="maxAmount">المبلغ الأقصى</Label>
                     <Input
                       id="maxAmount"
                       value={formData.maxAmount}
                       onChange={(e) =>
                         handleInputChange("maxAmount", e.target.value)
                       }
-                      placeholder="e.g., 2,000,000 ريال"
+                      placeholder="مثال: 2,000,000 ريال"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="duration">Duration</Label>
+                    <Label htmlFor="duration">المدة</Label>
                     <Input
                       id="duration"
                       value={formData.duration}
                       onChange={(e) =>
                         handleInputChange("duration", e.target.value)
                       }
-                      placeholder="e.g., حتى 20 سنة"
+                      placeholder="مثال: حتى 20 سنة"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="interestRate">Interest Rate</Label>
+                    <Label htmlFor="interestRate">معدل الفائدة</Label>
                     <Input
                       id="interestRate"
                       value={formData.interestRate}
                       onChange={(e) =>
                         handleInputChange("interestRate", e.target.value)
                       }
-                      placeholder="e.g., من 4.50%"
+                      placeholder="مثال: من 4.50%"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="processingTime">Processing Time</Label>
+                    <Label htmlFor="processingTime">وقت المعالجة</Label>
                     <Input
                       id="processingTime"
                       value={formData.processingTime}
                       onChange={(e) =>
                         handleInputChange("processingTime", e.target.value)
                       }
-                      placeholder="e.g., 5-8 أيام عمل"
+                      placeholder="مثال: 5-8 أيام عمل"
                     />
                   </div>
                 </div>
@@ -470,9 +462,9 @@ export default function AddProductPage() {
             {/* Features */}
             <Card>
               <CardHeader>
-                <CardTitle>Features</CardTitle>
+                <CardTitle>الميزات</CardTitle>
                 <CardDescription>
-                  List the key features of this product
+                  اذكر الميزات الرئيسية لهذا المنتج
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -484,7 +476,7 @@ export default function AddProductPage() {
                         onChange={(e) =>
                           handleArrayChange("features", index, e.target.value)
                         }
-                        placeholder="Enter feature"
+                        placeholder="أدخل ميزة"
                       />
                       <Button
                         type="button"
@@ -504,7 +496,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Feature
+                    إضافة ميزة
                   </Button>
                 </div>
               </CardContent>
@@ -513,10 +505,8 @@ export default function AddProductPage() {
             {/* Benefits */}
             <Card>
               <CardHeader>
-                <CardTitle>Benefits</CardTitle>
-                <CardDescription>
-                  List the benefits of this product
-                </CardDescription>
+                <CardTitle>الفوائد</CardTitle>
+                <CardDescription>اذكر فوائد هذا المنتج</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -527,7 +517,7 @@ export default function AddProductPage() {
                         onChange={(e) =>
                           handleArrayChange("benefits", index, e.target.value)
                         }
-                        placeholder="Enter benefit"
+                        placeholder="أدخل فائدة"
                       />
                       <Button
                         type="button"
@@ -547,7 +537,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Benefit
+                    إضافة فائدة
                   </Button>
                 </div>
               </CardContent>
@@ -556,10 +546,8 @@ export default function AddProductPage() {
             {/* Requirements */}
             <Card>
               <CardHeader>
-                <CardTitle>Requirements</CardTitle>
-                <CardDescription>
-                  List the requirements for this product
-                </CardDescription>
+                <CardTitle>المتطلبات</CardTitle>
+                <CardDescription>اذكر متطلبات هذا المنتج</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -574,7 +562,7 @@ export default function AddProductPage() {
                             e.target.value
                           )
                         }
-                        placeholder="Enter requirement"
+                        placeholder="أدخل متطلب"
                       />
                       <Button
                         type="button"
@@ -594,7 +582,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Requirement
+                    إضافة متطلب
                   </Button>
                 </div>
               </CardContent>
@@ -603,8 +591,8 @@ export default function AddProductPage() {
             {/* Eligibility */}
             <Card>
               <CardHeader>
-                <CardTitle>Eligibility</CardTitle>
-                <CardDescription>List the eligibility criteria</CardDescription>
+                <CardTitle>الأهلية</CardTitle>
+                <CardDescription>اذكر معايير الأهلية</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -619,7 +607,7 @@ export default function AddProductPage() {
                             e.target.value
                           )
                         }
-                        placeholder="Enter eligibility criteria"
+                        placeholder="أدخل معايير الأهلية"
                       />
                       <Button
                         type="button"
@@ -639,7 +627,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Eligibility
+                    إضافة أهلية
                   </Button>
                 </div>
               </CardContent>
@@ -648,9 +636,9 @@ export default function AddProductPage() {
             {/* Process */}
             <Card>
               <CardHeader>
-                <CardTitle>Process Steps</CardTitle>
+                <CardTitle>خطوات العملية</CardTitle>
                 <CardDescription>
-                  List the process steps for this product
+                  اذكر خطوات العملية لهذا المنتج
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -661,7 +649,7 @@ export default function AddProductPage() {
                       className="border rounded-lg p-4 space-y-3"
                     >
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium">Step {step.step}</h4>
+                        <h4 className="font-medium">خطوة {step.step}</h4>
                         <Button
                           type="button"
                           variant="outline"
@@ -673,17 +661,17 @@ export default function AddProductPage() {
                         </Button>
                       </div>
                       <div>
-                        <Label>Title</Label>
+                        <Label>العنوان</Label>
                         <Input
                           value={step.title}
                           onChange={(e) =>
                             handleProcessChange(index, "title", e.target.value)
                           }
-                          placeholder="Enter step title"
+                          placeholder="أدخل عنوان الخطوة"
                         />
                       </div>
                       <div>
-                        <Label>Description</Label>
+                        <Label>الوصف</Label>
                         <Textarea
                           value={step.description}
                           onChange={(e) =>
@@ -693,7 +681,7 @@ export default function AddProductPage() {
                               e.target.value
                             )
                           }
-                          placeholder="Enter step description"
+                          placeholder="أدخل وصف الخطوة"
                           rows={2}
                         />
                       </div>
@@ -706,7 +694,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Process Step
+                    إضافة خطوة عملية
                   </Button>
                 </div>
               </CardContent>
@@ -715,10 +703,8 @@ export default function AddProductPage() {
             {/* FAQ */}
             <Card>
               <CardHeader>
-                <CardTitle>FAQ</CardTitle>
-                <CardDescription>
-                  Add frequently asked questions
-                </CardDescription>
+                <CardTitle>الأسئلة الشائعة</CardTitle>
+                <CardDescription>أضف الأسئلة المتكررة</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -728,7 +714,7 @@ export default function AddProductPage() {
                       className="border rounded-lg p-4 space-y-3"
                     >
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium">FAQ {index + 1}</h4>
+                        <h4 className="font-medium">سؤال {index + 1}</h4>
                         <Button
                           type="button"
                           variant="outline"
@@ -740,23 +726,23 @@ export default function AddProductPage() {
                         </Button>
                       </div>
                       <div>
-                        <Label>Question</Label>
+                        <Label>السؤال</Label>
                         <Input
                           value={faq.question}
                           onChange={(e) =>
                             handleFaqChange(index, "question", e.target.value)
                           }
-                          placeholder="Enter question"
+                          placeholder="أدخل السؤال"
                         />
                       </div>
                       <div>
-                        <Label>Answer</Label>
+                        <Label>الإجابة</Label>
                         <Textarea
                           value={faq.answer}
                           onChange={(e) =>
                             handleFaqChange(index, "answer", e.target.value)
                           }
-                          placeholder="Enter answer"
+                          placeholder="أدخل الإجابة"
                           rows={2}
                         />
                       </div>
@@ -769,7 +755,7 @@ export default function AddProductPage() {
                     className="w-full"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add FAQ
+                    إضافة سؤال
                   </Button>
                 </div>
               </CardContent>
@@ -786,7 +772,7 @@ export default function AddProductPage() {
             <div className="flex justify-end space-x-4">
               <Link href="/cms/dashboard">
                 <Button type="button" variant="outline">
-                  Cancel
+                  إلغاء
                 </Button>
               </Link>
               <Button
@@ -795,10 +781,10 @@ export default function AddProductPage() {
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
               >
                 {isUploading
-                  ? "Uploading Image..."
+                  ? "جاري رفع الصورة..."
                   : isLoading
-                  ? "Creating..."
-                  : "Create Product"}
+                  ? "جاري الإنشاء..."
+                  : "إنشاء المنتج"}
               </Button>
             </div>
           </form>
