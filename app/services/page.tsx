@@ -138,7 +138,7 @@ export default function ServicesPage() {
                     </div>
 
                     <Link
-                      href={`/services/${service.slug}`}
+                      href={`/services/${encodeURIComponent(service.slug)}`}
                       className="mt-auto"
                     >
                       <Button className="w-full mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-black hover:via-slate-900 hover:to-black text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 rounded-2xl py-6 h-14 font-semibold text-base relative overflow-hidden">
@@ -169,19 +169,23 @@ export default function ServicesPage() {
               لاحتياجاتك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
-              >
-                احجز استشارة مجانية
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold bg-transparent"
-              >
-                تواصل معنا
-              </Button>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  احجز استشارة مجانية
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold bg-transparent"
+                >
+                  تواصل معنا
+                </Button>
+              </Link>
             </div>
           </ScrollAnimation>
         </div>

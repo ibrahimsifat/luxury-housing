@@ -27,7 +27,7 @@ export function Footer() {
   ];
 
   const services = [
-    { name: "تقفيل المديونيات", href: "/services/debt-settlement" },
+    { name: "تقفيل المديونيات", href: "/services/تقفيل-المديونيات" },
     { name: "حلول الدفعة المقدمة", href: "/services/down-payment-solutions" },
     { name: "حلول الضريبة", href: "/services/tax-solutions" },
     { name: "أعلى مبلغ تمويلي", href: "/services/highest-financing" },

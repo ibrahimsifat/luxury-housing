@@ -106,7 +106,10 @@ export default function ProductsPage() {
               </div>
             )}
 
-            <Link href={`/products/${product.slug}`} className="mt-auto">
+            <Link
+              href={`/products/${encodeURIComponent(product.slug)}`}
+              className="mt-auto"
+            >
               <Button className="w-full py-3 md:py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-xs md:text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]">
                 <span className="flex items-center justify-center gap-1 md:gap-2 text-white drop-shadow-sm">
                   <span className="text-white font-bold">تفاصيل المنتج</span>

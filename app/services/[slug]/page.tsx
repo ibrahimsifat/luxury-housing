@@ -10,12 +10,14 @@ interface ServicePageProps {
 
 export async function generateStaticParams() {
   return servicesData.map((service: any) => ({
-    slug: service.slug,
+    slug: encodeURIComponent(service.slug),
   }));
 }
 
 export async function generateMetadata({ params }: ServicePageProps) {
-  const service = servicesData.find((s: any) => s.slug === params.slug);
+  // Decode the URL-encoded slug
+  const decodedSlug = decodeURIComponent(params.slug);
+  const service = servicesData.find((s: any) => s.slug === decodedSlug);
 
   if (!service) {
     return {
@@ -30,7 +32,9 @@ export async function generateMetadata({ params }: ServicePageProps) {
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = servicesData.find((s: any) => s.slug === params.slug);
+  // Decode the URL-encoded slug
+  const decodedSlug = decodeURIComponent(params.slug);
+  const service = servicesData.find((s: any) => s.slug === decodedSlug);
 
   if (!service) {
     notFound();

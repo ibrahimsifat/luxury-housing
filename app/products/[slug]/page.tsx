@@ -10,12 +10,14 @@ interface ProductPageProps {
 
 export async function generateStaticParams() {
   return productsData.map((product: any) => ({
-    slug: product.slug,
+    slug: encodeURIComponent(product.slug),
   }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
-  const product = productsData.find((p: any) => p.slug === params.slug);
+  // Decode the URL-encoded slug
+  const decodedSlug = decodeURIComponent(params.slug);
+  const product = productsData.find((p: any) => p.slug === decodedSlug);
 
   if (!product) {
     return {
@@ -30,7 +32,9 @@ export async function generateMetadata({ params }: ProductPageProps) {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = productsData.find((p: any) => p.slug === params.slug);
+  // Decode the URL-encoded slug
+  const decodedSlug = decodeURIComponent(params.slug);
+  const product = productsData.find((p: any) => p.slug === decodedSlug);
 
   if (!product) {
     notFound();

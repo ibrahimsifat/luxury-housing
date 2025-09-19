@@ -221,7 +221,7 @@ export function HeroSection() {
             />
           </motion.div>
         ))}
-        <div className="absolute inset-0 bg-slate-900/80"></div>
+        <div className="absolute inset-0 bg-slate-900/70"></div>
 
         {/* Background indicator */}
         <div className="absolute bottom-4 right-4 flex gap-2 z-10">
@@ -596,7 +596,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <motion.div
-              className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-2xl md:p-8 p-4 max-w-md mx-auto lg:mx-0 lg:mr-auto shadow-2xl relative overflow-hidden"
+              className="bg-slate-800/60 backdrop-blur-sm border border-slate-700 rounded-2xl md:p-8 p-4 max-w-md mx-auto lg:mx-0 lg:mr-auto shadow-2xl relative overflow-hidden"
               whileHover={{
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
                 scale: 1.02,

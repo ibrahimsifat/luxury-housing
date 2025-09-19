@@ -122,7 +122,7 @@ export function ServicesSection() {
                     ))}
                   </div>
 
-                  <Link href={`/services/${service.slug}`}>
+                  <Link href={`/services/${encodeURIComponent(service.slug)}`}>
                     <Button className="w-full mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-black hover:via-slate-900 hover:to-black text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 rounded-2xl py-6 h-14 font-semibold text-base relative overflow-hidden">
                       <span className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                       <span className="relative z-10 flex items-center justify-center gap-3 text-white drop-shadow-lg">

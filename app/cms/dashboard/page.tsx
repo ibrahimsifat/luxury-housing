@@ -380,7 +380,11 @@ export default function CMSDashboard() {
                               </div>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <Link href={`/cms/products/${product.id}`}>
+                              <Link
+                                href={`/products/${encodeURIComponent(
+                                  product.slug
+                                )}`}
+                              >
                                 <Button variant="outline" size="sm">
                                   <Eye className="w-4 h-4 mr-1" />
                                   View

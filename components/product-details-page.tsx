@@ -2,9 +2,8 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ProductDetailsClient } from "@/components/product-details-client";
-import { Badge } from "@/components/ui/badge";
 import WhatsAppFloat from "@/components/whatsapp-float";
-import type { Product } from "@/lib/products";
+import type { Product } from "@/lib/types";
 import Link from "next/link";
 import {
   HiBriefcase,
@@ -15,6 +14,7 @@ import {
   HiLockOpen,
   HiOfficeBuilding,
 } from "react-icons/hi";
+import { Badge } from "./ui/badge";
 
 interface ProductDetailsPageProps {
   product: Product;
@@ -155,6 +155,32 @@ export function ProductDetailsPage({ product }: ProductDetailsPageProps) {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Image Section */}
+      <section className="py-16 bg-gradient-to-br from-white via-slate-50 to-blue-50/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <div className="relative max-w-4xl w-full group">
+              {/* Animated Border Container */}
+              <div className="relative p-2 rounded-lg bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 animate-pulse">
+                <div className="bg-white rounded-lg p-2">
+                  <img
+                    src={product.image || "/images/product-image.jpg"}
+                    alt={product.title}
+                    className="w-full h-auto rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+
+              {/* Animated Corner Elements */}
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full animate-bounce delay-100"></div>
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-400 rounded-full animate-bounce delay-300"></div>
+              <div className="absolute top-1/2 -left-3 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-400 rounded-full animate-bounce delay-500"></div>
+              <div className="absolute top-1/2 -right-3 w-3 h-3 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-bounce delay-700"></div>
             </div>
           </div>
         </div>

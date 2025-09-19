@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import productsData from "@/lib/products.json";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -28,131 +29,15 @@ export function ProductsSection() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<NodeJS.Timeout>();
 
-  const residentialProducts = [
-    {
-      icon: "HiHome",
-      title: "وحدات جاهزة من السوق",
-      description:
-        "تمويل شراء عقار جاهز من السوق سواء كان (فيلا، شقة، عمارة سكنية) أو أحد مشاريع وزارة الإسكان الجاهزة",
-      features: [
-        "فلل وشقق جاهزة",
-        "مشاريع وزارة الإسكان",
-        "تمويل فوري",
-        "إجراءات مبسطة",
-      ],
-      badge: "الأكثر طلباً",
-      gradient: "from-cyan-500 to-blue-500",
-      slug: "ready-market-units",
-    },
-    {
-      icon: "HiLocationMarker",
-      title: "قرض وأرض من السوق",
-      description:
-        "تمويل الأراضي الخارجية من السوق من خلال شراء أرض من السوق وبناء الأرض عن طريق مقاول خارجي معتمد وتوفير باقة كاملة",
-      features: [
-        "شراء الأرض",
-        "البناء بمقاول معتمد",
-        "باقة شاملة",
-        "متابعة المشروع",
-      ],
-      badge: "حل متكامل",
-      gradient: "from-green-500 to-emerald-500",
-      slug: "land-and-loan",
-    },
-    {
-      icon: "HiCog",
-      title: "بيت عظم وقرض",
-      description:
-        "تمويل قرض البيت العظم الذي يملكه العميل واستكمال بناءه على المراحل المتبقية وتوفير باقة كاملة للعميل",
-      features: [
-        "استكمال البناء",
-        "تمويل على مراحل",
-        "للبيوت العظم",
-        "باقة متكاملة",
-      ],
-      badge: "مرونة في السداد",
-      gradient: "from-orange-500 to-red-500",
-      slug: "large-house-loan",
-    },
-    {
-      icon: "HiCog",
-      title: "البناء الذاتي",
-      description:
-        "تمويل بناء ذاتي لمن لديه أرض ويرغب ببناء منزله حسب رغبته، وذلك من خلال تمويل عقاري على دفعات عبر جهات معتمدة",
-      features: [
-        "بناء حسب الرغبة",
-        "تمويل على دفعات",
-        "جهات معتمدة",
-        "مرونة في التصميم",
-      ],
-      badge: "تصميم مخصص",
-      gradient: "from-purple-500 to-pink-500",
-      slug: "self-build",
-    },
-    {
-      icon: "HiOfficeBuilding",
-      title: "وحدة تحت الإنشاء",
-      description:
-        "تمويل شراء عقار تحت الإنشاء (عظم) سواء كان (فيلا، شقة، دبلكس) المقدمة من خلال العميل أو مقاولين معتمدين",
-      features: [
-        "عقارات تحت الإنشاء",
-        "فلل ودبلكس",
-        "مقاولين معتمدين",
-        "أسعار تنافسية",
-      ],
-      badge: "وفر أكثر",
-      gradient: "from-teal-500 to-cyan-500",
-      slug: "unit-under-construction",
-    },
-  ];
+  // Filter products by category from JSON data
+  const residentialProducts = productsData.filter(
+    (product) => product.category === "residential"
+  );
 
-  const financialProducts = [
-    {
-      icon: "HiLockOpen",
-      title: "فك العقار المرهون",
-      description:
-        "فك الرهن عن العقار المرهون للبنوك (حسب السياسة) وإعادة التمويل، المنتج متاح لجميع العملاء",
-      features: [
-        "فك الرهن البنكي",
-        "إعادة التمويل",
-        "شروط أفضل",
-        "لجميع العملاء",
-      ],
-      badge: "حرية مالية",
-      gradient: "from-red-500 to-pink-500",
-      slug: "property-mortgage-release",
-    },
-    {
-      icon: "HiLockClosed",
-      title: "رهن العقار الحر",
-      description:
-        "رهن العقار الحر والمملوك للعميل (شقة- فيلا-عمارة) شريطة أن يكون العقار سكنياً وأن لا يتجاوز عمر العقار 20 سنة",
-      features: [
-        "عقارات حرة",
-        "عمر العقار أقل من 20 سنة",
-        "سكني فقط",
-        "سيولة فورية",
-      ],
-      badge: "سيولة سريعة",
-      gradient: "from-indigo-500 to-purple-500",
-      slug: "free-property-mortgage",
-    },
-    {
-      icon: "HiBriefcase",
-      title: "تمويل قطاع الأعمال",
-      description:
-        "يتم تمويل قطاع الأعمال للمنشآت الصغيرة أو المتوسطة أو الكبيرة عن طريق عدة برامج مرنة تخدم أغلب شرائح قطاع الأعمال",
-      features: [
-        "منشآت صغيرة ومتوسطة",
-        "برامج مرنة",
-        "جميع القطاعات",
-        "حلول مخصصة",
-      ],
-      badge: "نمو الأعمال",
-      gradient: "from-yellow-500 to-orange-500",
-      slug: "business-sector-funding",
-    },
-  ];
+  // Filter products by category from JSON data
+  const financialProducts = productsData.filter(
+    (product) => product.category === "financial"
+  );
 
   const currentProducts =
     activeTab === "residential" ? residentialProducts : financialProducts;
@@ -231,10 +116,25 @@ export function ProductsSection() {
       case "HiLocationMarker":
         // @ts-ignore - React Icons type issue
         return <HiLocationMarker className="w-5 h-5 text-white" />;
+      case "HiMap":
+        // @ts-ignore - React Icons type issue
+        return <HiLocationMarker className="w-5 h-5 text-white" />;
       case "HiCog":
         // @ts-ignore - React Icons type issue
         return <HiCog className="w-5 h-5 text-white" />;
+      case "HiWrench":
+        // @ts-ignore - React Icons type issue
+        return <HiCog className="w-5 h-5 text-white" />;
       case "HiOfficeBuilding":
+        // @ts-ignore - React Icons type issue
+        return <HiOfficeBuilding className="w-5 h-5 text-white" />;
+      case "HiBuildingOffice":
+        // @ts-ignore - React Icons type issue
+        return <HiOfficeBuilding className="w-5 h-5 text-white" />;
+      case "HiBuildingOffice2":
+        // @ts-ignore - React Icons type issue
+        return <HiOfficeBuilding className="w-5 h-5 text-white" />;
+      case "HiBuildingStorefront":
         // @ts-ignore - React Icons type issue
         return <HiOfficeBuilding className="w-5 h-5 text-white" />;
       case "HiLockOpen":
@@ -246,8 +146,18 @@ export function ProductsSection() {
       case "HiBriefcase":
         // @ts-ignore - React Icons type issue
         return <HiBriefcase className="w-5 h-5 text-white" />;
+      case "HiCreditCard":
+        // @ts-ignore - React Icons type issue
+        return <HiBriefcase className="w-5 h-5 text-white" />;
+      case "HiTruck":
+        // @ts-ignore - React Icons type issue
+        return <HiBriefcase className="w-5 h-5 text-white" />;
+      case "HiChartBar":
+        // @ts-ignore - React Icons type issue
+        return <HiBriefcase className="w-5 h-5 text-white" />;
       default:
-        return null;
+        // @ts-ignore - React Icons type issue
+        return <HiHome className="w-5 h-5 text-white" />;
     }
   };
 
@@ -255,10 +165,10 @@ export function ProductsSection() {
     <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative flex-shrink-0 w-full">
       <div className="relative h-40 overflow-hidden">
         <Image
-          src="/images/product-image.jpg"
-          alt="Luxury Housing Product"
+          src={product.image || "/images/product-image.jpg"}
+          alt={product.title || "Luxury Housing Product"}
           fill
-          className="object-contain p-2 group-hover:scale-105 transition-transform duration-700"
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute top-2 right-2 rtl:right-2 rtl:left-auto z-20">
           <Badge className="bg-slate-900 text-white border-0 shadow-xl backdrop-blur-sm font-semibold text-xs px-2 py-1 rounded-full relative overflow-hidden">
@@ -311,9 +221,9 @@ export function ProductsSection() {
 
         <div className="relative mt-3">
           <Link
-            href={`/products/${
+            href={`/products/${encodeURIComponent(
               product.slug || product.title.replace(/\s+/g, "-").toLowerCase()
-            }`}
+            )}`}
           >
             <Button
               size="sm"

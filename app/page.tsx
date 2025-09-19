@@ -7,6 +7,7 @@ import { VisionMissionSection } from "@/components/vision-mission-section";
 
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import { GoogleMapsSection } from "@/components/google-maps-section";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import WhatsAppFloat from "@/components/whatsapp-float";
@@ -35,6 +36,10 @@ export default function HomePage() {
 
       <ScrollAnimation animation="fadeInUp" delay={400}>
         <ContactSection />
+      </ScrollAnimation>
+
+      <ScrollAnimation animation="fadeInUp" delay={500}>
+        <GoogleMapsSection />
       </ScrollAnimation>
 
       <Footer />

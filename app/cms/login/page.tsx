@@ -29,7 +29,7 @@ export default function CMSLoginPage() {
     setError("");
 
     // Hard-coded credentials check
-    if (email === "info@admin.com" && password === "12345678") {
+    if (email === "info@luxuryhousing.sa" && password === "12345678") {
       // Store login state in localStorage
       localStorage.setItem("cms_logged_in", "true");
       localStorage.setItem(
@@ -138,20 +138,6 @@ export default function CMSLoginPage() {
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
-
-              <div className="mt-6 p-4 bg-slate-50 rounded-lg">
-                <h4 className="text-sm font-semibold text-slate-700 mb-2">
-                  Demo Credentials:
-                </h4>
-                <div className="text-xs text-slate-600 space-y-1">
-                  <p>
-                    <strong>Email:</strong> info@admin.com
-                  </p>
-                  <p>
-                    <strong>Password:</strong> 12345678
-                  </p>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </ScrollAnimation>

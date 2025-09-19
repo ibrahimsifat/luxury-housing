@@ -28,6 +28,7 @@ import {
   Target,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import Footer from "./footer";
@@ -211,146 +212,66 @@ export function ContactUsSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,215,0,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_70%)]" />
 
-        {/* Floating Particles */}
-        {Array.from({ length: 12 }).map((_, i) => (
+        {/* Floating Particles - Reduced */}
+        {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-amber-400/30 to-yellow-400/30 rounded-full"
+            className="absolute w-2 h-2 bg-gradient-to-r from-amber-400/20 to-yellow-400/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
+              y: [0, -15, 0],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: 4 + Math.random() * 4,
+              duration: 6,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 3,
               ease: "easeInOut",
             }}
           />
         ))}
 
-        {/* Animated Geometric Shapes */}
-        <motion.div
-          className="absolute top-20 right-20 w-16 h-16 border-2 border-amber-400/20 rounded-lg rotate-45"
-          animate={{
-            rotate: [45, 405, 45],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.4, 0.8, 0.4],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        {/* Static Geometric Shapes */}
+        <div className="absolute top-20 right-20 w-16 h-16 border-2 border-amber-400/20 rounded-lg rotate-45 opacity-30" />
+        <div className="absolute bottom-20 left-20 w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full opacity-40" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-16">
           <motion.div
             className="text-center text-white"
             variants={itemVariants}
           >
-            {/* Premium Badge */}
-            <motion.div
-              className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-amber-600/20 to-yellow-600/20 backdrop-blur-xl rounded-full border border-amber-400/40 shadow-2xl mb-8"
-              whileHover={{ scale: 1.05, y: -2 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="flex items-center space-x-2 space-x-reverse"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+            {/* Premium Badge - Simplified */}
+            <div className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-amber-600/20 to-yellow-600/20 backdrop-blur-xl rounded-full border border-amber-400/40 shadow-2xl mb-8">
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <div className="w-2 h-2 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full" />
+                <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full" />
+                <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-red-400 rounded-full" />
+              </div>
+              <Link
+                href="/contact"
+                className="text-sm font-bold text-amber-300 px-6 py-3 bg-white/10 rounded-full shadow-lg"
               >
-                <motion.div
-                  className="w-2 h-2 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full"
-                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
-                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                />
-                <motion.div
-                  className="w-2 h-2 bg-gradient-to-r from-orange-400 to-red-400 rounded-full"
-                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
-                />
-              </motion.div>
-              <span className="text-sm font-bold text-amber-300 px-6 py-3 bg-white/10 rounded-full shadow-lg">
                 تواصل معنا
-              </span>
-            </motion.div>
+              </Link>
+            </div>
 
-            {/* Premium Title */}
-            <motion.h1
-              className="text-6xl md:text-7xl font-bold mb-8 text-balance text-white"
-              variants={itemVariants}
-            >
-              <motion.span
-                className="block"
-                animate={{ opacity: [1, 0.8, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                نحن هنا لخدمتك
-              </motion.span>
-              <motion.span
-                className="block text-transparent bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  backgroundSize: "200% 200%",
-                }}
-              >
+            {/* Premium Title - Simplified */}
+            <h1 className="text-6xl md:text-7xl font-bold mb-8 text-balance text-white">
+              <span className="block">نحن هنا لخدمتك</span>
+              <span className="block text-transparent bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text">
                 بأفضل الطرق
-              </motion.span>
-            </motion.h1>
+              </span>
+            </h1>
 
-            {/* Animated Divider */}
-            <motion.div
-              className="flex items-center justify-center mb-8"
-              variants={itemVariants}
-            >
-              <motion.div
-                className="w-16 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"
-                animate={{ scaleX: [0, 1, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <motion.div
-                className="w-3 h-3 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full mx-4"
-                animate={{ rotate: 360, scale: [1, 1.2, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-              <motion.div
-                className="w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
-                animate={{ scaleX: [0, 1, 0] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              />
-            </motion.div>
+            {/* Static Divider */}
+            <div className="flex items-center justify-center mb-8">
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+              <div className="w-3 h-3 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full mx-4" />
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
+            </div>
 
             {/* Premium Description */}
             <motion.p
@@ -364,43 +285,25 @@ export function ContactUsSection() {
               </span>
             </motion.p>
 
-            {/* Enhanced Company Stats */}
-            <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto"
-              variants={containerVariants}
-            >
+            {/* Company Stats - Simplified */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
               {companyStats.map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  className="text-center group"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ duration: 0.3 }}
+                  className="text-center group hover:scale-105 transition-transform duration-300"
                 >
-                  <motion.div
-                    className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-xl rounded-3xl mb-4 shadow-2xl group-hover:shadow-3xl group-hover:bg-white/20 transition-all duration-500"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-xl rounded-3xl mb-4 shadow-2xl group-hover:shadow-3xl group-hover:bg-white/20 transition-all duration-500">
                     <stat.icon className="w-10 h-10 text-white group-hover:text-amber-300 transition-colors duration-300" />
-                  </motion.div>
-                  <motion.div
-                    className="text-4xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors duration-300"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: index * 0.2,
-                    }}
-                  >
+                  </div>
+                  <div className="text-4xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors duration-300">
                     {stat.number}
-                  </motion.div>
+                  </div>
                   <div className="text-white/80 text-sm group-hover:text-white transition-colors duration-300">
                     {stat.label}
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -417,71 +320,28 @@ export function ContactUsSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-100/20 to-pink-100/20" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-100/20 to-blue-100/20" />
 
-        {/* Animated Gradient Orbs */}
-        <motion.div
-          className="absolute top-20 right-10 w-48 h-48 bg-gradient-to-br from-cyan-200/20 to-pink-200/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-            x: [0, 20, 0],
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-br from-pink-200/20 to-cyan-200/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.4, 0.7, 0.4],
-            x: [0, -15, 0],
-            y: [0, 15, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-32 h-32 bg-gradient-to-br from-blue-200/15 to-purple-200/15 rounded-full blur-2xl"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.2, 0.5, 0.2],
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 4,
-          }}
-        />
+        {/* Static Gradient Orbs */}
+        <div className="absolute top-20 right-10 w-48 h-48 bg-gradient-to-br from-cyan-200/20 to-pink-200/20 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-br from-pink-200/20 to-cyan-200/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-gradient-to-br from-blue-200/15 to-purple-200/15 rounded-full blur-2xl opacity-30" />
 
-        {/* Floating Particles */}
-        {Array.from({ length: 8 }).map((_, i) => (
+        {/* Floating Particles - Reduced */}
+        {Array.from({ length: 4 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full"
+            className="absolute w-1 h-1 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
+              y: [0, -15, 0],
+              opacity: [0.1, 0.3, 0.1],
             }}
             transition={{
-              duration: 4 + Math.random() * 4,
+              duration: 8,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 4,
               ease: "easeInOut",
             }}
           />
