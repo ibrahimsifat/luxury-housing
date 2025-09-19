@@ -158,16 +158,16 @@ export default function CMSDashboard() {
       {/* Header */}
       <header className="bg-white shadow-lg border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <Settings className="w-6 h-6 text-white" />
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 sm:py-0 sm:h-16 space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                <Settings className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900 font-cairo">
+                <h1 className="text-lg sm:text-xl font-bold text-slate-900 font-cairo">
                   لوحة تحكم إدارة المحتوى
                 </h1>
-                <p className="text-sm text-slate-600">
+                <p className="text-xs sm:text-sm text-slate-600">
                   إدارة محتوى الإسكان الفاخر
                 </p>
               </div>
@@ -175,111 +175,126 @@ export default function CMSDashboard() {
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="text-slate-600 hover:text-slate-900"
+              className="text-slate-600 hover:text-slate-900 text-sm px-3 py-2"
             >
               <LogOut className="w-4 h-4 mr-2" />
-              تسجيل الخروج
+              <span className="hidden sm:inline">تسجيل الخروج</span>
+              <span className="sm:hidden">خروج</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <ScrollAnimation animation="fadeInUp">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-blue-600">
+                    <p className="text-xs sm:text-sm font-medium text-blue-600">
                       إجمالي الخدمات
                     </p>
-                    <p className="text-3xl font-bold text-blue-900">
+                    <p className="text-2xl sm:text-3xl font-bold text-blue-900">
                       {Array.isArray(services) ? services.length : 0}
                     </p>
                   </div>
-                  <Briefcase className="w-8 h-8 text-blue-600" />
+                  <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
                 </div>
               </CardContent>
             </Card>
 
             <Card className="bg-gradient-to-r from-green-50 to-green-100 border-green-200">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-green-600">
+                    <p className="text-xs sm:text-sm font-medium text-green-600">
                       إجمالي المنتجات
                     </p>
-                    <p className="text-3xl font-bold text-green-900">
+                    <p className="text-2xl sm:text-3xl font-bold text-green-900">
                       {Array.isArray(products) ? products.length : 0}
                     </p>
                   </div>
-                  <Package className="w-8 h-8 text-green-600" />
+                  <Package className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                 </div>
               </CardContent>
             </Card>
 
             <Card className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-purple-600">
+                    <p className="text-xs sm:text-sm font-medium text-purple-600">
                       إجمالي العناصر
                     </p>
-                    <p className="text-3xl font-bold text-purple-900">
+                    <p className="text-2xl sm:text-3xl font-bold text-purple-900">
                       {(Array.isArray(services) ? services.length : 0) +
                         (Array.isArray(products) ? products.length : 0)}
                     </p>
                   </div>
-                  <Settings className="w-8 h-8 text-purple-600" />
+                  <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" />
                 </div>
               </CardContent>
             </Card>
           </div>
 
           {/* Tabs */}
-          <div className="bg-white rounded-lg shadow-lg mb-8">
+          <div className="bg-white rounded-lg shadow-lg mb-6 sm:mb-8">
             <div className="border-b border-slate-200">
-              <nav className="flex space-x-8 px-6">
+              <nav className="flex space-x-4 sm:space-x-8 px-4 sm:px-6 overflow-x-auto">
                 <button
                   onClick={() => setActiveTab("services")}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                  className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                     activeTab === "services"
                       ? "border-blue-500 text-blue-600"
                       : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
                   }`}
                 >
-                  <Briefcase className="w-4 h-4 inline mr-2" />
-                  الخدمات ({Array.isArray(services) ? services.length : 0})
+                  <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">
+                    الخدمات ({Array.isArray(services) ? services.length : 0})
+                  </span>
+                  <span className="sm:hidden">الخدمات</span>
                 </button>
                 <button
                   onClick={() => setActiveTab("products")}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                  className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                     activeTab === "products"
                       ? "border-blue-500 text-blue-600"
                       : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
                   }`}
                 >
-                  <Package className="w-4 h-4 inline mr-2" />
-                  المنتجات ({Array.isArray(products) ? products.length : 0})
+                  <Package className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">
+                    المنتجات ({Array.isArray(products) ? products.length : 0})
+                  </span>
+                  <span className="sm:hidden">المنتجات</span>
                 </button>
               </nav>
             </div>
 
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {/* Add New Button */}
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-slate-900">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 space-y-3 sm:space-y-0">
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
                   {activeTab === "services"
                     ? "إدارة الخدمات"
                     : "إدارة المنتجات"}
                 </h2>
-                <Link href={`/cms/${activeTab}/add`}>
-                  <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+                <Link
+                  href={`/cms/${activeTab}/add`}
+                  className="w-full sm:w-auto"
+                >
+                  <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-sm">
                     <Plus className="w-4 h-4 mr-2" />
-                    إضافة{" "}
-                    {activeTab === "services" ? "خدمة جديدة" : "منتج جديد"}
+                    <span className="hidden sm:inline">
+                      إضافة{" "}
+                      {activeTab === "services" ? "خدمة جديدة" : "منتج جديد"}
+                    </span>
+                    <span className="sm:hidden">
+                      إضافة {activeTab === "services" ? "خدمة" : "منتج"}
+                    </span>
                   </Button>
                 </Link>
               </div>
@@ -304,34 +319,54 @@ export default function CMSDashboard() {
                           key={service.id}
                           className="hover:shadow-md transition-shadow"
                         >
-                          <CardContent className="p-6">
-                            <div className="flex items-center justify-between">
-                              <div className="flex-1">
-                                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                          <CardContent className="p-4 sm:p-6">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+                              <div className="flex-1 w-full sm:w-auto">
+                                <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
                                   {service.title}
                                 </h3>
-                                <p className="text-slate-600 mb-3 line-clamp-2">
+                                <p className="text-sm sm:text-base text-slate-600 mb-3 line-clamp-2">
                                   {service.description}
                                 </p>
-                                <div className="flex items-center space-x-4 text-sm text-slate-500">
+                                <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-slate-500">
                                   <span>المعرف: {service.id}</span>
-                                  <span>الرابط: {service.slug}</span>
+                                  <span className="hidden sm:inline">
+                                    الرابط: {service.slug}
+                                  </span>
                                   <span>
                                     الميزات: {service.features.length}
                                   </span>
                                 </div>
                               </div>
-                              <div className="flex items-center space-x-2">
-                                <Link href={`/services/${service.id}`}>
-                                  <Button variant="outline" size="sm">
-                                    <Eye className="w-4 h-4 mr-1" />
-                                    عرض
+                              <div className="flex items-center space-x-2 w-full sm:w-auto">
+                                <Link
+                                  href={`/services/${service.id}`}
+                                  className="flex-1 sm:flex-none"
+                                >
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full sm:w-auto text-xs"
+                                  >
+                                    <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                    <span className="hidden sm:inline">
+                                      عرض
+                                    </span>
                                   </Button>
                                 </Link>
-                                <Link href={`/cms/services/${service.id}/edit`}>
-                                  <Button variant="outline" size="sm">
-                                    <Edit className="w-4 h-4 mr-1" />
-                                    تعديل
+                                <Link
+                                  href={`/cms/services/${service.id}/edit`}
+                                  className="flex-1 sm:flex-none"
+                                >
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full sm:w-auto text-xs"
+                                  >
+                                    <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                    <span className="hidden sm:inline">
+                                      تعديل
+                                    </span>
                                   </Button>
                                 </Link>
                                 <Button
@@ -340,10 +375,10 @@ export default function CMSDashboard() {
                                   onClick={() =>
                                     handleDeleteService(service.id)
                                   }
-                                  className="text-red-600 hover:text-red-700 hover:border-red-300"
+                                  className="flex-1 sm:flex-none text-red-600 hover:text-red-700 hover:border-red-300 w-full sm:w-auto text-xs"
                                 >
-                                  <Trash2 className="w-4 h-4 mr-1" />
-                                  حذف
+                                  <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                  <span className="hidden sm:inline">حذف</span>
                                 </Button>
                               </div>
                             </div>
@@ -362,49 +397,63 @@ export default function CMSDashboard() {
                         key={product.id}
                         className="hover:shadow-md transition-shadow"
                       >
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                        <CardContent className="p-4 sm:p-6">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+                            <div className="flex-1 w-full sm:w-auto">
+                              <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
                                 {product.title}
                               </h3>
-                              <p className="text-slate-600 mb-3 line-clamp-2">
+                              <p className="text-sm sm:text-base text-slate-600 mb-3 line-clamp-2">
                                 {product.description}
                               </p>
-                              <div className="flex items-center space-x-4 text-sm text-slate-500">
+                              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-slate-500">
                                 <span>المعرف: {product.id}</span>
                                 <span>الفئة: {product.category}</span>
-                                <span>
+                                <span className="hidden sm:inline">
                                   المبلغ: {product.minAmount} -{" "}
                                   {product.maxAmount}
                                 </span>
                               </div>
                             </div>
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-2 w-full sm:w-auto">
                               <Link
                                 href={`/products/${encodeURIComponent(
                                   product.slug
                                 )}`}
+                                className="flex-1 sm:flex-none"
                               >
-                                <Button variant="outline" size="sm">
-                                  <Eye className="w-4 h-4 mr-1" />
-                                  View
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full sm:w-auto text-xs"
+                                >
+                                  <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                  <span className="hidden sm:inline">عرض</span>
                                 </Button>
                               </Link>
-                              <Link href={`/cms/products/${product.id}/edit`}>
-                                <Button variant="outline" size="sm">
-                                  <Edit className="w-4 h-4 mr-1" />
-                                  Edit
+                              <Link
+                                href={`/cms/products/${product.id}/edit`}
+                                className="flex-1 sm:flex-none"
+                              >
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full sm:w-auto text-xs"
+                                >
+                                  <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                  <span className="hidden sm:inline">
+                                    تعديل
+                                  </span>
                                 </Button>
                               </Link>
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleDeleteProduct(product.id)}
-                                className="text-red-600 hover:text-red-700 hover:border-red-300"
+                                className="flex-1 sm:flex-none text-red-600 hover:text-red-700 hover:border-red-300 w-full sm:w-auto text-xs"
                               >
-                                <Trash2 className="w-4 h-4 mr-1" />
-                                Delete
+                                <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                <span className="hidden sm:inline">حذف</span>
                               </Button>
                             </div>
                           </div>

@@ -54,23 +54,23 @@ export default function CMSLoginPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] opacity-60"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),transparent_50%)] opacity-60"></div>
 
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-md mx-auto">
         <ScrollAnimation animation="fadeInUp">
           <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0">
-            <CardHeader className="text-center pb-8">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-4">
-                <Lock className="w-8 h-8 text-white" />
+            <CardHeader className="text-center pb-6 sm:pb-8 px-4 sm:px-6">
+              <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                <Lock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <CardTitle className="text-2xl font-bold text-slate-900 font-cairo">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-slate-900 font-cairo">
                 لوحة تحكم إدارة المحتوى
               </CardTitle>
-              <CardDescription className="text-slate-600">
+              <CardDescription className="text-sm sm:text-base text-slate-600">
                 نظام إدارة محتوى الإسكان الفاخر
               </CardDescription>
             </CardHeader>
 
-            <CardContent>
-              <form onSubmit={handleLogin} className="space-y-6">
+            <CardContent className="px-4 sm:px-6">
+              <form onSubmit={handleLogin} className="space-y-4 sm:space-y-6">
                 {error && (
                   <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                     {error}
@@ -132,7 +132,7 @@ export default function CMSLoginPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
                   disabled={isLoading}
                 >
                   {isLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}

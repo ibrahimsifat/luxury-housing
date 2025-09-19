@@ -139,35 +139,42 @@ export default function AddServicePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <ScrollAnimation animation="fadeInUp">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Link href="/cms/dashboard">
-                <Button variant="outline" size="sm">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs sm:text-sm"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  العودة للوحة التحكم
+                  <span className="hidden sm:inline">العودة للوحة التحكم</span>
+                  <span className="sm:hidden">العودة</span>
                 </Button>
               </Link>
               <div>
-                <h1 className="text-3xl font-bold text-slate-900 font-cairo">
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-cairo">
                   إضافة خدمة جديدة
                 </h1>
-                <p className="text-slate-600">إنشاء خدمة جديدة لموقعك</p>
+                <p className="text-sm sm:text-base text-slate-600">
+                  إنشاء خدمة جديدة لموقعك
+                </p>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
             {/* Basic Information */}
             <Card>
               <CardHeader>
                 <CardTitle>المعلومات الأساسية</CardTitle>
                 <CardDescription>أدخل التفاصيل الأساسية للخدمة</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <Label htmlFor="title">عنوان الخدمة *</Label>
                     <Input
@@ -220,7 +227,7 @@ export default function AddServicePage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div>
                     <Label htmlFor="gradient">التدرج اللوني</Label>
                     <Input
@@ -499,16 +506,20 @@ export default function AddServicePage() {
             )}
 
             {/* Submit Button */}
-            <div className="flex justify-end space-x-4">
-              <Link href="/cms/dashboard">
-                <Button type="button" variant="outline">
+            <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4">
+              <Link href="/cms/dashboard" className="w-full sm:w-auto">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full sm:w-auto"
+                >
                   إلغاء
                 </Button>
               </Link>
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
               >
                 {isLoading ? "جاري الإنشاء..." : "إنشاء الخدمة"}
               </Button>
