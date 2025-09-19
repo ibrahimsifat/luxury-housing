@@ -11,10 +11,29 @@ import { GoogleMapsSection } from "@/components/google-maps-section";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import WhatsAppFloat from "@/components/whatsapp-float";
+import { generateStructuredData } from "@/lib/seo";
 
 export default function HomePage() {
+  // Generate structured data for the organization
+  const organizationStructuredData = generateStructuredData("Organization", {});
+  const websiteStructuredData = generateStructuredData("WebSite", {});
+
   return (
     <div className="min-h-screen" dir="rtl">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteStructuredData),
+        }}
+      />
+
       <Header />
       <HeroSection />
 

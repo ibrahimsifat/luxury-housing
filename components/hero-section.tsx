@@ -195,6 +195,8 @@ export function HeroSection() {
       id="home"
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-700"
+      role="banner"
+      aria-label="الصفحة الرئيسية - الإسكان الفاخر"
     >
       <div className="absolute inset-0 z-0">
         {/* Dynamic background images */}
@@ -410,7 +412,10 @@ export function HeroSection() {
             </motion.div>
 
             <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance leading-tight">
+              <h1
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance leading-tight"
+                itemProp="name"
+              >
                 <motion.div
                   className="block text-white mb-2"
                   initial={{ opacity: 0, y: 20 }}

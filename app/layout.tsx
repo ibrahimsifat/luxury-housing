@@ -1,3 +1,4 @@
+import { seoConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import type React from "react";
@@ -11,12 +12,67 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "شركة لوكسري هاوسينغ للحلول العقارية | Luxury Housing",
-  description:
-    "مستشار تمويل عقاري معتمد من الهيئة العامة للعقار - نحقق أحلامكم في تملك المسكن المثالي",
-  generator: "v0.app",
-  keywords:
-    "تمويل عقاري, شراء منزل, الهيئة العامة للعقار, السعودية, لوكسري هاوسينغ",
+  title: {
+    default: seoConfig.siteName,
+    template: `%s | ${seoConfig.siteName}`,
+  },
+  description: seoConfig.description,
+  keywords: seoConfig.keywords,
+  authors: [{ name: seoConfig.author }],
+  creator: seoConfig.author,
+  publisher: seoConfig.author,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL(seoConfig.url),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "ar-SA": "/",
+      "en-US": "/en",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "ar_SA",
+    url: seoConfig.url,
+    title: seoConfig.siteName,
+    description: seoConfig.description,
+    siteName: seoConfig.siteName,
+    images: [
+      {
+        url: seoConfig.logo,
+        width: 1200,
+        height: 630,
+        alt: seoConfig.siteName,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seoConfig.siteName,
+    description: seoConfig.description,
+    images: [seoConfig.logo],
+    creator: seoConfig.twitter,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
+  },
 };
 
 export default function RootLayout({

@@ -298,7 +298,12 @@ export function ProductsSection() {
   };
 
   return (
-    <section id="products" className="py-24 relative overflow-hidden">
+    <section
+      id="products"
+      className="py-24 relative overflow-hidden"
+      role="region"
+      aria-label="منتجاتنا"
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 via-white to-blue-50/30"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-100/20 to-pink-100/20"></div>
       <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-cyan-200/15 to-pink-200/15 rounded-full blur-2xl animate-float"></div>

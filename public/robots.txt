@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://luxuryhousing.sa/sitemap.xml
+
+# Disallow admin and CMS pages
+Disallow: /cms/
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /products/
+Allow: /services/
+Allow: /contact/
+Allow: /about/
+
+# Crawl delay (optional)
+Crawl-delay: 1
