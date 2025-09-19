@@ -1,5 +1,7 @@
 import { ProductDetailsPage } from "@/components/product-details-page";
 import productsData from "@/lib/products.json";
+import { generateStructuredData } from "@/lib/seo";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface ProductPageProps {
@@ -48,7 +50,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: "product",
+      type: "website",
       url: `https://luxuryhousing.sa/products/${params.slug}`,
       images: product.image
         ? [
