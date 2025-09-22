@@ -1,3 +1,5 @@
+"use client";
+
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
@@ -10,6 +12,8 @@ import WhatsAppFloat from "@/components/whatsapp-float";
 import productsData from "@/lib/products.json";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   FiCheckCircle,
   FiDollarSign,
@@ -21,13 +25,46 @@ import {
 import { HiOutlineSparkles } from "react-icons/hi";
 
 export default function ProductsPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState("all");
+
   const allProducts = productsData;
-  const residentialProducts = productsData.filter(
-    (product: any) => product.category === "residential"
+
+  // New categories based on the organizational chart
+  const businessFinancingProducts = productsData.filter(
+    (product: any) => product.category === "business-financing"
   );
-  const financialProducts = productsData.filter(
-    (product: any) => product.category === "financial"
+  const personalFinancingProducts = productsData.filter(
+    (product: any) => product.category === "personal-financing"
   );
+  const realEstateRefinancingProducts = productsData.filter(
+    (product: any) => product.category === "real-estate-refinancing"
+  );
+  const mortgageProducts = productsData.filter(
+    (product: any) => product.category === "mortgage"
+  );
+  const realEstateFinancingProducts = productsData.filter(
+    (product: any) => product.category === "real-estate-financing"
+  );
+
+  // Handle URL parameters to set active tab
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setActiveTab(category);
+    }
+  }, [searchParams]);
+
+  // Handle tab change and update URL
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    if (value === "all") {
+      router.push("/products");
+    } else {
+      router.push(`/products?category=${value}`);
+    }
+  };
 
   const ProductCard = ({ product, index }: { product: any; index: number }) => {
     return (
@@ -172,29 +209,56 @@ export default function ProductsPage() {
       {/* Products Section */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs defaultValue="all" className="w-full">
+          <Tabs
+            value={activeTab}
+            onValueChange={handleTabChange}
+            className="w-full"
+          >
             <div className="flex justify-center mb-8 md:mb-12 px-4">
-              <TabsList className="grid grid-cols-3 w-full max-w-2xl bg-white/80 backdrop-blur-md shadow-lg border-0 h-12 md:h-14">
+              <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full max-w-6xl bg-white/80 backdrop-blur-md shadow-lg border-0 h-12 md:h-14 gap-1 overflow-x-auto scrollbar-hide">
                 <TabsTrigger
                   value="all"
-                  className="text-xs md:text-base font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 md:px-4"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
                 >
                   <span className="hidden sm:inline">جميع المنتجات</span>
                   <span className="sm:hidden">الكل</span>
                 </TabsTrigger>
                 <TabsTrigger
-                  value="residential"
-                  className="text-xs md:text-base font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 md:px-4"
+                  value="business-financing"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
                 >
-                  <span className="hidden sm:inline">التمويل السكني</span>
-                  <span className="sm:hidden">سكني</span>
+                  <span className="hidden md:inline">تمويل قطاع الاعمال</span>
+                  <span className="md:hidden">الاعمال</span>
                 </TabsTrigger>
                 <TabsTrigger
-                  value="financial"
-                  className="text-xs md:text-base font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 md:px-4"
+                  value="personal-financing"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
                 >
-                  <span className="hidden sm:inline">الخدمات المالية</span>
-                  <span className="sm:hidden">مالي</span>
+                  <span className="hidden md:inline">التمويل الشخصي</span>
+                  <span className="md:hidden">شخصي</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="real-estate-refinancing"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
+                >
+                  <span className="hidden md:inline">
+                    إعادة التمويل العقاري
+                  </span>
+                  <span className="md:hidden">إعادة تمويل</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="mortgage"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
+                >
+                  <span className="hidden md:inline">الرهن العقاري</span>
+                  <span className="md:hidden">رهن</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="real-estate-financing"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
+                >
+                  <span className="hidden md:inline">التمويل العقاري</span>
+                  <span className="md:hidden">عقاري</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -211,17 +275,17 @@ export default function ProductsPage() {
               </div>
             </TabsContent>
 
-            <TabsContent value="residential" className="space-y-8">
+            <TabsContent value="business-financing" className="space-y-8">
               <div className="text-center mb-8 md:mb-12 px-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-                  منتجات التمويل السكني
+                  تمويل قطاع الاعمال
                 </h2>
                 <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
-                  حلول تمويلية متكاملة لتحقيق حلم امتلاك المنزل المثالي
+                  حلول تمويلية متخصصة لدعم نمو وتوسع أعمالكم التجارية
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {residentialProducts.map((product, index) => (
+                {businessFinancingProducts.map((product, index) => (
                   <ProductCard
                     key={product.id}
                     product={product}
@@ -231,17 +295,77 @@ export default function ProductsPage() {
               </div>
             </TabsContent>
 
-            <TabsContent value="financial" className="space-y-8">
+            <TabsContent value="personal-financing" className="space-y-8">
               <div className="text-center mb-8 md:mb-12 px-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-                  الخدمات المالية
+                  التمويل الشخصي
                 </h2>
                 <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
-                  خدمات مالية متخصصة لتحسين وضعكم المالي وتحقيق أهدافكم
+                  حلول تمويلية شخصية لتحقيق أهدافكم المالية الشخصية
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {financialProducts.map((product, index) => (
+                {personalFinancingProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="real-estate-refinancing" className="space-y-8">
+              <div className="text-center mb-8 md:mb-12 px-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  إعادة التمويل العقاري
+                </h2>
+                <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
+                  حلول إعادة التمويل لتحسين شروط تمويلكم العقاري الحالي
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {realEstateRefinancingProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="mortgage" className="space-y-8">
+              <div className="text-center mb-8 md:mb-12 px-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  الرهن العقاري
+                </h2>
+                <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
+                  حلول الرهن العقاري لتمويل مشاريعكم العقارية
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {mortgageProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="real-estate-financing" className="space-y-8">
+              <div className="text-center mb-8 md:mb-12 px-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  التمويل العقاري
+                </h2>
+                <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
+                  حلول تمويلية شاملة لتحقيق حلم امتلاك العقارات
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {realEstateFinancingProducts.map((product, index) => (
                   <ProductCard
                     key={product.id}
                     product={product}

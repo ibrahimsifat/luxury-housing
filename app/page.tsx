@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/about-section";
+import { ClientsSection } from "@/components/clients-section";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
 import { ProductsSection } from "@/components/products-section";
@@ -45,19 +46,23 @@ export default function HomePage() {
         <VisionMissionSection />
       </ScrollAnimation>
 
-      <ScrollAnimation animation="fadeInUp" delay={300}>
+      <ScrollAnimation animation="fadeInUp" delay={200}>
         <ProductsSection />
       </ScrollAnimation>
 
-      <ScrollAnimation animation="fadeInUp" delay={200}>
+      <ScrollAnimation animation="fadeInUp" delay={300}>
         <ServicesSection />
       </ScrollAnimation>
 
       <ScrollAnimation animation="fadeInUp" delay={400}>
-        <ContactSection />
+        <ClientsSection />
       </ScrollAnimation>
 
       <ScrollAnimation animation="fadeInUp" delay={500}>
+        <ContactSection />
+      </ScrollAnimation>
+
+      <ScrollAnimation animation="fadeInUp" delay={600}>
         <GoogleMapsSection />
       </ScrollAnimation>
 

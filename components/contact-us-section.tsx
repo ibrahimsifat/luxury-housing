@@ -124,25 +124,25 @@ export function ContactUsSection() {
   const companyStats = [
     {
       icon: Building2,
-      number: "500+",
+      number: 500,
       label: "عقار تم تمويله",
       color: "text-primary",
     },
     {
       icon: Users,
-      number: "1000+",
+      number: 1000,
       label: "عميل راضي",
       color: "text-accent",
     },
     {
       icon: Award,
-      number: "15+",
+      number: 15,
       label: "سنة خبرة",
       color: "text-primary",
     },
     {
       icon: Globe,
-      number: "25+",
+      number: 25,
       label: "مدينة نخدمها",
       color: "text-accent",
     },
@@ -296,7 +296,12 @@ export function ContactUsSection() {
                     <stat.icon className="w-10 h-10 text-white group-hover:text-amber-300 transition-colors duration-300" />
                   </div>
                   <div className="text-4xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors duration-300">
-                    {stat.number}
+                    <AnimatedCounter
+                      end={stat.number}
+                      suffix="+"
+                      duration={2.5}
+                      delay={index * 0.2}
+                    />
                   </div>
                   <div className="text-white/80 text-sm group-hover:text-white transition-colors duration-300">
                     {stat.label}

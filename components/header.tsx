@@ -1,8 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import {
+  Award,
+  Building,
+  Building2,
+  Eye,
+  Heart,
+  Home,
+  Menu,
+  RefreshCw,
+  Target,
+  User,
+  Users,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -25,11 +39,79 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const aboutUsItems = [
+    {
+      name: "نظرة عامة",
+      href: "/about#overview",
+      icon: <Eye className="w-4 h-4" />,
+    },
+    {
+      name: "الرسالة",
+      href: "/about#mission",
+      icon: <Target className="w-4 h-4" />,
+    },
+    {
+      name: "الرؤية",
+      href: "/about#vision",
+      icon: <Eye className="w-4 h-4" />,
+    },
+    {
+      name: "الأهداف",
+      href: "/about#goals",
+      icon: <Award className="w-4 h-4" />,
+    },
+    {
+      name: "القيم",
+      href: "/about#values",
+      icon: <Heart className="w-4 h-4" />,
+    },
+    {
+      name: "فريق العمل",
+      href: "/about#team",
+      icon: <Users className="w-4 h-4" />,
+    },
+  ];
+
+  const productsItems = [
+    {
+      name: "جميع المنتجات",
+      href: "/products",
+      icon: <Award className="w-4 h-4" />,
+    },
+    {
+      name: "تمويل قطاع الاعمال",
+      href: "/products?category=business-financing",
+      icon: <Building2 className="w-4 h-4" />,
+    },
+    {
+      name: "التمويل الشخصي",
+      href: "/products?category=personal-financing",
+      icon: <User className="w-4 h-4" />,
+    },
+    {
+      name: "إعادة التمويل العقاري",
+      href: "/products?category=real-estate-refinancing",
+      icon: <RefreshCw className="w-4 h-4" />,
+    },
+    {
+      name: "الرهن العقاري",
+      href: "/products?category=mortgage",
+      icon: <Home className="w-4 h-4" />,
+    },
+    {
+      name: "التمويل العقاري",
+      href: "/products?category=real-estate-financing",
+      icon: <Building className="w-4 h-4" />,
+    },
+  ];
+
   const navItems = [
-    { name: "الرئيسية", href: "/" },
-    { name: "من نحن", href: "/about" },
-    { name: "خدماتنا", href: "/services" },
-    { name: "منتجاتنا", href: "/products" },
+    { name: "الخدمات", href: "/services" },
+    { name: "تقدم بطلبك الان", href: "/contact" },
+    { name: "معرض الصور", href: "/gallery" },
+    { name: "شركاء النجاح", href: "/#clients" },
+    { name: "جديدنا", href: "/news" },
+    { name: "الأسئلة الشائعة", href: "/faq" },
     { name: "تواصل معنا", href: "/contact" },
   ];
 
@@ -107,17 +189,71 @@ export default function Header() {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-4">
+              {/* Home Link */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Link
+                  href="/"
+                  className={`font-semibold text-sm transition-all duration-300 hover:scale-105 relative group px-2 py-2 rounded-lg whitespace-nowrap ${
+                    isScrolled
+                      ? "text-slate-800 hover:text-blue-600 hover:bg-blue-50"
+                      : "text-white hover:text-blue-200 hover:bg-white/10 drop-shadow-lg"
+                  }`}
+                >
+                  الرئيسية
+                  <motion.span
+                    className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                      isScrolled ? "bg-blue-600" : "bg-blue-200"
+                    }`}
+                    whileHover={{ width: "100%" }}
+                  />
+                </Link>
+              </motion.div>
+
+              {/* About Us Dropdown - Right after Home */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.05 }}
+              >
+                <DropdownMenu
+                  title="من نحن"
+                  items={aboutUsItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
+
+              {/* Products Dropdown */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.1 }}
+              >
+                <DropdownMenu
+                  title="المنتجات"
+                  items={productsItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
+
+              {/* Other Navigation Items */}
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.name}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.3 + (index + 3) * 0.05,
+                  }}
                 >
                   <Link
                     href={item.href}
-                    className={`font-semibold text-base transition-all duration-300 hover:scale-105 relative group px-3 py-2 rounded-lg ${
+                    className={`font-semibold text-sm transition-all duration-300 hover:scale-105 relative group px-2 py-2 rounded-lg whitespace-nowrap ${
                       isScrolled
                         ? "text-slate-800 hover:text-blue-600 hover:bg-blue-50"
                         : "text-white hover:text-blue-200 hover:bg-white/10 drop-shadow-lg"
@@ -274,6 +410,140 @@ export default function Header() {
 
               <div className="relative z-10 p-6">
                 <nav className="flex flex-col space-y-3">
+                  {/* Home Link */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      rotateY: 5,
+                      z: 50,
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href="/"
+                      className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                        isScrolled
+                          ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                          : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <span className="relative z-10">الرئيسية</span>
+                    </Link>
+                  </motion.div>
+
+                  {/* About Us Section in Mobile */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
+                      من نحن
+                    </div>
+                    {aboutUsItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay: 0.1 + (index + 1) * 0.1,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          rotateY: 5,
+                          z: 50,
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href={item.href}
+                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                            isScrolled
+                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="relative z-10 flex items-center gap-3">
+                            {item.icon}
+                            {item.name}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Products Section in Mobile */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1 + (aboutUsItems.length + 1) * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
+                      المنتجات
+                    </div>
+                    {productsItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay:
+                            0.1 +
+                            (aboutUsItems.length + 1) * 0.1 +
+                            (index + 1) * 0.1,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          rotateY: 5,
+                          z: 50,
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href={item.href}
+                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                            isScrolled
+                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="relative z-10 flex items-center gap-3">
+                            {item.icon}
+                            {item.name}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Other Navigation Items */}
                   {navItems.map((item, index) => {
                     const isActive =
                       typeof window !== "undefined" &&
@@ -286,7 +556,11 @@ export default function Header() {
                         animate={{ opacity: 1, x: 0, rotateY: 0 }}
                         transition={{
                           duration: 0.4,
-                          delay: index * 0.1,
+                          delay:
+                            0.1 +
+                            (aboutUsItems.length + productsItems.length + 2) *
+                              0.1 +
+                            index * 0.1,
                           type: "spring",
                           stiffness: 200,
                         }}

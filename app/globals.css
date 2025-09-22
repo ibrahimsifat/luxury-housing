@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Updated color tokens to match luxury real estate design brief */
   --background: #ffffff; /* White background */
@@ -469,7 +474,12 @@ html {
 }
 
 .animate-shimmer-success {
-  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 197, 94, 0.4),
+    transparent
+  );
   background-size: 200% 100%;
   animation: shimmerSuccess 2s infinite;
 }
@@ -487,7 +497,11 @@ html {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(34, 197, 94, 0.1) 0%,
+    transparent 70%
+  );
   animation: ripple 2s ease-out;
   pointer-events: none;
 }
@@ -558,4 +572,13 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }

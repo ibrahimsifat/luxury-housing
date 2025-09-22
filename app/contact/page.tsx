@@ -1,3 +1,5 @@
+"use client";
+
 import { ContactUsSection } from "@/components/contact-us-section";
 import Header from "@/components/header";
 
