@@ -6,22 +6,21 @@ import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
-    slug: string;
+    slug: string; // This will now be the id
   };
 }
 
 export async function generateStaticParams() {
   return productsData.map((product: any) => ({
-    slug: encodeURIComponent(product.slug),
+    slug: product.id,
   }));
 }
 
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
-  // Decode the URL-encoded slug
-  const decodedSlug = decodeURIComponent(params.slug);
-  const product = productsData.find((p: any) => p.slug === decodedSlug);
+  // Find product by id
+  const product = productsData.find((p: any) => p.id === params.slug);
 
   if (!product) {
     return {
@@ -76,9 +75,8 @@ export async function generateMetadata({
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  // Decode the URL-encoded slug
-  const decodedSlug = decodeURIComponent(params.slug);
-  const product = productsData.find((p: any) => p.slug === decodedSlug);
+  // Find product by id
+  const product = productsData.find((p: any) => p.id === params.slug);
 
   if (!product) {
     notFound();

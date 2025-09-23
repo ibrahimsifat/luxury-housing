@@ -41,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Product pages
   const productPages = productsData.map((product) => ({
-    url: `${baseUrl}/products/${encodeURIComponent(product.slug)}`,
+    url: `${baseUrl}/products/${product.id}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -49,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Service pages
   const servicePages = servicesData.map((service) => ({
-    url: `${baseUrl}/services/${encodeURIComponent(service.slug)}`,
+    url: `${baseUrl}/services/${service.id}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,

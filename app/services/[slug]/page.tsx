@@ -6,22 +6,21 @@ import { notFound } from "next/navigation";
 
 interface ServicePageProps {
   params: {
-    slug: string;
+    slug: string; // This will now be the id
   };
 }
 
 export async function generateStaticParams() {
   return servicesData.map((service: any) => ({
-    slug: encodeURIComponent(service.slug),
+    slug: service.id,
   }));
 }
 
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
-  // Decode the URL-encoded slug
-  const decodedSlug = decodeURIComponent(params.slug);
-  const service = servicesData.find((s: any) => s.slug === decodedSlug);
+  // Find service by id
+  const service = servicesData.find((s: any) => s.id === params.slug);
 
   if (!service) {
     return {
@@ -64,9 +63,8 @@ export async function generateMetadata({
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  // Decode the URL-encoded slug
-  const decodedSlug = decodeURIComponent(params.slug);
-  const service = servicesData.find((s: any) => s.slug === decodedSlug);
+  // Find service by id
+  const service = servicesData.find((s: any) => s.id === params.slug);
 
   if (!service) {
     notFound();

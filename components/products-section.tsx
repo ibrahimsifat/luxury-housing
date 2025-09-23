@@ -140,11 +140,7 @@ export function ProductsSection() {
         </div>
 
         <div className="relative mt-auto pt-3">
-          <Link
-            href={`/products/${encodeURIComponent(
-              product.slug || product.title.replace(/\s+/g, "-").toLowerCase()
-            )}`}
-          >
+          <Link href={`/products/${product.id}`}>
             <Button
               size="sm"
               className="w-full py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-cairo font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]"
