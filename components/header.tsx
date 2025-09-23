@@ -123,7 +123,7 @@ export default function Header() {
     },
     {
       name: "حلول توحيد الاقساط",
-      href: "/services/توحيد-الاقساط",
+      href: "/services/installment-unification",
       icon: <RefreshCw className="w-4 h-4" />,
     },
     {
@@ -133,7 +133,7 @@ export default function Header() {
     },
     {
       name: "حلول تقفيل المديونيات",
-      href: "/services/تقفيل-المديونيات",
+      href: "/services/debt-settlement",
       icon: <Building className="w-4 h-4" />,
     },
   ];
