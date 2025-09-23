@@ -205,16 +205,16 @@ export async function sendEmail(type: EmailType, data: FormData) {
 
     // Email subjects in Arabic
     const subjects = {
-      hero: "طلب استشارة مجانية جديد - شركة لوكسري هاوسينغ",
-      contact: "رسالة تواصل جديدة - شركة لوكسري هاوسينغ",
-      product: "استفسار منتج تمويلي جديد - شركة لوكسري هاوسينغ",
-      service: "استفسار خدمة جديد - شركة لوكسري هاوسينغ",
-      "personal-financing": "طلب تمويل شخصي جديد - شركة لوكسري هاوسينغ",
-      "real-estate-financing": "طلب تمويل عقاري جديد - شركة لوكسري هاوسينغ",
-      "business-sector": "طلب تمويل قطاع الاعمال جديد - شركة لوكسري هاوسينغ",
+      hero: "طلب استشارة مجانية جديد - شركة لوكسري هاوسينج",
+      contact: "رسالة تواصل جديدة - شركة لوكسري هاوسينج",
+      product: "استفسار منتج تمويلي جديد - شركة لوكسري هاوسينج",
+      service: "استفسار خدمة جديد - شركة لوكسري هاوسينج",
+      "personal-financing": "طلب تمويل شخصي جديد - شركة لوكسري هاوسينج",
+      "real-estate-financing": "طلب تمويل عقاري جديد - شركة لوكسري هاوسينج",
+      "business-sector": "طلب تمويل قطاع الاعمال جديد - شركة لوكسري هاوسينج",
       "real-estate-refinancing":
-        "طلب إعادة تمويل عقاري جديد - شركة لوكسري هاوسينغ",
-      "real-estate-mortgage": "طلب رهن عقاري جديد - شركة لوكسري هاوسينغ",
+        "طلب إعادة تمويل عقاري جديد - شركة لوكسري هاوسينج",
+      "real-estate-mortgage": "طلب رهن عقاري جديد - شركة لوكسري هاوسينج",
     };
 
     console.log("[v0] Sending admin notification email");
@@ -373,20 +373,20 @@ async function sendCustomerConfirmation(type: EmailType, data: FormData) {
   try {
     // Arabic confirmation subjects
     const subjects = {
-      hero: "تأكيد استلام طلب الاستشارة - شركة لوكسري هاوسينغ",
-      contact: "تأكيد استلام رسالتك - شركة لوكسري هاوسينغ",
-      product: "تأكيد استلام استفسار المنتج - شركة لوكسري هاوسينغ",
-      service: "تأكيد استلام استفسار الخدمة - شركة لوكسري هاوسينغ",
+      hero: "تأكيد استلام طلب الاستشارة - شركة لوكسري هاوسينج",
+      contact: "تأكيد استلام رسالتك - شركة لوكسري هاوسينج",
+      product: "تأكيد استلام استفسار المنتج - شركة لوكسري هاوسينج",
+      service: "تأكيد استلام استفسار الخدمة - شركة لوكسري هاوسينج",
       "personal-financing":
-        "تأكيد استلام طلب التمويل الشخصي - شركة لوكسري هاوسينغ",
+        "تأكيد استلام طلب التمويل الشخصي - شركة لوكسري هاوسينج",
       "real-estate-financing":
-        "تأكيد استلام طلب التمويل العقاري - شركة لوكسري هاوسينغ",
+        "تأكيد استلام طلب التمويل العقاري - شركة لوكسري هاوسينج",
       "business-sector":
-        "تأكيد استلام طلب تمويل قطاع الاعمال - شركة لوكسري هاوسينغ",
+        "تأكيد استلام طلب تمويل قطاع الاعمال - شركة لوكسري هاوسينج",
       "real-estate-refinancing":
-        "تأكيد استلام طلب إعادة التمويل العقاري - شركة لوكسري هاوسينغ",
+        "تأكيد استلام طلب إعادة التمويل العقاري - شركة لوكسري هاوسينج",
       "real-estate-mortgage":
-        "تأكيد استلام طلب الرهن العقاري - شركة لوكسري هاوسينغ",
+        "تأكيد استلام طلب الرهن العقاري - شركة لوكسري هاوسينج",
     };
 
     // Get service or product name for confirmation
@@ -433,7 +433,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 
   const baseMessage = `عزيزي/عزيزتي ${name}،
 
-شكراً لك على تواصلك مع شركة لوكسري هاوسينغ للحلول العقارية.`;
+شكراً لك على تواصلك مع شركة لوكسري هاوسينج للحلول العقارية.`;
 
   switch (type) {
     case "hero":
@@ -446,7 +446,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ
+فريق شركة لوكسري هاوسينج
 مستشار تمويل عقاري معتمد من الهيئة العامة للعقار`;
 
     case "contact":
@@ -459,7 +459,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "product":
       return `${baseMessage}
@@ -471,7 +471,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "service":
       return `${baseMessage}
@@ -483,7 +483,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "personal-financing":
       return `${baseMessage}
@@ -495,7 +495,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "real-estate-financing":
       return `${baseMessage}
@@ -507,7 +507,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "business-sector":
       return `${baseMessage}
@@ -519,7 +519,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "real-estate-refinancing":
       return `${baseMessage}
@@ -531,7 +531,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     case "real-estate-mortgage":
       return `${baseMessage}
@@ -543,7 +543,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
 
     default:
       return `${baseMessage}
@@ -553,6 +553,6 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 التاريخ: ${currentDate}
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`;
+فريق شركة لوكسري هاوسينج`;
   }
 }

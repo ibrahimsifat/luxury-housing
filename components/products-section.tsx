@@ -3,11 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import productsData from "@/lib/products.json";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { FiCheckCircle, FiExternalLink } from "react-icons/fi";
 import {
   HiBriefcase,
@@ -18,95 +16,15 @@ import {
   HiLockOpen,
   HiOfficeBuilding,
 } from "react-icons/hi";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export function ProductsSection() {
-  const [activeTab, setActiveTab] = useState("residential");
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [cardsPerSlide, setCardsPerSlide] = useState(4);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const autoPlayRef = useRef<NodeJS.Timeout>();
-
-  // Filter products by category from JSON data
-  const residentialProducts = productsData.filter(
-    (product) => product.category === "residential"
-  );
-
-  // Filter products by category from JSON data
-  const financialProducts = productsData.filter(
-    (product) => product.category === "financial"
-  );
-
-  const currentProducts =
-    activeTab === "residential" ? residentialProducts : financialProducts;
-  const totalSlides = Math.ceil(currentProducts.length / cardsPerSlide);
-
-  useEffect(() => {
-    const updateCardsPerSlide = () => {
-      if (window.innerWidth >= 1024) {
-        setCardsPerSlide(4); // Desktop: 4 cards
-      } else if (window.innerWidth >= 768) {
-        setCardsPerSlide(2); // Tablet: 2 cards
-      } else {
-        setCardsPerSlide(1); // Mobile: 1 card
-      }
-    };
-
-    updateCardsPerSlide();
-    window.addEventListener("resize", updateCardsPerSlide);
-    return () => window.removeEventListener("resize", updateCardsPerSlide);
-  }, []);
-
-  useEffect(() => {
-    if (isAutoPlaying && !isHovered) {
-      autoPlayRef.current = setInterval(() => {
-        nextSlide();
-      }, 3000);
-    }
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
-  }, [isAutoPlaying, isHovered]);
-
-  useEffect(() => {
-    setCurrentSlide(0);
-    setIsTransitioning(false);
-  }, [activeTab, cardsPerSlide]);
-
-  const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [isTransitioning]);
-
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
-  };
-
-  const goToSlide = (index: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentSlide(index);
-  };
+  // Use all products without filtering
+  const allProducts = productsData;
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
@@ -162,13 +80,15 @@ export function ProductsSection() {
   };
 
   const ProductCard = ({ product, index }: { product: any; index: number }) => (
-    <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative flex-shrink-0 w-full">
-      <div className="relative h-40 overflow-hidden">
+    <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative w-full h-full flex flex-col">
+      <div className="relative h-32 w-full overflow-hidden flex-shrink-0 bg-gray-100 flex items-center justify-center">
         <Image
           src={product.image || "/images/product-image.jpg"}
           alt={product.title || "Luxury Housing Product"}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          className="object-contain group-hover:scale-105 transition-transform duration-700"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 25vw, 20vw"
+          priority={index < 4}
         />
         <div className="absolute top-2 right-2 rtl:right-2 rtl:left-auto z-20">
           <Badge className="bg-slate-900 text-white border-0 shadow-xl backdrop-blur-sm font-semibold text-xs px-2 py-1 rounded-full relative overflow-hidden">
@@ -187,7 +107,7 @@ export function ProductsSection() {
       <div
         className={`h-1 bg-gradient-to-r ${product.gradient} shadow-sm`}
       ></div>
-      <CardHeader className="relative pb-2 pt-3 px-4">
+      <CardHeader className="relative pb-2 pt-3 px-4 flex-shrink-0">
         <CardTitle className="text-lg font-bold text-slate-800 text-center font-cairo leading-tight flex items-center justify-center gap-3">
           <div
             className={`flex items-center justify-center w-10 h-10 bg-gradient-to-br ${product.gradient} rounded-xl shadow-lg backdrop-blur-md border border-white/20 group-hover:scale-110 transition-all duration-500 flex-shrink-0`}
@@ -197,7 +117,7 @@ export function ProductsSection() {
           <span className="flex-1">{product.title}</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 pt-0 px-4 pb-4">
+      <CardContent className="space-y-3 pt-0 px-4 pb-4 flex-1 flex flex-col">
         <p className="text-slate-800 leading-relaxed text-xs font-cairo line-clamp-2 text-center">
           {product.description}
         </p>
@@ -219,7 +139,7 @@ export function ProductsSection() {
             ))}
         </div>
 
-        <div className="relative mt-3">
+        <div className="relative mt-auto pt-3">
           <Link
             href={`/products/${encodeURIComponent(
               product.slug || product.title.replace(/\s+/g, "-").toLowerCase()
@@ -240,62 +160,6 @@ export function ProductsSection() {
       </CardContent>
     </Card>
   );
-
-  const renderProductSlides = () => {
-    const slides = [];
-    for (let i = 0; i < totalSlides; i++) {
-      const startIndex = i * cardsPerSlide;
-      const slideProducts = currentProducts.slice(
-        startIndex,
-        startIndex + cardsPerSlide
-      );
-
-      slides.push(
-        <div
-          key={i}
-          className={`flex gap-4 transition-all duration-500 ease-in-out ${
-            cardsPerSlide === 1
-              ? "w-full"
-              : cardsPerSlide === 2
-              ? "w-full"
-              : "w-full"
-          }`}
-          style={{ minWidth: "100%" }}
-        >
-          {slideProducts.map((product, index) => (
-            <div
-              key={product.slug}
-              className={`${
-                cardsPerSlide === 1
-                  ? "w-full"
-                  : cardsPerSlide === 2
-                  ? "w-1/2"
-                  : "w-1/4"
-              } flex-shrink-0`}
-            >
-              <ProductCard product={product} index={startIndex + index} />
-            </div>
-          ))}
-          {slideProducts.length < cardsPerSlide &&
-            Array.from({ length: cardsPerSlide - slideProducts.length }).map(
-              (_, emptyIndex) => (
-                <div
-                  key={`empty-${emptyIndex}`}
-                  className={`${
-                    cardsPerSlide === 1
-                      ? "w-full"
-                      : cardsPerSlide === 2
-                      ? "w-1/2"
-                      : "w-1/4"
-                  } flex-shrink-0`}
-                />
-              )
-            )}
-        </div>
-      );
-    }
-    return slides;
-  };
 
   return (
     <section
@@ -326,124 +190,65 @@ export function ProductsSection() {
           </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="flex flex-col lg:flex-row items-center justify-between mb-12 gap-6">
-            <TabsList className="grid grid-cols-2 max-w-lg bg-white/80 backdrop-blur-md shadow-lg border-0 h-14">
-              <TabsTrigger
-                value="residential"
-                className="text-lg font-cairo data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-700 hover:text-slate-900 data-[state=active]:border-0"
-              >
-                التمويل السكني
-              </TabsTrigger>
-              <TabsTrigger
-                value="financial"
-                className="text-lg font-cairo data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-700 hover:text-slate-900 data-[state=active]:border-0"
-              >
-                الخدمات المالية
-              </TabsTrigger>
-            </TabsList>
+        <div className="w-full">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1}
+            navigation={{
+              nextEl: ".swiper-button-next-custom",
+              prevEl: ".swiper-button-prev-custom",
+            }}
+            pagination={{
+              el: ".swiper-pagination-custom",
+              clickable: true,
+              bulletClass: "swiper-pagination-bullet-custom",
+              bulletActiveClass: "swiper-pagination-bullet-active-custom",
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
+              1280: {
+                slidesPerView: 5,
+                spaceBetween: 24,
+              },
+            }}
+            className="products-swiper"
+          >
+            {allProducts.map((product, index) => (
+              <SwiperSlide key={product.slug}>
+                <ProductCard product={product} index={index} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-full px-4 py-2 shadow-lg">
-                <button
-                  onClick={toggleAutoPlay}
-                  className="p-2 rounded-full hover:bg-slate-100 transition-colors duration-200"
-                  aria-label={
-                    isAutoPlaying ? "Pause auto-scroll" : "Start auto-scroll"
-                  }
-                >
-                  <span
-                    className="text-lg"
-                    role="img"
-                    aria-label={isAutoPlaying ? "pause" : "play"}
-                  >
-                    {isAutoPlaying ? "⏸️" : "▶️"}
-                  </span>
-                </button>
-                <div className="flex gap-1">
-                  {Array.from({ length: totalSlides }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToSlide(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentSlide
-                          ? "bg-slate-900 w-6"
-                          : "bg-slate-300"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={prevSlide}
-                  className="p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group"
-                  aria-label="Previous slide"
-                >
-                  <span
-                    className="text-lg text-slate-600 group-hover:text-slate-900 transition-colors duration-200"
-                    role="img"
-                    aria-label="previous"
-                  >
-                    ◀️
-                  </span>
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group"
-                  aria-label="Next slide"
-                >
-                  <span
-                    className="text-lg text-slate-600 group-hover:text-slate-900 transition-colors duration-200"
-                    role="img"
-                    aria-label="next"
-                  >
-                    ▶️
-                  </span>
-                </button>
-              </div>
-            </div>
+          {/* Custom Navigation Buttons */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <button className="swiper-button-prev-custom p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group">
+              <span className="text-lg text-slate-600 group-hover:text-slate-900 transition-colors duration-200">
+                ◀️
+              </span>
+            </button>
+
+            <div className="swiper-pagination-custom flex gap-2"></div>
+
+            <button className="swiper-button-next-custom p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group">
+              <span className="text-lg text-slate-600 group-hover:text-slate-900 transition-colors duration-200">
+                ▶️
+              </span>
+            </button>
           </div>
-
-          <TabsContent value="residential" className="space-y-8">
-            <div
-              className="relative overflow-hidden rounded-2xl"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <div className="relative">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                  }}
-                >
-                  {renderProductSlides()}
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="financial" className="space-y-8">
-            <div
-              className="relative overflow-hidden rounded-2xl"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <div className="relative">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                  }}
-                >
-                  {renderProductSlides()}
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+        </div>
       </div>
     </section>
   );

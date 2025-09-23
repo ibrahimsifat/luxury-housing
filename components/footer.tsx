@@ -73,7 +73,7 @@ export function Footer() {
                 </div>
                 <div>
                   <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 bg-clip-text text-white font-cairo">
-                    لوكسري هاوسينغ
+                    لوكسري هاوسينج
                   </div>
                   <div className="text-sm text-slate-300 font-cairo mt-1">
                     مستشار تمويل عقاري معتمد
@@ -116,7 +116,7 @@ export function Footer() {
             </div>
 
             <p className="text-gray-300 leading-relaxed font-cairo text-lg max-w-md">
-              شركة لوكسري هاوسينغ العقارية - مستشار تمويل عقاري معتمد من الهيئة
+              شركة لوكسري هاوسينج العقارية - مستشار تمويل عقاري معتمد من الهيئة
               العامة للعقار. نحقق أحلامكم في تملك المسكن المثالي بأفضل الحلول
               التمويلية المبتكرة.
             </p>
@@ -257,10 +257,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="text-center md:text-right">
               <p className="text-gray-100 font-cairo text-base">
-                © 2024 شركة لوكسري هاوسينغ العقارية. جميع الحقوق محفوظة.
-              </p>
-              <p className="text-slate-400 text-sm font-cairo mt-1">
-                مرخصة من الهيئة العامة للعقار - ترخيص رقم: 1234567890
+                © 2024 شركة لوكسري هاوسينج العقارية. جميع الحقوق محفوظة.
               </p>
             </div>
             <div className="flex items-center space-x-8 rtl:space-x-reverse">

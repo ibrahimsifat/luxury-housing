@@ -201,7 +201,7 @@ export function AboutSection() {
                   ease: "easeInOut",
                 }}
               >
-                شركة لوكسري هاوسينغ
+                شركة لوكسري هاوسينج
               </motion.span>
               <motion.span
                 className="block text-xl md:text-2xl font-medium text-slate-600 mt-2"
@@ -351,7 +351,7 @@ export function AboutSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
                       >
-                        شركة لوكسري هاوسينغ العقارية، تأسست عام 2022 كشركة ذات
+                        شركة لوكسري هاوسينج العقارية، تأسست عام 2022 كشركة ذات
                         مسؤولية محدودة، متخصصة في تقديم الحلول العقارية
                         المتكاملة بأعلى معايير الجودة والاحترافية.
                       </motion.p>

@@ -46,7 +46,7 @@ export default function RealEstateFinancingEmail({
           طلب تمويل عقاري جديد
         </h1>
         <p style={{ margin: "10px 0 0 0", fontSize: "16px", opacity: "0.9" }}>
-          من موقع لوكسري هاوسينغ
+          من موقع لوكسري هاوسينج
         </p>
       </div>
 
@@ -348,7 +348,7 @@ export default function RealEstateFinancingEmail({
           }}
         >
           <p style={{ margin: "0", color: "#6b7280", fontSize: "14px" }}>
-            تم إرسال هذا الطلب من موقع لوكسري هاوسينغ - مستشار تمويل عقاري معتمد
+            تم إرسال هذا الطلب من موقع لوكسري هاوسينج - مستشار تمويل عقاري معتمد
           </p>
           <p
             style={{ margin: "5px 0 0 0", color: "#9ca3af", fontSize: "12px" }}

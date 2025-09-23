@@ -47,7 +47,7 @@ export default function RealEstateRefinancingEmailTemplate({
             طلب إعادة التمويل العقاري
           </h1>
           <p style={{ color: "#666", margin: "10px 0 0 0", fontSize: "16px" }}>
-            شركة لوكسري هاوسينغ للحلول العقارية
+            شركة لوكسري هاوسينج للحلول العقارية
           </p>
         </div>
 
@@ -240,7 +240,7 @@ export default function RealEstateRefinancingEmailTemplate({
             fontSize: "14px",
           }}
         >
-          <p>تم إرسال هذا الطلب من موقع شركة لوكسري هاوسينغ للحلول العقارية</p>
+          <p>تم إرسال هذا الطلب من موقع شركة لوكسري هاوسينج للحلول العقارية</p>
           <p>التاريخ: {new Date().toLocaleDateString("ar-SA")}</p>
         </div>
       </div>

@@ -1,32 +1,29 @@
-import type * as React from "react"
+import type * as React from "react";
 
 interface CustomerConfirmationEmailProps {
-  name: string
-  formType: "hero" | "contact" | "product" | "service"
-  service?: string
-  product?: string
+  name: string;
+  formType: "hero" | "contact" | "product" | "service";
+  service?: string;
+  product?: string;
 }
 
-export const CustomerConfirmationEmailTemplate: React.FC<CustomerConfirmationEmailProps> = ({
-  name,
-  formType,
-  service,
-  product,
-}) => {
+export const CustomerConfirmationEmailTemplate: React.FC<
+  CustomerConfirmationEmailProps
+> = ({ name, formType, service, product }) => {
   const getFormTypeText = () => {
     switch (formType) {
       case "hero":
-        return "طلب الاستشارة المجانية"
+        return "طلب الاستشارة المجانية";
       case "contact":
-        return "رسالة التواصل"
+        return "رسالة التواصل";
       case "product":
-        return "استفسار المنتج التمويلي"
+        return "استفسار المنتج التمويلي";
       case "service":
-        return "استفسار الخدمة"
+        return "استفسار الخدمة";
       default:
-        return "طلبك"
+        return "طلبك";
     }
-  }
+  };
 
   return (
     <div
@@ -55,7 +52,7 @@ export const CustomerConfirmationEmailTemplate: React.FC<CustomerConfirmationEma
             fontWeight: "bold",
           }}
         >
-          شركة لوكسري هاوسينغ
+          شركة لوكسري هاوسينج
         </h1>
         <p
           style={{
@@ -144,7 +141,9 @@ export const CustomerConfirmationEmailTemplate: React.FC<CustomerConfirmationEma
                 verticalAlign: "middle",
               }}
             ></div>
-            <span style={{ color: "#475569", fontSize: "16px" }}>سيتواصل معك أحد مستشارينا المعتمدين خلال 24 ساعة</span>
+            <span style={{ color: "#475569", fontSize: "16px" }}>
+              سيتواصل معك أحد مستشارينا المعتمدين خلال 24 ساعة
+            </span>
           </div>
           <div style={{ marginBottom: "15px" }}>
             <div
@@ -174,7 +173,9 @@ export const CustomerConfirmationEmailTemplate: React.FC<CustomerConfirmationEma
                 verticalAlign: "middle",
               }}
             ></div>
-            <span style={{ color: "#475569", fontSize: "16px" }}>سنرافقك في كل خطوة حتى تحقيق هدفك</span>
+            <span style={{ color: "#475569", fontSize: "16px" }}>
+              سنرافقك في كل خطوة حتى تحقيق هدفك
+            </span>
           </div>
         </div>
 
@@ -309,5 +310,5 @@ export const CustomerConfirmationEmailTemplate: React.FC<CustomerConfirmationEma
         </p>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -40,7 +40,7 @@ export function HeroSection() {
   const inView = useInView(containerRef, { once: true, margin: "-100px" });
   const controls = useAnimation();
 
-  const fullText = "شركة لوكسري هاوسينغ";
+  const fullText = "شركة لوكسري هاوسينج";
   const subText = "مستشار تمويل عقاري معتمد من الهيئة العامة للعقار";
 
   // Dynamic background images

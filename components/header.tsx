@@ -190,9 +190,8 @@ export default function Header() {
   ];
 
   const navItems = [
-    { name: "تقدم بطلبك الان", href: "/contact" },
-    { name: "شركاء النجاح", href: "/#clients" },
-    { name: "جديدنا", href: "/news" },
+    { name: "شركاء النجاح", href: "/clients" },
+    // { name: "جديدنا", href: "/news" },
     { name: "الأسئلة الشائعة", href: "/faq" },
     { name: "تواصل معنا", href: "/contact" },
   ];
@@ -260,7 +259,7 @@ export default function Header() {
               <Link href="/">
                 <Image
                   src="/images/luxury-housing-logo.png"
-                  alt="لوكسري هاوسينغ"
+                  alt="لوكسري هاوسينج"
                   width={220}
                   height={75}
                   className={`h-12 lg:h-16 w-auto transition-all duration-500 hover:scale-105 cursor-pointer ${

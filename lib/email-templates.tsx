@@ -1,33 +1,33 @@
 export interface EmailTemplateData {
-  name: string
-  email: string
-  phone: string
-  message: string
-  service?: string
-  formType: "contact" | "service" | "product" | "hero"
-  inquiryType?: string
-  preferredContact?: string
-  monthlyIncome?: string
-  requestedAmount?: string
-  propertyType?: string
-  currentEmployment?: string
-  city?: string
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  service?: string;
+  formType: "contact" | "service" | "product" | "hero";
+  inquiryType?: string;
+  preferredContact?: string;
+  monthlyIncome?: string;
+  requestedAmount?: string;
+  propertyType?: string;
+  currentEmployment?: string;
+  city?: string;
 }
 
 export function generateEmailSubject(data: EmailTemplateData): string {
-  const { name, formType, service } = data
+  const { name, formType, service } = data;
 
   switch (formType) {
     case "contact":
-      return `استفسار جديد من ${name} - نموذج التواصل`
+      return `استفسار جديد من ${name} - نموذج التواصل`;
     case "service":
-      return `استفسار عن الخدمة من ${name} - ${service || "خدمة غير محددة"}`
+      return `استفسار عن الخدمة من ${name} - ${service || "خدمة غير محددة"}`;
     case "product":
-      return `استفسار عن المنتج من ${name} - ${service || "منتج غير محدد"}`
+      return `استفسار عن المنتج من ${name} - ${service || "منتج غير محدد"}`;
     case "hero":
-      return `طلب استشارة مجانية من ${name} - الصفحة الرئيسية`
+      return `طلب استشارة مجانية من ${name} - الصفحة الرئيسية`;
     default:
-      return `استفسار جديد من ${name}`
+      return `استفسار جديد من ${name}`;
   }
 }
 
@@ -46,68 +46,86 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
     propertyType,
     currentEmployment,
     city,
-  } = data
+  } = data;
 
-  const subject = generateEmailSubject(data)
+  const subject = generateEmailSubject(data);
 
-  let additionalInfo = ""
-  let formTypeDisplay = ""
+  let additionalInfo = "";
+  let formTypeDisplay = "";
 
   switch (formType) {
     case "contact":
-      formTypeDisplay = "نموذج التواصل"
-      break
+      formTypeDisplay = "نموذج التواصل";
+      break;
     case "service":
-      formTypeDisplay = "نموذج استفسار الخدمة"
+      formTypeDisplay = "نموذج استفسار الخدمة";
       additionalInfo = `
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold; width: 30%;">نوع الاستفسار:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${inquiryType || "غير محدد"}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${
+            inquiryType || "غير محدد"
+          }</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">طريقة التواصل المفضلة:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPreferredContactDisplay(preferredContact)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPreferredContactDisplay(
+            preferredContact
+          )}</td>
         </tr>
-      `
-      break
+      `;
+      break;
     case "product":
-      formTypeDisplay = "نموذج استفسار المنتج"
+      formTypeDisplay = "نموذج استفسار المنتج";
       additionalInfo = `
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold; width: 30%;">المدينة:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getCityDisplay(city)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getCityDisplay(
+            city
+          )}</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">الراتب الشهري:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getIncomeDisplay(monthlyIncome)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getIncomeDisplay(
+            monthlyIncome
+          )}</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">المبلغ المطلوب:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${requestedAmount || "غير محدد"}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${
+            requestedAmount || "غير محدد"
+          }</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">نوع العقار:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPropertyTypeDisplay(propertyType)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPropertyTypeDisplay(
+            propertyType
+          )}</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">جهة العمل:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getEmploymentDisplay(currentEmployment)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getEmploymentDisplay(
+            currentEmployment
+          )}</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">نوع الاستفسار:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getInquiryTypeDisplay(inquiryType)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getInquiryTypeDisplay(
+            inquiryType
+          )}</td>
         </tr>
         <tr>
           <td style="padding: 12px; border: 1px solid #e0e0e0; background-color: #f8f9fa; font-weight: bold;">طريقة التواصل المفضلة:</td>
-          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPreferredContactDisplay(preferredContact)}</td>
+          <td style="padding: 12px; border: 1px solid #e0e0e0;">${getPreferredContactDisplay(
+            preferredContact
+          )}</td>
         </tr>
-      `
-      break
+      `;
+      break;
     case "hero":
-      formTypeDisplay = "نموذج الاستشارة المجانية"
-      break
+      formTypeDisplay = "نموذج الاستشارة المجانية";
+      break;
     default:
-      formTypeDisplay = "نموذج عام"
+      formTypeDisplay = "نموذج عام";
   }
 
   return `
@@ -128,7 +146,7 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
       
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #003366 0%, #0066cc 100%); padding: 40px 30px; text-align: center; border-radius: 15px 15px 0 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">شركة لوكسري هاوسينغ</h1>
+        <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">شركة لوكسري هاوسينج</h1>
         <p style="color: #ffd700; margin: 15px 0 0 0; font-size: 18px; font-weight: 500;">للحلول العقارية</p>
         <div style="width: 60px; height: 3px; background: #ffd700; margin: 15px auto 0; border-radius: 2px;"></div>
       </div>
@@ -223,7 +241,10 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
             </a>
           </div>
           <div style="display: inline-block; margin: 0 10px;">
-            <a href="https://wa.me/${phone.replace(/\D/g, "")}" style="background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(37,211,102,0.3); transition: all 0.3s;">
+            <a href="https://wa.me/${phone.replace(
+              /\D/g,
+              ""
+            )}" style="background: linear-gradient(135deg, #25d366, #128c7e); color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(37,211,102,0.3); transition: all 0.3s;">
               💬 واتساب
             </a>
           </div>
@@ -254,7 +275,7 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
       <!-- Footer -->
       <div style="text-align: center; margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef;">
         <div style="margin-bottom: 15px;">
-          <h4 style="color: #003366; margin: 0 0 10px 0; font-size: 20px;">شركة لوكسري هاوسينغ للحلول العقارية</h4>
+          <h4 style="color: #003366; margin: 0 0 10px 0; font-size: 20px;">شركة لوكسري هاوسينج للحلول العقارية</h4>
           <p style="color: #6c757d; margin: 0; font-size: 14px; font-style: italic;">مستشار تمويل عقاري معتمد من الهيئة العامة للعقار</p>
         </div>
         <div style="border-top: 1px solid #dee2e6; padding-top: 15px;">
@@ -265,56 +286,60 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
       </div>
     </body>
     </html>
-  `
+  `;
 }
 
 export function generateCustomerConfirmationTemplate(
   name: string,
-  formType: "contact" | "service" | "product" | "hero",
+  formType: "contact" | "service" | "product" | "hero"
 ): string {
-  let formTypeArabic = ""
-  let expectedResponse = ""
-  let nextSteps = ""
+  let formTypeArabic = "";
+  let expectedResponse = "";
+  let nextSteps = "";
 
   switch (formType) {
     case "contact":
-      formTypeArabic = "التواصل"
-      expectedResponse = "سنقوم بمراجعة استفسارك والرد عليك بالمعلومات المطلوبة"
+      formTypeArabic = "التواصل";
+      expectedResponse =
+        "سنقوم بمراجعة استفسارك والرد عليك بالمعلومات المطلوبة";
       nextSteps = `
         <li>مراجعة استفسارك من قبل فريق خدمة العملاء</li>
         <li>التواصل معك لتوضيح أي تفاصيل إضافية</li>
         <li>تقديم الحلول والخدمات المناسبة لاحتياجاتك</li>
-      `
-      break
+      `;
+      break;
     case "service":
-      formTypeArabic = "استفسار الخدمة"
-      expectedResponse = "سيتواصل معك أحد مختصي الخدمات لتقديم التفاصيل الكاملة"
+      formTypeArabic = "استفسار الخدمة";
+      expectedResponse =
+        "سيتواصل معك أحد مختصي الخدمات لتقديم التفاصيل الكاملة";
       nextSteps = `
         <li>مراجعة طلب الخدمة من قبل المختص</li>
         <li>إعداد عرض مفصل للخدمة المطلوبة</li>
         <li>تحديد موعد للاستشارة إذا لزم الأمر</li>
-      `
-      break
+      `;
+      break;
     case "product":
-      formTypeArabic = "استفسار المنتج"
-      expectedResponse = "سيقوم مستشار التمويل بمراجعة طلبك وتقديم أفضل الحلول التمويلية"
+      formTypeArabic = "استفسار المنتج";
+      expectedResponse =
+        "سيقوم مستشار التمويل بمراجعة طلبك وتقديم أفضل الحلول التمويلية";
       nextSteps = `
         <li>تحليل وضعك المالي والمتطلبات</li>
         <li>البحث عن أفضل العروض التمويلية المناسبة</li>
         <li>تقديم استشارة شاملة حول خيارات التمويل</li>
         <li>مساعدتك في إجراءات التقديم إذا رغبت</li>
-      `
-      break
+      `;
+      break;
     case "hero":
-      formTypeArabic = "طلب الاستشارة المجانية"
-      expectedResponse = "سيتواصل معك مستشار تمويل معتمد لتقديم استشارة مجانية شاملة"
+      formTypeArabic = "طلب الاستشارة المجانية";
+      expectedResponse =
+        "سيتواصل معك مستشار تمويل معتمد لتقديم استشارة مجانية شاملة";
       nextSteps = `
         <li>تحديد موعد مناسب للاستشارة المجانية</li>
         <li>مراجعة وضعك المالي وأهدافك</li>
         <li>تقديم نصائح مخصصة لحالتك</li>
         <li>شرح الخيارات المتاحة أمامك</li>
-      `
-      break
+      `;
+      break;
   }
 
   return `
@@ -329,7 +354,7 @@ export function generateCustomerConfirmationTemplate(
       
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #003366 0%, #0066cc 100%); padding: 40px 30px; text-align: center; border-radius: 15px 15px 0 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">شركة لوكسري هاوسينغ</h1>
+        <h1 style="color: white; margin: 0; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">شركة لوكسري هاوسينج</h1>
         <p style="color: #ffd700; margin: 15px 0 0 0; font-size: 18px; font-weight: 500;">للحلول العقارية</p>
         <div style="width: 60px; height: 3px; background: #ffd700; margin: 15px auto 0; border-radius: 2px;"></div>
       </div>
@@ -435,121 +460,121 @@ export function generateCustomerConfirmationTemplate(
       
       <!-- Footer -->
       <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef; color: #6c757d; font-size: 14px;">
-        <p style="margin: 0 0 10px 0; font-weight: bold; color: #003366;">شركة لوكسري هاوسينغ للحلول العقارية</p>
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: #003366;">شركة لوكسري هاوسينج للحلول العقارية</p>
         <p style="margin: 0;">جميع الحقوق محفوظة © ${new Date().getFullYear()}</p>
       </div>
     </body>
     </html>
-  `
+  `;
 }
 
 // Helper functions for display values
 function getPreferredContactDisplay(contact?: string): string {
   switch (contact) {
     case "phone":
-      return "مكالمة هاتفية"
+      return "مكالمة هاتفية";
     case "whatsapp":
-      return "واتساب"
+      return "واتساب";
     case "email":
-      return "بريد إلكتروني"
+      return "بريد إلكتروني";
     case "visit":
-      return "زيارة المكتب"
+      return "زيارة المكتب";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }
 
 function getCityDisplay(city?: string): string {
   switch (city) {
     case "riyadh":
-      return "الرياض"
+      return "الرياض";
     case "jeddah":
-      return "جدة"
+      return "جدة";
     case "dammam":
-      return "الدمام"
+      return "الدمام";
     case "mecca":
-      return "مكة المكرمة"
+      return "مكة المكرمة";
     case "medina":
-      return "المدينة المنورة"
+      return "المدينة المنورة";
     case "other":
-      return "أخرى"
+      return "أخرى";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }
 
 function getIncomeDisplay(income?: string): string {
   switch (income) {
     case "5000-10000":
-      return "5,000 - 10,000 ريال"
+      return "5,000 - 10,000 ريال";
     case "10000-15000":
-      return "10,000 - 15,000 ريال"
+      return "10,000 - 15,000 ريال";
     case "15000-25000":
-      return "15,000 - 25,000 ريال"
+      return "15,000 - 25,000 ريال";
     case "25000-50000":
-      return "25,000 - 50,000 ريال"
+      return "25,000 - 50,000 ريال";
     case "50000+":
-      return "أكثر من 50,000 ريال"
+      return "أكثر من 50,000 ريال";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }
 
 function getPropertyTypeDisplay(type?: string): string {
   switch (type) {
     case "villa":
-      return "فيلا"
+      return "فيلا";
     case "apartment":
-      return "شقة"
+      return "شقة";
     case "duplex":
-      return "دوبلكس"
+      return "دوبلكس";
     case "building":
-      return "عمارة"
+      return "عمارة";
     case "land":
-      return "أرض"
+      return "أرض";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }
 
 function getEmploymentDisplay(employment?: string): string {
   switch (employment) {
     case "government":
-      return "حكومي"
+      return "حكومي";
     case "private":
-      return "قطاع خاص"
+      return "قطاع خاص";
     case "military":
-      return "عسكري"
+      return "عسكري";
     case "retired":
-      return "متقاعد"
+      return "متقاعد";
     case "business":
-      return "أعمال حرة"
+      return "أعمال حرة";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }
 
 function getInquiryTypeDisplay(type?: string): string {
   switch (type) {
     case "general":
-      return "استفسار عام"
+      return "استفسار عام";
     case "eligibility":
-      return "التحقق من الأهلية"
+      return "التحقق من الأهلية";
     case "rates":
-      return "الاستفسار عن الأسعار"
+      return "الاستفسار عن الأسعار";
     case "process":
-      return "الاستفسار عن الإجراءات"
+      return "الاستفسار عن الإجراءات";
     case "appointment":
-      return "طلب موعد"
+      return "طلب موعد";
     case "requirements":
-      return "المتطلبات والشروط"
+      return "المتطلبات والشروط";
     case "pricing":
-      return "الأسعار والتكاليف"
+      return "الأسعار والتكاليف";
     case "timeline":
-      return "المدة الزمنية"
+      return "المدة الزمنية";
     case "consultation":
-      return "طلب استشارة"
+      return "طلب استشارة";
     default:
-      return "غير محدد"
+      return "غير محدد";
   }
 }

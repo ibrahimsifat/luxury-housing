@@ -1,5 +1,4 @@
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ServiceDetailsClient } from "@/components/service-details-client";
 import WhatsAppFloat from "@/components/whatsapp-float";
@@ -22,7 +21,6 @@ export function ServiceDetailsPage({ service }: ServiceDetailsPageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      <Header />
       <ServiceDetailsClient service={serviceWithIconName} />
       <WhatsAppFloat />
       <MobileNavigation />

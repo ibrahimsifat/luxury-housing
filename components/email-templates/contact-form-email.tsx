@@ -1,14 +1,20 @@
-import type * as React from "react"
+import type * as React from "react";
 
 interface ContactFormEmailProps {
-  name: string
-  email: string
-  phone: string
-  service?: string
-  message: string
+  name: string;
+  email: string;
+  phone: string;
+  service?: string;
+  message: string;
 }
 
-export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({ name, email, phone, service, message }) => (
+export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({
+  name,
+  email,
+  phone,
+  service,
+  message,
+}) => (
   <div
     style={{
       fontFamily: "Arial, sans-serif",
@@ -35,7 +41,7 @@ export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({ name
           fontWeight: "bold",
         }}
       >
-        شركة لوكسري هاوسينغ للحلول العقارية
+        شركة لوكسري هاوسينج للحلول العقارية
       </h1>
       <p
         style={{
@@ -91,7 +97,9 @@ export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({ name
         {service && (
           <div style={{ marginBottom: "12px" }}>
             <strong style={{ color: "#475569" }}>الخدمة المطلوبة:</strong>
-            <span style={{ color: "#1e293b", marginRight: "8px" }}>{service}</span>
+            <span style={{ color: "#1e293b", marginRight: "8px" }}>
+              {service}
+            </span>
           </div>
         )}
       </div>
@@ -181,7 +189,7 @@ export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({ name
           color: "#64748b",
         }}
       >
-        تم إرسال هذه الرسالة من صفحة التواصل في موقع شركة لوكسري هاوسينغ
+        تم إرسال هذه الرسالة من صفحة التواصل في موقع شركة لوكسري هاوسينج
       </p>
       <p
         style={{
@@ -202,4 +210,4 @@ export const ContactFormEmailTemplate: React.FC<ContactFormEmailProps> = ({ name
       </p>
     </div>
   </div>
-)
+);

@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
+  Award,
+  Building2,
+  CheckCircle,
   ChevronLeft,
   ChevronRight,
-  Building2,
-  Target,
   Eye,
-  Users,
-  Award,
-  TrendingUp,
-  Shield,
   Heart,
-  CheckCircle,
-} from "lucide-react"
+  Shield,
+  Target,
+  TrendingUp,
+  Users,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
 const galleryImages = [
   {
@@ -64,7 +64,7 @@ const galleryImages = [
     alt: "مساحة عمل إضافية مع إضاءة مميزة",
     caption: "مساحة عمل إضافية مع إضاءة مميزة",
   },
-]
+];
 
 const services = [
   {
@@ -75,7 +75,8 @@ const services = [
   },
   {
     title: "حلول الدفعة المقدمة",
-    description: "أعلى من مبلغ 800 ألف تكون 10% وأقل من مبلغ 800 ألف تكون 5% فقط حيث أننا نقوم بتوفير الدفعة",
+    description:
+      "أعلى من مبلغ 800 ألف تكون 10% وأقل من مبلغ 800 ألف تكون 5% فقط حيث أننا نقوم بتوفير الدفعة",
     icon: TrendingUp,
   },
   {
@@ -86,7 +87,8 @@ const services = [
   },
   {
     title: "أعلى مبلغ تمويلي",
-    description: "السعي دوماً لتوفير أفضل المنتجات والحلول لخدمة العملاء توفير أعلى مبلغ تمويلي بأقل هامش ربحي متوفر",
+    description:
+      "السعي دوماً لتوفير أفضل المنتجات والحلول لخدمة العملاء توفير أعلى مبلغ تمويلي بأقل هامش ربحي متوفر",
     icon: Building2,
   },
   {
@@ -95,7 +97,7 @@ const services = [
       "يتم دمج الراتب مع الدعم السكني لجميع العملاء في حالة كان الراتب أقل من 14 ألف يكون العميل مستحق الدعم",
     icon: Users,
   },
-]
+];
 
 const products = [
   "وحدات جاهزة من السوق",
@@ -106,7 +108,7 @@ const products = [
   "فك العقار المرهون",
   "رهن العقار الحر",
   "تمويل قطاع الأعمال",
-]
+];
 
 const objectives = [
   {
@@ -131,39 +133,42 @@ const objectives = [
   },
   {
     title: "التطوير الدائم",
-    description: "التطوير الدائم لخدماتنا بما يتناسب مع تطوير تطلعات عملائنا ومجتمعنا",
+    description:
+      "التطوير الدائم لخدماتنا بما يتناسب مع تطوير تطلعات عملائنا ومجتمعنا",
     icon: Building2,
   },
-]
+];
 
 export function AboutUsPage() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
-    }, 4000)
+      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 4000);
 
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length)
-    setIsAutoPlaying(false)
-  }
+    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+    setIsAutoPlaying(false);
+  };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
-    setIsAutoPlaying(false)
-  }
+    setCurrentImageIndex(
+      (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
+    );
+    setIsAutoPlaying(false);
+  };
 
   const goToImage = (index: number) => {
-    setCurrentImageIndex(index)
-    setIsAutoPlaying(false)
-  }
+    setCurrentImageIndex(index);
+    setIsAutoPlaying(false);
+  };
 
   return (
     <div className="min-h-screen bg-background" dir="rtl">
@@ -174,9 +179,11 @@ export function AboutUsPage() {
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <div className="animate-fade-in-up">
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">من نحن</h1>
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
+              من نحن
+            </h1>
             <p className="text-xl md:text-2xl mb-8 text-slate-200 leading-relaxed text-pretty">
-              شركة لوكسري هاوسينغ العقارية - رائدة في الحلول العقارية المتميزة
+              شركة لوكسري هاوسينج العقارية - رائدة في الحلول العقارية المتميزة
             </p>
             <Badge className="bg-secondary text-secondary-foreground px-6 py-2 text-lg font-semibold">
               تأسست عام 2022
@@ -196,16 +203,20 @@ export function AboutUsPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-fade-in-up">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-8 text-balance">نبذة عن الشركة</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-8 text-balance">
+                نبذة عن الشركة
+              </h2>
               <div className="prose prose-lg text-muted-foreground leading-relaxed space-y-6">
                 <p className="text-lg">
-                  شركة لوكسري هاوسينغ العقارية تأسست عام 2022 ذات مسؤولية محدودة نشاطها الرئيسي الحلول العقارية بجميع
-                  مصنفاتها. اكتسبت الشركة الأفضلية والتميز بين الشركات باعتبارها مستشار تمويل عقاري معتمد من المستشار
-                  العقاري ومصنف من الهيئة العامة للعقار.
+                  شركة لوكسري هاوسينج العقارية تأسست عام 2022 ذات مسؤولية محدودة
+                  نشاطها الرئيسي الحلول العقارية بجميع مصنفاتها. اكتسبت الشركة
+                  الأفضلية والتميز بين الشركات باعتبارها مستشار تمويل عقاري
+                  معتمد من المستشار العقاري ومصنف من الهيئة العامة للعقار.
                 </p>
                 <p className="text-lg">
-                  وبفضل شراكاتنا المتميزة مع الجهات التمويلية من بنوك وشركات اكتسبنا ثقة العملاء وكانت شركة لوكسري
-                  هاوسينغ مصدر ثقة لكل الباحثين عن تملك العقارات.
+                  وبفضل شراكاتنا المتميزة مع الجهات التمويلية من بنوك وشركات
+                  اكتسبنا ثقة العملاء وكانت شركة لوكسري هاوسينغ مصدر ثقة لكل
+                  الباحثين عن تملك العقارات.
                 </p>
               </div>
             </div>
@@ -215,7 +226,7 @@ export function AboutUsPage() {
                 <CardContent className="p-0">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20250911-WA0022.jpg-YkqgXbwUFDh6Y9okO9Cs4hkrcg8Er2.jpeg"
-                    alt="مكتب شركة لوكسري هاوسينغ"
+                    alt="مكتب شركة لوكسري هاوسينج"
                     className="w-full h-96 object-cover"
                   />
                 </CardContent>
@@ -236,8 +247,9 @@ export function AboutUsPage() {
                   <h3 className="text-3xl font-bold">الرؤية</h3>
                 </div>
                 <p className="text-lg leading-relaxed text-slate-100">
-                  تتمثل رؤيتنا في أننا نسعى لإحداث تطوير ونمو شامل في هذا القطاع الذي يصب بدوره في حركة النمو الاقتصادية
-                  التي تشهدها المملكة العربية السعودية.
+                  تتمثل رؤيتنا في أننا نسعى لإحداث تطوير ونمو شامل في هذا القطاع
+                  الذي يصب بدوره في حركة النمو الاقتصادية التي تشهدها المملكة
+                  العربية السعودية.
                 </p>
               </CardContent>
             </Card>
@@ -249,8 +261,8 @@ export function AboutUsPage() {
                   <h3 className="text-3xl font-bold">الرسالة</h3>
                 </div>
                 <p className="text-lg leading-relaxed">
-                  نعمل من أجل تطوير وتسهيل تملك العقار داخل المملكة العربية السعودية والمساهمة في دعم الجهود الرامية إلى
-                  تعزيز سوق العقار.
+                  نعمل من أجل تطوير وتسهيل تملك العقار داخل المملكة العربية
+                  السعودية والمساهمة في دعم الجهود الرامية إلى تعزيز سوق العقار.
                 </p>
               </CardContent>
             </Card>
@@ -262,9 +274,12 @@ export function AboutUsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">الأهداف الاستراتيجية</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">
+              الأهداف الاستراتيجية
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              نسعى لتحقيق مجموعة من الأهداف الاستراتيجية التي تدعم رؤيتنا ورسالتنا
+              نسعى لتحقيق مجموعة من الأهداف الاستراتيجية التي تدعم رؤيتنا
+              ورسالتنا
             </p>
           </div>
 
@@ -278,8 +293,12 @@ export function AboutUsPage() {
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <objective.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-4">{objective.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{objective.description}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {objective.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {objective.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -291,7 +310,9 @@ export function AboutUsPage() {
       <section className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">معرض الصور</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">
+              معرض الصور
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
               جولة في مكاتبنا ومساحات العمل المتميزة
             </p>
@@ -302,7 +323,9 @@ export function AboutUsPage() {
               <CardContent className="p-0">
                 <div className="relative h-96 md:h-[600px] overflow-hidden">
                   <img
-                    src={galleryImages[currentImageIndex].src || "/placeholder.svg"}
+                    src={
+                      galleryImages[currentImageIndex].src || "/placeholder.svg"
+                    }
                     alt={galleryImages[currentImageIndex].alt}
                     className="w-full h-full object-cover transition-all duration-500 ease-in-out"
                   />
@@ -357,7 +380,9 @@ export function AboutUsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">خدماتنا</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">
+              خدماتنا
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
               نقدم مجموعة شاملة من الخدمات العقارية المتخصصة
             </p>
@@ -373,8 +398,12 @@ export function AboutUsPage() {
                   <div className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -386,7 +415,9 @@ export function AboutUsPage() {
       <section className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">منتجاتنا</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">
+              منتجاتنا
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
               مجموعة متنوعة من المنتجات التمويلية والعقارية
             </p>
@@ -402,7 +433,9 @@ export function AboutUsPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">{product}</h3>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {product}
+                  </h3>
                 </CardContent>
               </Card>
             ))}
@@ -414,9 +447,12 @@ export function AboutUsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">قيمنا</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 text-balance">
+              قيمنا
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              في إثراء المساكن نستمد قيمنا من مبادئ وتعاليم الشريعة الإسلامية وأفضل الممارسات المهنية
+              في إثراء المساكن نستمد قيمنا من مبادئ وتعاليم الشريعة الإسلامية
+              وأفضل الممارسات المهنية
             </p>
           </div>
 
@@ -424,13 +460,14 @@ export function AboutUsPage() {
             <CardContent className="p-12 text-center">
               <Heart className="w-16 h-16 text-secondary mx-auto mb-8" />
               <p className="text-xl leading-relaxed max-w-4xl mx-auto">
-                نلتزم بأعلى معايير الشفافية والنزاهة في جميع معاملاتنا، ونسعى لتقديم خدمات متميزة تلبي احتياجات عملائنا
-                وتحقق طموحاتهم في تملك المساكن المناسبة.
+                نلتزم بأعلى معايير الشفافية والنزاهة في جميع معاملاتنا، ونسعى
+                لتقديم خدمات متميزة تلبي احتياجات عملائنا وتحقق طموحاتهم في تملك
+                المساكن المناسبة.
               </p>
             </CardContent>
           </Card>
         </div>
       </section>
     </div>
-  )
+  );
 }

@@ -582,3 +582,36 @@ html {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+/* Swiper Custom Styles */
+.products-swiper {
+  padding: 20px 0;
+}
+
+.swiper-pagination-bullet-custom {
+  width: 8px;
+  height: 8px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet-active-custom {
+  background: #1e293b;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.swiper-button-next-custom,
+.swiper-button-prev-custom {
+  position: static !important;
+  margin: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.swiper-button-next-custom:after,
+.swiper-button-prev-custom:after {
+  display: none !important;
+}

@@ -1,18 +1,18 @@
 [
   {
     "id": "business-1",
-    "title": "مكتب لوكسري هاوسينغ الرئيسي",
+    "title": "مكتب لوكسري هاوسينج الرئيسي",
     "description": "صورة لمكتبنا الرئيسي في الرياض",
     "category": "business",
     "image": "/gallery/1.jpg",
-    "alt": "مكتب لوكسري هاوسينغ الرئيسي",
+    "alt": "مكتب لوكسري هاوسينج الرئيسي",
     "uploadDate": "2024-01-15",
     "featured": true
   },
   {
     "id": "business-2",
     "title": "فريق العمل",
-    "description": "فريق عمل لوكسري هاوسينغ المتخصص",
+    "description": "فريق عمل لوكسري هاوسينج المتخصص",
     "category": "business",
     "image": "/gallery/2.jpg",
     "alt": "فريق العمل",

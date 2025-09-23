@@ -1,21 +1,23 @@
-import type * as React from "react"
+import type * as React from "react";
 
 interface ProductInquiryEmailProps {
-  name: string
-  email: string
-  phone: string
-  city?: string
-  monthlyIncome?: string
-  requestedAmount?: string
-  propertyType?: string
-  employment?: string
-  inquiryType?: string
-  message?: string
-  preferredContact?: string
-  product?: string
+  name: string;
+  email: string;
+  phone: string;
+  city?: string;
+  monthlyIncome?: string;
+  requestedAmount?: string;
+  propertyType?: string;
+  employment?: string;
+  inquiryType?: string;
+  message?: string;
+  preferredContact?: string;
+  product?: string;
 }
 
-export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = ({
+export const ProductInquiryEmailTemplate: React.FC<
+  ProductInquiryEmailProps
+> = ({
   name,
   email,
   phone,
@@ -55,7 +57,7 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
           fontWeight: "bold",
         }}
       >
-        شركة لوكسري هاوسينغ للحلول العقارية
+        شركة لوكسري هاوسينج للحلول العقارية
       </h1>
       <p
         style={{
@@ -122,10 +124,10 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
               {preferredContact === "phone"
                 ? "مكالمة هاتفية"
                 : preferredContact === "whatsapp"
-                  ? "واتساب"
-                  : preferredContact === "email"
-                    ? "بريد إلكتروني"
-                    : preferredContact}
+                ? "واتساب"
+                : preferredContact === "email"
+                ? "بريد إلكتروني"
+                : preferredContact}
             </span>
           </div>
         )}
@@ -156,19 +158,25 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
           {monthlyIncome && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#92400e" }}>الراتب الشهري:</strong>
-              <span style={{ color: "#92400e", marginRight: "8px" }}>{monthlyIncome}</span>
+              <span style={{ color: "#92400e", marginRight: "8px" }}>
+                {monthlyIncome}
+              </span>
             </div>
           )}
           {requestedAmount && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#92400e" }}>المبلغ المطلوب:</strong>
-              <span style={{ color: "#92400e", marginRight: "8px" }}>{requestedAmount}</span>
+              <span style={{ color: "#92400e", marginRight: "8px" }}>
+                {requestedAmount}
+              </span>
             </div>
           )}
           {employment && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#92400e" }}>نوع العمل:</strong>
-              <span style={{ color: "#92400e", marginRight: "8px" }}>{employment}</span>
+              <span style={{ color: "#92400e", marginRight: "8px" }}>
+                {employment}
+              </span>
             </div>
           )}
         </div>
@@ -199,19 +207,25 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
           {product && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#0c4a6e" }}>المنتج:</strong>
-              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>{product}</span>
+              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>
+                {product}
+              </span>
             </div>
           )}
           {propertyType && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#0c4a6e" }}>نوع العقار:</strong>
-              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>{propertyType}</span>
+              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>
+                {propertyType}
+              </span>
             </div>
           )}
           {inquiryType && (
             <div style={{ marginBottom: "12px" }}>
               <strong style={{ color: "#0c4a6e" }}>نوع الاستفسار:</strong>
-              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>{inquiryType}</span>
+              <span style={{ color: "#0c4a6e", marginRight: "8px" }}>
+                {inquiryType}
+              </span>
             </div>
           )}
         </div>
@@ -307,7 +321,7 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
           color: "#64748b",
         }}
       >
-        تم إرسال هذا الاستفسار من صفحة المنتجات في موقع شركة لوكسري هاوسينغ
+        تم إرسال هذا الاستفسار من صفحة المنتجات في موقع شركة لوكسري هاوسينج
       </p>
       <p
         style={{
@@ -328,4 +342,4 @@ export const ProductInquiryEmailTemplate: React.FC<ProductInquiryEmailProps> = (
       </p>
     </div>
   </div>
-)
+);

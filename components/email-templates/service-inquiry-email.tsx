@@ -1,16 +1,18 @@
-import type * as React from "react"
+import type * as React from "react";
 
 interface ServiceInquiryEmailProps {
-  name: string
-  email: string
-  phone: string
-  service?: string
-  inquiryType?: string
-  message: string
-  preferredContact?: string
+  name: string;
+  email: string;
+  phone: string;
+  service?: string;
+  inquiryType?: string;
+  message: string;
+  preferredContact?: string;
 }
 
-export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = ({
+export const ServiceInquiryEmailTemplate: React.FC<
+  ServiceInquiryEmailProps
+> = ({
   name,
   email,
   phone,
@@ -45,7 +47,7 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
           fontWeight: "bold",
         }}
       >
-        شركة لوكسري هاوسينغ للحلول العقارية
+        شركة لوكسري هاوسينج للحلول العقارية
       </h1>
       <p
         style={{
@@ -105,10 +107,10 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
               {preferredContact === "phone"
                 ? "مكالمة هاتفية"
                 : preferredContact === "whatsapp"
-                  ? "واتساب"
-                  : preferredContact === "email"
-                    ? "بريد إلكتروني"
-                    : preferredContact}
+                ? "واتساب"
+                : preferredContact === "email"
+                ? "بريد إلكتروني"
+                : preferredContact}
             </span>
           </div>
         )}
@@ -137,7 +139,9 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
         {service && (
           <div style={{ marginBottom: "12px" }}>
             <strong style={{ color: "#047857" }}>الخدمة:</strong>
-            <span style={{ color: "#047857", marginRight: "8px" }}>{service}</span>
+            <span style={{ color: "#047857", marginRight: "8px" }}>
+              {service}
+            </span>
           </div>
         )}
         {inquiryType && (
@@ -147,14 +151,14 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
               {inquiryType === "general"
                 ? "استفسار عام"
                 : inquiryType === "requirements"
-                  ? "المتطلبات والشروط"
-                  : inquiryType === "pricing"
-                    ? "الأسعار والتكاليف"
-                    : inquiryType === "timeline"
-                      ? "المدة الزمنية"
-                      : inquiryType === "consultation"
-                        ? "طلب استشارة"
-                        : inquiryType}
+                ? "المتطلبات والشروط"
+                : inquiryType === "pricing"
+                ? "الأسعار والتكاليف"
+                : inquiryType === "timeline"
+                ? "المدة الزمنية"
+                : inquiryType === "consultation"
+                ? "طلب استشارة"
+                : inquiryType}
             </span>
           </div>
         )}
@@ -246,7 +250,7 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
           color: "#64748b",
         }}
       >
-        تم إرسال هذا الاستفسار من صفحة الخدمات في موقع شركة لوكسري هاوسينغ
+        تم إرسال هذا الاستفسار من صفحة الخدمات في موقع شركة لوكسري هاوسينج
       </p>
       <p
         style={{
@@ -267,4 +271,4 @@ export const ServiceInquiryEmailTemplate: React.FC<ServiceInquiryEmailProps> = (
       </p>
     </div>
   </div>
-)
+);

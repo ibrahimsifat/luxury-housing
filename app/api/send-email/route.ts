@@ -9,8 +9,21 @@ export async function POST(request: NextRequest) {
       recaptchaToken: body.recaptchaToken ? "[REDACTED]" : undefined,
     });
 
-    const { type, formType, formData } = body;
+    const { type, formType, formData: nestedFormData } = body;
     const emailType = type || formType;
+
+    // Handle both data formats:
+    // 1. New format: { type: "business-sector", formData: {...} }
+    // 2. Old format: { formType: "hero", name: "...", email: "...", ... }
+    const rawFormData = nestedFormData || body;
+
+    // Clean up formData by removing metadata fields
+    const {
+      type: _,
+      formType: __,
+      recaptchaToken: ___,
+      ...formData
+    } = rawFormData;
 
     if (!emailType) {
       console.log("[v0] Missing form type");

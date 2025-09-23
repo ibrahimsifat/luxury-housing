@@ -1,13 +1,18 @@
-import type * as React from "react"
+import type * as React from "react";
 
 interface HeroEmailProps {
-  name: string
-  email: string
-  phone: string
-  message?: string
+  name: string;
+  email: string;
+  phone: string;
+  message?: string;
 }
 
-export const HeroEmailTemplate: React.FC<HeroEmailProps> = ({ name, email, phone, message }) => (
+export const HeroEmailTemplate: React.FC<HeroEmailProps> = ({
+  name,
+  email,
+  phone,
+  message,
+}) => (
   <div
     style={{
       fontFamily: "Arial, sans-serif",
@@ -34,7 +39,7 @@ export const HeroEmailTemplate: React.FC<HeroEmailProps> = ({ name, email, phone
           fontWeight: "bold",
         }}
       >
-        شركة لوكسري هاوسينغ للحلول العقارية
+        شركة لوكسري هاوسينج للحلول العقارية
       </h1>
       <p
         style={{
@@ -176,7 +181,7 @@ export const HeroEmailTemplate: React.FC<HeroEmailProps> = ({ name, email, phone
           color: "#64748b",
         }}
       >
-        تم إرسال هذا الطلب من موقع شركة لوكسري هاوسينغ
+        تم إرسال هذا الطلب من موقع شركة لوكسري هاوسينج
       </p>
       <p
         style={{
@@ -197,4 +202,4 @@ export const HeroEmailTemplate: React.FC<HeroEmailProps> = ({ name, email, phone
       </p>
     </div>
   </div>
-)
+);

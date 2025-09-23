@@ -1,5 +1,4 @@
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ProductDetailsClient } from "@/components/product-details-client";
 import WhatsAppFloat from "@/components/whatsapp-float";
@@ -53,8 +52,6 @@ const renderIcon = (iconName: string) => {
 export function ProductDetailsPage({ product }: ProductDetailsPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
-      <Header />
-
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95"></div>
