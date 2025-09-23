@@ -85,11 +85,11 @@ export default function EditServicePage() {
           accentColor: serviceData.accentColor || "border-blue-500/30",
         });
       } else {
-        setError("Service not found");
+        setError("الخدمة غير موجودة");
       }
     } catch (error) {
       console.error("Error loading service:", error);
-      setError("Failed to load service");
+      setError("فشل في تحميل الخدمة");
     } finally {
       setIsLoading(false);
     }
@@ -178,11 +178,11 @@ export default function EditServicePage() {
         router.push("/cms/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.error || "Failed to update service");
+        setError(errorData.error || "فشل في تحديث الخدمة");
       }
     } catch (error) {
       console.error("Error updating service:", error);
-      setError("Failed to update service");
+      setError("فشل في تحديث الخدمة");
     } finally {
       setIsSaving(false);
     }
@@ -193,7 +193,7 @@ export default function EditServicePage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading service...</p>
+          <p className="text-slate-600">جاري تحميل الخدمة...</p>
         </div>
       </div>
     );
@@ -206,7 +206,7 @@ export default function EditServicePage() {
           <p className="text-red-600 mb-4">{error}</p>
           <Button onClick={() => router.push("/cms/dashboard")}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Dashboard
+            العودة للوحة التحكم
           </Button>
         </div>
       </div>
@@ -224,14 +224,12 @@ export default function EditServicePage() {
               className="mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Dashboard
+              العودة للوحة التحكم
             </Button>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
-              Edit Service
+              تعديل الخدمة
             </h1>
-            <p className="text-slate-600">
-              Update service information and details
-            </p>
+            <p className="text-slate-600">تحديث معلومات وتفاصيل الخدمة</p>
           </div>
         </ScrollAnimation>
 
@@ -240,7 +238,7 @@ export default function EditServicePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Save className="w-5 h-5" />
-                Service Details
+                تفاصيل الخدمة
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -253,63 +251,61 @@ export default function EditServicePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="title">Title *</Label>
+                    <Label htmlFor="title">العنوان *</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) =>
                         handleInputChange("title", e.target.value)
                       }
-                      placeholder="Service title"
+                      placeholder="عنوان الخدمة"
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="icon">Icon</Label>
+                    <Label htmlFor="icon">الأيقونة</Label>
                     <Input
                       id="icon"
                       value={formData.icon}
                       onChange={(e) =>
                         handleInputChange("icon", e.target.value)
                       }
-                      placeholder="Icon name (e.g., CreditCard, Home)"
+                      placeholder="اسم الأيقونة (مثل: CreditCard, Home)"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description *</Label>
+                  <Label htmlFor="description">الوصف *</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) =>
                       handleInputChange("description", e.target.value)
                     }
-                    placeholder="Brief service description"
+                    placeholder="وصف مختصر للخدمة"
                     rows={3}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="detailedDescription">
-                    Detailed Description
-                  </Label>
+                  <Label htmlFor="detailedDescription">الوصف التفصيلي</Label>
                   <Textarea
                     id="detailedDescription"
                     value={formData.detailedDescription}
                     onChange={(e) =>
                       handleInputChange("detailedDescription", e.target.value)
                     }
-                    placeholder="Detailed service description"
+                    placeholder="وصف تفصيلي للخدمة"
                     rows={4}
                   />
                 </div>
 
                 {/* Features */}
                 <div className="space-y-2">
-                  <Label>Features</Label>
+                  <Label>المميزات</Label>
                   {formData.features.map((feature, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
@@ -317,7 +313,7 @@ export default function EditServicePage() {
                         onChange={(e) =>
                           handleArrayChange("features", index, e.target.value)
                         }
-                        placeholder="Feature description"
+                        placeholder="وصف الميزة"
                       />
                       <Button
                         type="button"
@@ -335,13 +331,13 @@ export default function EditServicePage() {
                     onClick={() => addArrayItem("features")}
                     className="w-full"
                   >
-                    Add Feature
+                    إضافة ميزة
                   </Button>
                 </div>
 
                 {/* Benefits */}
                 <div className="space-y-2">
-                  <Label>Benefits</Label>
+                  <Label>الفوائد</Label>
                   {formData.benefits.map((benefit, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
@@ -349,7 +345,7 @@ export default function EditServicePage() {
                         onChange={(e) =>
                           handleArrayChange("benefits", index, e.target.value)
                         }
-                        placeholder="Benefit description"
+                        placeholder="وصف الفائدة"
                       />
                       <Button
                         type="button"
@@ -367,13 +363,13 @@ export default function EditServicePage() {
                     onClick={() => addArrayItem("benefits")}
                     className="w-full"
                   >
-                    Add Benefit
+                    إضافة فائدة
                   </Button>
                 </div>
 
                 {/* Requirements */}
                 <div className="space-y-2">
-                  <Label>Requirements</Label>
+                  <Label>المتطلبات</Label>
                   {formData.requirements.map((requirement, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
@@ -385,7 +381,7 @@ export default function EditServicePage() {
                             e.target.value
                           )
                         }
-                        placeholder="Requirement description"
+                        placeholder="وصف المتطلب"
                       />
                       <Button
                         type="button"
@@ -403,13 +399,13 @@ export default function EditServicePage() {
                     onClick={() => addArrayItem("requirements")}
                     className="w-full"
                   >
-                    Add Requirement
+                    إضافة متطلب
                   </Button>
                 </div>
 
                 {/* Process */}
                 <div className="space-y-2">
-                  <Label>Process Steps</Label>
+                  <Label>خطوات العملية</Label>
                   {formData.process.map((step, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
@@ -417,7 +413,7 @@ export default function EditServicePage() {
                         onChange={(e) =>
                           handleArrayChange("process", index, e.target.value)
                         }
-                        placeholder="Process step description"
+                        placeholder="وصف خطوة العملية"
                       />
                       <Button
                         type="button"
@@ -435,13 +431,13 @@ export default function EditServicePage() {
                     onClick={() => addArrayItem("process")}
                     className="w-full"
                   >
-                    Add Process Step
+                    إضافة خطوة عملية
                   </Button>
                 </div>
 
                 {/* FAQ */}
                 <div className="space-y-2">
-                  <Label>FAQ</Label>
+                  <Label>الأسئلة الشائعة</Label>
                   {formData.faq.map((item, index) => (
                     <div
                       key={index}
@@ -453,7 +449,7 @@ export default function EditServicePage() {
                           onChange={(e) =>
                             handleFaqChange(index, "question", e.target.value)
                           }
-                          placeholder="Question"
+                          placeholder="السؤال"
                         />
                         <Button
                           type="button"
@@ -469,7 +465,7 @@ export default function EditServicePage() {
                         onChange={(e) =>
                           handleFaqChange(index, "answer", e.target.value)
                         }
-                        placeholder="Answer"
+                        placeholder="الإجابة"
                         rows={2}
                       />
                     </div>
@@ -480,14 +476,14 @@ export default function EditServicePage() {
                     onClick={addFaqItem}
                     className="w-full"
                   >
-                    Add FAQ Item
+                    إضافة سؤال شائع
                   </Button>
                 </div>
 
                 {/* Styling Options */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="gradient">Gradient</Label>
+                    <Label htmlFor="gradient">التدرج اللوني</Label>
                     <Input
                       id="gradient"
                       value={formData.gradient}
@@ -499,7 +495,7 @@ export default function EditServicePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="iconBg">Icon Background</Label>
+                    <Label htmlFor="iconBg">خلفية الأيقونة</Label>
                     <Input
                       id="iconBg"
                       value={formData.iconBg}
@@ -511,7 +507,7 @@ export default function EditServicePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="accentColor">Accent Color</Label>
+                    <Label htmlFor="accentColor">اللون المميز</Label>
                     <Input
                       id="accentColor"
                       value={formData.accentColor}
@@ -528,12 +524,12 @@ export default function EditServicePage() {
                     {isSaving ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Updating...
+                        جاري التحديث...
                       </>
                     ) : (
                       <>
                         <Save className="w-4 h-4 mr-2" />
-                        Update Service
+                        تحديث الخدمة
                       </>
                     )}
                   </Button>
@@ -542,7 +538,7 @@ export default function EditServicePage() {
                     variant="outline"
                     onClick={() => router.push("/cms/dashboard")}
                   >
-                    Cancel
+                    إلغاء
                   </Button>
                 </div>
               </form>

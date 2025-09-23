@@ -105,10 +105,92 @@ export default function Header() {
     },
   ];
 
+  const servicesItems = [
+    {
+      name: "جميع الخدمات",
+      href: "/services",
+      icon: <Award className="w-4 h-4" />,
+    },
+    {
+      name: "حلول الدفعة المقدمة",
+      href: "/services/down-payment-solutions",
+      icon: <Home className="w-4 h-4" />,
+    },
+    {
+      name: "حلول زيادة الضريبة",
+      href: "/services/tax-solutions",
+      icon: <Building2 className="w-4 h-4" />,
+    },
+    {
+      name: "حلول توحيد الاقساط",
+      href: "/services/توحيد-الاقساط",
+      icon: <RefreshCw className="w-4 h-4" />,
+    },
+    {
+      name: "دمج الدعم مع الراتب",
+      href: "/services/salary-housing-integration",
+      icon: <Users className="w-4 h-4" />,
+    },
+    {
+      name: "حلول تقفيل المديونيات",
+      href: "/services/تقفيل-المديونيات",
+      icon: <Building className="w-4 h-4" />,
+    },
+  ];
+
+  const applicationItems = [
+    {
+      name: "التمويل العقاري",
+      href: "/apply/real-estate-financing",
+      icon: <Building className="w-4 h-4" />,
+    },
+    {
+      name: "إعادة التمويل العقاري",
+      href: "/apply/real-estate-refinancing",
+      icon: <RefreshCw className="w-4 h-4" />,
+    },
+    {
+      name: "الرهن العقاري",
+      href: "/apply/real-estate-mortgage",
+      icon: <Home className="w-4 h-4" />,
+    },
+    {
+      name: "التمويل الشخصي",
+      href: "/apply/personal-financing",
+      icon: <User className="w-4 h-4" />,
+    },
+    {
+      name: "قطاع الاعمال",
+      href: "/apply/business-sector",
+      icon: <Building2 className="w-4 h-4" />,
+    },
+  ];
+
+  const galleryItems = [
+    {
+      name: "جميع الصور",
+      href: "/gallery",
+      icon: <Award className="w-4 h-4" />,
+    },
+    {
+      name: "صور الاعمال",
+      href: "/gallery?category=business",
+      icon: <Building2 className="w-4 h-4" />,
+    },
+    {
+      name: "العروض",
+      href: "/gallery?category=offers",
+      icon: <Target className="w-4 h-4" />,
+    },
+    {
+      name: "صور الفرع",
+      href: "/gallery?category=branch",
+      icon: <Building className="w-4 h-4" />,
+    },
+  ];
+
   const navItems = [
-    { name: "الخدمات", href: "/services" },
     { name: "تقدم بطلبك الان", href: "/contact" },
-    { name: "معرض الصور", href: "/gallery" },
     { name: "شركاء النجاح", href: "/#clients" },
     { name: "جديدنا", href: "/news" },
     { name: "الأسئلة الشائعة", href: "/faq" },
@@ -240,6 +322,45 @@ export default function Header() {
                 />
               </motion.div>
 
+              {/* Services Dropdown */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.15 }}
+              >
+                <DropdownMenu
+                  title="الخدمات"
+                  items={servicesItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
+
+              {/* Application Forms Dropdown */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.2 }}
+              >
+                <DropdownMenu
+                  title="تقدم طلبك الان"
+                  items={applicationItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
+
+              {/* Gallery Dropdown */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.25 }}
+              >
+                <DropdownMenu
+                  title="معرض الصور"
+                  items={galleryItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
+
               {/* Other Navigation Items */}
               {navItems.map((item, index) => (
                 <motion.div
@@ -248,7 +369,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.5,
-                    delay: 0.3 + (index + 3) * 0.05,
+                    delay: 0.3 + (index + 6) * 0.05,
                   }}
                 >
                   <Link
@@ -543,6 +664,190 @@ export default function Header() {
                     ))}
                   </motion.div>
 
+                  {/* Services Section in Mobile */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay:
+                        0.1 +
+                        (aboutUsItems.length + productsItems.length + 2) * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
+                      الخدمات
+                    </div>
+                    {servicesItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay:
+                            0.1 +
+                            (aboutUsItems.length + productsItems.length + 2) *
+                              0.1 +
+                            (index + 1) * 0.1,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          rotateY: 5,
+                          z: 50,
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href={item.href}
+                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                            isScrolled
+                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="relative z-10 flex items-center gap-3">
+                            {item.icon}
+                            {item.name}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Application Forms Section in Mobile */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay:
+                        0.1 +
+                        (aboutUsItems.length +
+                          productsItems.length +
+                          servicesItems.length +
+                          3) *
+                          0.1,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
+                      تقدم طلبك الان
+                    </div>
+                    {applicationItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay:
+                            0.1 +
+                            (aboutUsItems.length +
+                              productsItems.length +
+                              servicesItems.length +
+                              3) *
+                              0.1 +
+                            (index + 1) * 0.1,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          rotateY: 5,
+                          z: 50,
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href={item.href}
+                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                            isScrolled
+                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="relative z-10 flex items-center gap-3">
+                            {item.icon}
+                            {item.name}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Gallery Section in Mobile */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                    animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay:
+                        0.1 +
+                        (aboutUsItems.length +
+                          productsItems.length +
+                          servicesItems.length +
+                          applicationItems.length +
+                          4) *
+                          0.1,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
+                      معرض الصور
+                    </div>
+                    {galleryItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay:
+                            0.1 +
+                            (aboutUsItems.length +
+                              productsItems.length +
+                              servicesItems.length +
+                              applicationItems.length +
+                              4) *
+                              0.1 +
+                            (index + 1) * 0.1,
+                          type: "spring",
+                          stiffness: 200,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          rotateY: 5,
+                          z: 50,
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href={item.href}
+                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
+                            isScrolled
+                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
+                          }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <span className="relative z-10 flex items-center gap-3">
+                            {item.icon}
+                            {item.name}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
                   {/* Other Navigation Items */}
                   {navItems.map((item, index) => {
                     const isActive =
@@ -558,7 +863,12 @@ export default function Header() {
                           duration: 0.4,
                           delay:
                             0.1 +
-                            (aboutUsItems.length + productsItems.length + 2) *
+                            (aboutUsItems.length +
+                              productsItems.length +
+                              servicesItems.length +
+                              applicationItems.length +
+                              galleryItems.length +
+                              5) *
                               0.1 +
                             index * 0.1,
                           type: "spring",

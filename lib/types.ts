@@ -59,3 +59,15 @@ export interface Service {
   processingTime: string;
   eligibility: string[];
 }
+
+// Gallery type definition
+export interface GalleryImage {
+  id: string;
+  title: string;
+  description: string;
+  category: "business" | "offers" | "branch";
+  image: string;
+  alt: string;
+  uploadDate: string;
+  featured: boolean;
+}

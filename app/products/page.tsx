@@ -1,14 +1,11 @@
 "use client";
 
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import WhatsAppFloat from "@/components/whatsapp-float";
 import productsData from "@/lib/products.json";
 import Image from "next/image";
 import Link from "next/link";
@@ -163,8 +160,6 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen" dir="rtl">
-      <Header />
-
       {/* Hero Section */}
       <section className="relative pt-24 md:pt-32 pb-16 md:pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.3),transparent_50%)]" />
@@ -476,8 +471,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <Footer />
-      <WhatsAppFloat />
       <MobileNavigation />
     </div>
   );

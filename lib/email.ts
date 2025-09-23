@@ -1,65 +1,207 @@
-import { Resend } from "resend"
-import { HeroEmailTemplate } from "@/components/email-templates/hero-email"
-import { ContactFormEmailTemplate } from "@/components/email-templates/contact-form-email"
-import { ProductInquiryEmailTemplate } from "@/components/email-templates/product-inquiry-email"
-import { ServiceInquiryEmailTemplate } from "@/components/email-templates/service-inquiry-email"
-import { CustomerConfirmationEmailTemplate } from "@/components/email-templates/customer-confirmation-email"
+import BusinessSectorEmailTemplate from "@/components/email-templates/business-sector-email";
+import { ContactFormEmailTemplate } from "@/components/email-templates/contact-form-email";
+import { CustomerConfirmationEmailTemplate } from "@/components/email-templates/customer-confirmation-email";
+import { HeroEmailTemplate } from "@/components/email-templates/hero-email";
+import PersonalFinancingEmailTemplate from "@/components/email-templates/personal-financing-email";
+import { ProductInquiryEmailTemplate } from "@/components/email-templates/product-inquiry-email";
+import RealEstateFinancingEmailTemplate from "@/components/email-templates/real-estate-financing-email";
+import RealEstateMortgageEmailTemplate from "@/components/email-templates/real-estate-mortgage-email";
+import RealEstateRefinancingEmailTemplate from "@/components/email-templates/real-estate-refinancing-email";
+import { ServiceInquiryEmailTemplate } from "@/components/email-templates/service-inquiry-email";
+import { Resend } from "resend";
 
 // Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email types for all forms on the site
-export type EmailType = "hero" | "contact" | "product" | "service"
+export type EmailType =
+  | "hero"
+  | "contact"
+  | "product"
+  | "service"
+  | "personal-financing"
+  | "real-estate-financing"
+  | "business-sector"
+  | "real-estate-refinancing"
+  | "real-estate-mortgage";
 
 // Base email data interface
 interface BaseEmailData {
-  name: string
-  email: string
-  phone?: string
-  message?: string
+  name: string;
+  email: string;
+  phone?: string;
+  message?: string;
 }
 
 // Hero form data (consultation request)
 export interface HeroFormData extends BaseEmailData {
-  phone: string
-  message?: string
+  phone: string;
+  message?: string;
 }
 
 // Contact form data
 export interface ContactFormData extends BaseEmailData {
-  phone: string
-  service?: string
-  message: string
+  phone: string;
+  service?: string;
+  message: string;
 }
 
 // Product inquiry form data
 export interface ProductFormData extends BaseEmailData {
-  phone: string
-  city?: string
-  monthlyIncome?: string
-  requestedAmount?: string
-  propertyType?: string
-  employment?: string
-  inquiryType?: string
-  preferredContact?: string
-  product?: string
+  phone: string;
+  city?: string;
+  monthlyIncome?: string;
+  requestedAmount?: string;
+  propertyType?: string;
+  employment?: string;
+  inquiryType?: string;
+  preferredContact?: string;
+  product?: string;
 }
 
 // Service inquiry form data
 export interface ServiceFormData extends BaseEmailData {
-  phone: string
-  service?: string
-  inquiryType?: string
-  preferredContact?: string
+  phone: string;
+  service?: string;
+  inquiryType?: string;
+  message: string;
+  preferredContact?: string;
+}
+
+// Personal financing form data
+export interface PersonalFinancingFormData {
+  fullName: string;
+  phoneNumber: string;
+  nationalId: string;
+  birthDate: string;
+  workplace: string;
+  militaryRank: string;
+  workStartDate: string;
+  bankName: string;
+  totalSalary: string;
+  hasViolations: string;
+  personalLoans: string;
+  personalLoanInstallment: string;
+  realEstateLoans: string;
+  realEstateLoanInstallment: string;
+  supportAmount: string;
+  creditCardDebts: string;
+  carLoans: string;
+  carLoanInstallment: string;
+  houseOwnership: string;
+  city: string;
+}
+
+// Real estate financing form data
+export interface RealEstateFinancingFormData {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  nationalId: string;
+  birthDate: string;
+  city: string;
+  propertyType: string;
+  propertyValue: string;
+  downPayment: string;
+  monthlyIncome: string;
+  employmentType: string;
+  workExperience: string;
+  bankName: string;
+  existingLoans: string;
+  message: string;
+}
+
+// Business sector form data
+export interface BusinessSectorFormData {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  nationalId: string;
+  birthDate: string;
+  city: string;
+  businessType: string;
+  businessName: string;
+  businessRegistration: string;
+  businessStartDate: string;
+  monthlyRevenue: string;
+  numberOfEmployees: string;
+  businessAddress: string;
+  bankName: string;
+  existingLoans: string;
+  requestedAmount: string;
+  loanPurpose: string;
+  message: string;
+}
+
+// Real estate refinancing form data
+export interface RealEstateRefinancingFormData {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  nationalId: string;
+  birthDate: string;
+  city: string;
+  propertyType: string;
+  propertyValue: string;
+  currentLoanAmount: string;
+  currentBank: string;
+  currentMonthlyPayment: string;
+  loanStartDate: string;
+  remainingLoanTerm: string;
+  monthlyIncome: string;
+  employmentType: string;
+  workExperience: string;
+  bankName: string;
+  refinancingPurpose: string;
+  message: string;
+}
+
+// Real estate mortgage form data
+export interface RealEstateMortgageFormData {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  nationalId: string;
+  birthDate: string;
+  city: string;
+  propertyType: string;
+  propertyValue: string;
+  downPayment: string;
+  loanAmount: string;
+  monthlyIncome: string;
+  employmentType: string;
+  workExperience: string;
+  bankName: string;
+  existingLoans: string;
+  propertyLocation: string;
+  propertyAge: string;
+  message: string;
 }
 
 // Union type for all form data
-export type FormData = HeroFormData | ContactFormData | ProductFormData | ServiceFormData
+export type FormData =
+  | HeroFormData
+  | ContactFormData
+  | ProductFormData
+  | ServiceFormData
+  | PersonalFinancingFormData
+  | RealEstateFinancingFormData
+  | BusinessSectorFormData
+  | RealEstateRefinancingFormData
+  | RealEstateMortgageFormData;
 
 // Function to send emails
 export async function sendEmail(type: EmailType, data: FormData) {
   try {
-    console.log("[v0] Processing email for type:", type)
+    console.log("[v0] Processing email for type:", type);
+
+    // Check if Resend API key is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.error("[v0] RESEND_API_KEY is not configured");
+      throw new Error(
+        "Email service is not configured. Please contact the administrator."
+      );
+    }
 
     // Email subjects in Arabic
     const subjects = {
@@ -67,67 +209,162 @@ export async function sendEmail(type: EmailType, data: FormData) {
       contact: "رسالة تواصل جديدة - شركة لوكسري هاوسينغ",
       product: "استفسار منتج تمويلي جديد - شركة لوكسري هاوسينغ",
       service: "استفسار خدمة جديد - شركة لوكسري هاوسينغ",
-    }
+      "personal-financing": "طلب تمويل شخصي جديد - شركة لوكسري هاوسينغ",
+      "real-estate-financing": "طلب تمويل عقاري جديد - شركة لوكسري هاوسينغ",
+      "business-sector": "طلب تمويل قطاع الاعمال جديد - شركة لوكسري هاوسينغ",
+      "real-estate-refinancing":
+        "طلب إعادة تمويل عقاري جديد - شركة لوكسري هاوسينغ",
+      "real-estate-mortgage": "طلب رهن عقاري جديد - شركة لوكسري هاوسينغ",
+    };
 
-    console.log("[v0] Sending admin notification email")
+    console.log("[v0] Sending admin notification email");
 
     // Send email to admin with proper React component syntax
-    let adminResult
-    switch (type) {
-      case "hero":
-        adminResult = await resend.emails.send({
-          from: "Luxury Housing <no-reply@luxuryhousing.sa>",
-          to: ["info@luxuryhousing.sa"], // Admin email as requested
-          subject: subjects[type],
-          react: HeroEmailTemplate(data as HeroFormData),
-          text: `${subjects[type]} من ${data.name}. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
-        })
-        break
-      case "contact":
-        adminResult = await resend.emails.send({
-          from: "Luxury Housing <no-reply@luxuryhousing.sa>",
-          to: ["info@luxuryhousing.sa"],
-          subject: subjects[type],
-          react: ContactFormEmailTemplate(data as ContactFormData),
-          text: `${subjects[type]} من ${data.name}. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
-        })
-        break
-      case "product":
-        adminResult = await resend.emails.send({
-          from: "Luxury Housing <no-reply@luxuryhousing.sa>",
-          to: ["info@luxuryhousing.sa"],
-          subject: subjects[type],
-          react: ProductInquiryEmailTemplate(data as ProductFormData),
-          text: `${subjects[type]} من ${data.name}. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
-        })
-        break
-      case "service":
-        adminResult = await resend.emails.send({
-          from: "Luxury Housing <no-reply@luxuryhousing.sa>",
-          to: ["info@luxuryhousing.sa"],
-          subject: subjects[type],
-          react: ServiceInquiryEmailTemplate(data as ServiceFormData),
-          text: `${subjects[type]} من ${data.name}. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
-        })
-        break
-      default:
-        throw new Error("Invalid email type")
+    let adminResult;
+    try {
+      switch (type) {
+        case "hero":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"], // Admin email as requested
+            subject: subjects[type],
+            react: HeroEmailTemplate(data as HeroFormData),
+            text: `${subjects[type]} من ${
+              (data as HeroFormData).name
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "contact":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: ContactFormEmailTemplate(data as ContactFormData),
+            text: `${subjects[type]} من ${
+              (data as ContactFormData).name
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "product":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: ProductInquiryEmailTemplate(data as ProductFormData),
+            text: `${subjects[type]} من ${
+              (data as ProductFormData).name
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "service":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: ServiceInquiryEmailTemplate(data as ServiceFormData),
+            text: `${subjects[type]} من ${
+              (data as ServiceFormData).name
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "personal-financing":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: PersonalFinancingEmailTemplate({
+              formData: data as PersonalFinancingFormData,
+            }),
+            text: `${subjects[type]} من ${
+              (data as PersonalFinancingFormData).fullName
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "real-estate-financing":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: RealEstateFinancingEmailTemplate({
+              formData: data as RealEstateFinancingFormData,
+            }),
+            text: `${subjects[type]} من ${
+              (data as RealEstateFinancingFormData).fullName
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "business-sector":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: BusinessSectorEmailTemplate({
+              formData: data as BusinessSectorFormData,
+            }),
+            text: `${subjects[type]} من ${
+              (data as BusinessSectorFormData).fullName
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "real-estate-refinancing":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: RealEstateRefinancingEmailTemplate({
+              formData: data as RealEstateRefinancingFormData,
+            }),
+            text: `${subjects[type]} من ${
+              (data as RealEstateRefinancingFormData).fullName
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "real-estate-mortgage":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: RealEstateMortgageEmailTemplate({
+              formData: data as RealEstateMortgageFormData,
+            }),
+            text: `${subjects[type]} من ${
+              (data as RealEstateMortgageFormData).fullName
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        default:
+          throw new Error("Invalid email type");
+      }
+
+      console.log("[v0] Admin email sent successfully:", adminResult);
+    } catch (adminError) {
+      console.error("[v0] Failed to send admin email:", adminError);
+      throw new Error(
+        `Failed to send admin notification: ${
+          adminError instanceof Error ? adminError.message : "Unknown error"
+        }`
+      );
     }
 
-    console.log("[v0] Admin email sent, sending customer confirmation")
+    console.log("[v0] Admin email sent, sending customer confirmation");
 
-    // Send Arabic confirmation email to customer
-    await sendCustomerConfirmation(type, data)
+    // Send Arabic confirmation email to customer (skip for personal financing as no email provided)
+    if (type !== "personal-financing") {
+      await sendCustomerConfirmation(type, data);
+      console.log("[v0] Customer confirmation sent");
+    } else {
+      console.log(
+        "[v0] Skipping customer confirmation for personal financing (no email provided)"
+      );
+    }
 
-    console.log("[v0] Customer confirmation sent")
-
-    return { success: true, data: adminResult }
+    return { success: true, data: adminResult };
   } catch (error) {
-    console.error("[v0] Error sending email:", error)
+    console.error("[v0] Error sending email:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
-    }
+    };
   }
 }
 
@@ -140,33 +377,47 @@ async function sendCustomerConfirmation(type: EmailType, data: FormData) {
       contact: "تأكيد استلام رسالتك - شركة لوكسري هاوسينغ",
       product: "تأكيد استلام استفسار المنتج - شركة لوكسري هاوسينغ",
       service: "تأكيد استلام استفسار الخدمة - شركة لوكسري هاوسينغ",
-    }
+      "personal-financing":
+        "تأكيد استلام طلب التمويل الشخصي - شركة لوكسري هاوسينغ",
+      "real-estate-financing":
+        "تأكيد استلام طلب التمويل العقاري - شركة لوكسري هاوسينغ",
+      "business-sector":
+        "تأكيد استلام طلب تمويل قطاع الاعمال - شركة لوكسري هاوسينغ",
+      "real-estate-refinancing":
+        "تأكيد استلام طلب إعادة التمويل العقاري - شركة لوكسري هاوسينغ",
+      "real-estate-mortgage":
+        "تأكيد استلام طلب الرهن العقاري - شركة لوكسري هاوسينغ",
+    };
 
     // Get service or product name for confirmation
-    const service = "service" in data ? data.service : undefined
-    const product = "product" in data ? data.product : undefined
+    const service = "service" in data ? data.service : undefined;
+    const product = "product" in data ? data.product : undefined;
 
     // Send Arabic confirmation email to customer with proper React component syntax
+    const email = "email" in data ? data.email : "";
+    const name =
+      "name" in data ? data.name : "fullName" in data ? data.fullName : "";
+
     await resend.emails.send({
       from: "Luxury Housing <no-reply@luxuryhousing.sa>",
-      to: [data.email],
+      to: [email],
       subject: subjects[type],
       react: CustomerConfirmationEmailTemplate({
-        name: data.name,
-        formType: type,
+        name: name,
+        formType: type as "hero" | "contact" | "product" | "service",
         service,
         product,
       }),
-      text: getArabicAutoReplyText(type, data.name),
-    })
+      text: getArabicAutoReplyText(type, name),
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("[v0] Error sending customer confirmation:", error)
+    console.error("[v0] Error sending customer confirmation:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
-    }
+    };
   }
 }
 
@@ -178,11 +429,11 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
     month: "long",
     day: "numeric",
     timeZone: "Asia/Riyadh",
-  })
+  });
 
   const baseMessage = `عزيزي/عزيزتي ${name}،
 
-شكراً لك على تواصلك مع شركة لوكسري هاوسينغ للحلول العقارية.`
+شكراً لك على تواصلك مع شركة لوكسري هاوسينغ للحلول العقارية.`;
 
   switch (type) {
     case "hero":
@@ -196,7 +447,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 
 مع أطيب التحيات،
 فريق شركة لوكسري هاوسينغ
-مستشار تمويل عقاري معتمد من الهيئة العامة للعقار`
+مستشار تمويل عقاري معتمد من الهيئة العامة للعقار`;
 
     case "contact":
       return `${baseMessage}
@@ -208,7 +459,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`
+فريق شركة لوكسري هاوسينغ`;
 
     case "product":
       return `${baseMessage}
@@ -220,7 +471,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`
+فريق شركة لوكسري هاوسينغ`;
 
     case "service":
       return `${baseMessage}
@@ -232,7 +483,67 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 للاستفسارات العاجلة: 0581111488
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`
+فريق شركة لوكسري هاوسينغ`;
+
+    case "personal-financing":
+      return `${baseMessage}
+
+تم استلام طلب التمويل الشخصي بنجاح. سيقوم أحد مختصي التمويل لدينا بمراجعة طلبك والتواصل معك خلال 24 ساعة لتقديم عرض مناسب حسب إمكانياتك المالية.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينغ`;
+
+    case "real-estate-financing":
+      return `${baseMessage}
+
+تم استلام طلب التمويل العقاري بنجاح. سيقوم أحد مختصي التمويل العقاري لدينا بمراجعة طلبك والتواصل معك خلال 24 ساعة لتقديم أفضل العروض التمويلية المناسبة لاحتياجاتك.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينغ`;
+
+    case "business-sector":
+      return `${baseMessage}
+
+تم استلام طلب تمويل قطاع الاعمال بنجاح. سيقوم أحد مختصي التمويل التجاري لدينا بمراجعة طلبك والتواصل معك خلال 24 ساعة لتقديم أفضل الحلول التمويلية لمشروعك التجاري.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينغ`;
+
+    case "real-estate-refinancing":
+      return `${baseMessage}
+
+تم استلام طلب إعادة التمويل العقاري بنجاح. سيقوم أحد مختصي التمويل العقاري لدينا بمراجعة طلبك والتواصل معك خلال 24 ساعة لتقديم أفضل شروط إعادة التمويل المناسبة لاحتياجاتك.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينغ`;
+
+    case "real-estate-mortgage":
+      return `${baseMessage}
+
+تم استلام طلب الرهن العقاري بنجاح. سيقوم أحد مختصي الرهن العقاري لدينا بمراجعة طلبك والتواصل معك خلال 24 ساعة لتقديم أفضل عروض الرهن العقاري المناسبة لاحتياجاتك.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينغ`;
 
     default:
       return `${baseMessage}
@@ -242,6 +553,6 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 التاريخ: ${currentDate}
 
 مع أطيب التحيات،
-فريق شركة لوكسري هاوسينغ`
+فريق شركة لوكسري هاوسينغ`;
   }
 }

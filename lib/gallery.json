@@ -1,0 +1,112 @@
+[
+  {
+    "id": "business-1",
+    "title": "مكتب لوكسري هاوسينغ الرئيسي",
+    "description": "صورة لمكتبنا الرئيسي في الرياض",
+    "category": "business",
+    "image": "/gallery/1.jpg",
+    "alt": "مكتب لوكسري هاوسينغ الرئيسي",
+    "uploadDate": "2024-01-15",
+    "featured": true
+  },
+  {
+    "id": "business-2",
+    "title": "فريق العمل",
+    "description": "فريق عمل لوكسري هاوسينغ المتخصص",
+    "category": "business",
+    "image": "/gallery/2.jpg",
+    "alt": "فريق العمل",
+    "uploadDate": "2024-01-16",
+    "featured": false
+  },
+  {
+    "id": "business-3",
+    "title": "قاعة الاجتماعات",
+    "description": "قاعة الاجتماعات الحديثة في مكتبنا",
+    "category": "business",
+    "image": "/gallery/3.jpg",
+    "alt": "قاعة الاجتماعات",
+    "uploadDate": "2024-01-17",
+    "featured": true
+  },
+  {
+    "id": "offers-1",
+    "title": "عرض تمويل العقارات",
+    "description": "عرض خاص لتمويل العقارات السكنية",
+    "category": "offers",
+    "image": "/gallery/4.jpg",
+    "alt": "عرض تمويل العقارات",
+    "uploadDate": "2024-01-18",
+    "featured": true
+  },
+  {
+    "id": "offers-2",
+    "title": "عرض الدفعة المقدمة",
+    "description": "عرض خاص للدفعة المقدمة المنخفضة",
+    "category": "offers",
+    "image": "/gallery/5.jpg",
+    "alt": "عرض الدفعة المقدمة",
+    "uploadDate": "2024-01-19",
+    "featured": false
+  },
+  {
+    "id": "offers-3",
+    "title": "عرض حلول المديونيات",
+    "description": "عرض خاص لحلول تقفيل المديونيات",
+    "category": "offers",
+    "image": "/gallery/6.jpg",
+    "alt": "عرض حلول المديونيات",
+    "uploadDate": "2024-01-20",
+    "featured": true
+  },
+  {
+    "id": "branch-1",
+    "title": "فرع الرياض",
+    "description": "صورة لفرعنا في الرياض",
+    "category": "branch",
+    "image": "/gallery/7.jpg",
+    "alt": "فرع الرياض",
+    "uploadDate": "2024-01-21",
+    "featured": true
+  },
+  {
+    "id": "branch-2",
+    "title": "فرع جدة",
+    "description": "صورة لفرعنا في جدة",
+    "category": "branch",
+    "image": "/gallery/8.jpg",
+    "alt": "فرع جدة",
+    "uploadDate": "2024-01-22",
+    "featured": false
+  },
+  {
+    "id": "branch-3",
+    "title": "فرع الدمام",
+    "description": "صورة لفرعنا في الدمام",
+    "category": "branch",
+    "image": "/gallery/9.jpg",
+    "alt": "فرع الدمام",
+    "uploadDate": "2024-01-23",
+    "featured": true
+  },
+  {
+    "id": "business-4",
+    "title": "مركز خدمة العملاء",
+    "description": "مركز خدمة العملاء المتطور",
+    "category": "business",
+    "image": "/gallery/10.jpg",
+    "alt": "مركز خدمة العملاء",
+    "uploadDate": "2024-01-24",
+    "featured": false
+  },
+  {
+    "id": "offers-4",
+    "title": "عرض الضرائب",
+    "description": "عرض خاص لحلول الضرائب",
+    "category": "offers",
+    "image": "/gallery/11.jpg",
+    "alt": "عرض الضرائب",
+    "uploadDate": "2024-01-25",
+    "featured": false
+  }
+]

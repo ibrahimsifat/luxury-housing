@@ -1,5 +1,3 @@
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { Metadata } from "next";
 
@@ -11,7 +9,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <Header />
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] opacity-60"></div>
@@ -396,7 +393,6 @@ export default function PrivacyPage() {
           </ScrollAnimation>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }

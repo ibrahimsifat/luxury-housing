@@ -188,7 +188,7 @@ export default function CMSDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <ScrollAnimation animation="fadeInUp">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
@@ -237,6 +237,39 @@ export default function CMSDashboard() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Gallery Management Card */}
+            <Link href="/cms/gallery">
+              <Card className="bg-gradient-to-r from-green-50 to-green-100 border-green-200 hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs sm:text-sm font-medium text-green-600">
+                        معرض الصور
+                      </p>
+                      <p className="text-2xl sm:text-3xl font-bold text-green-900">
+                        إدارة
+                      </p>
+                    </div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 text-green-600">
+                      <svg
+                        className="w-full h-full"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
 
           {/* Tabs */}

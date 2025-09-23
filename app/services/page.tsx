@@ -1,10 +1,7 @@
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import WhatsAppFloat from "@/components/whatsapp-float";
 import servicesData from "@/lib/services.json";
 import Link from "next/link";
 import {
@@ -31,13 +28,12 @@ export default function ServicesPage() {
   const getIconComponent = (iconName: string) => {
     const IconComponent =
       iconMap[iconName as keyof typeof iconMap] || FiCreditCard;
+    // @ts-ignore - React Icons type issue
     return <IconComponent className="w-8 h-8 text-white" />;
   };
 
   return (
     <div className="min-h-screen" dir="rtl">
-      <Header />
-
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.3),transparent_50%)]" />
@@ -47,6 +43,7 @@ export default function ServicesPage() {
           <ScrollAnimation animation="fadeInUp">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 shadow-lg mb-6">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              {/* @ts-ignore - React Icons type issue */}
               <FiStar className="w-4 h-4 text-yellow-400" />
               <span className="text-sm font-semibold text-white px-2 py-1 bg-white/20 rounded-full">
                 خدماتنا المتميزة
@@ -144,6 +141,7 @@ export default function ServicesPage() {
                       <Button className="w-full mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-black hover:via-slate-900 hover:to-black text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 rounded-2xl py-6 h-14 font-semibold text-base relative overflow-hidden">
                         <span className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                         <span className="relative z-10 flex items-center justify-center gap-3 text-white drop-shadow-lg">
+                          {/* @ts-ignore - React Icons type issue */}
                           <FiExternalLink className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                           تفاصيل الخدمة
                         </span>
@@ -191,8 +189,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <Footer />
-      <WhatsAppFloat />
       <MobileNavigation />
     </div>
   );

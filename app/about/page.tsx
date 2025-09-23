@@ -1,10 +1,7 @@
 "use client";
 
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import WhatsAppFloat from "@/components/whatsapp-float";
 import {
   Award,
   Briefcase,
@@ -21,8 +18,6 @@ import {
 export default function AboutPage() {
   return (
     <div className="min-h-screen" dir="rtl">
-      <Header />
-
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container mx-auto px-4">
@@ -617,8 +612,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
-      <WhatsAppFloat />
       <MobileNavigation />
     </div>
   );

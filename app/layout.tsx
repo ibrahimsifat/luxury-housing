@@ -1,3 +1,4 @@
+import ClientLayout from "@/components/ClientLayout";
 import { seoConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
@@ -83,7 +84,9 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={`font-sans ${cairo.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        <Suspense fallback={null}>
+          <ClientLayout>{children}</ClientLayout>
+        </Suspense>
       </body>
     </html>
   );
