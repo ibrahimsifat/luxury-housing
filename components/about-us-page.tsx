@@ -183,7 +183,7 @@ export function AboutUsPage() {
               من نحن
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-slate-200 leading-relaxed text-pretty">
-              شركة لوكسري هاوسينج العقارية - رائدة في الحلول العقارية المتميزة
+              شركة لوكسري هاوسينغ العقارية - رائدة في الحلول العقارية المتميزة
             </p>
             <Badge className="bg-secondary text-secondary-foreground px-6 py-2 text-lg font-semibold">
               تأسست عام 2022
@@ -208,7 +208,7 @@ export function AboutUsPage() {
               </h2>
               <div className="prose prose-lg text-muted-foreground leading-relaxed space-y-6">
                 <p className="text-lg">
-                  شركة لوكسري هاوسينج العقارية تأسست عام 2022 ذات مسؤولية محدودة
+                  شركة لوكسري هاوسينغ العقارية تأسست عام 2022 ذات مسؤولية محدودة
                   نشاطها الرئيسي الحلول العقارية بجميع مصنفاتها. اكتسبت الشركة
                   الأفضلية والتميز بين الشركات باعتبارها مستشار تمويل عقاري
                   معتمد من المستشار العقاري ومصنف من الهيئة العامة للعقار.
@@ -226,7 +226,7 @@ export function AboutUsPage() {
                 <CardContent className="p-0">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20250911-WA0022.jpg-YkqgXbwUFDh6Y9okO9Cs4hkrcg8Er2.jpeg"
-                    alt="مكتب شركة لوكسري هاوسينج"
+                    alt="مكتب شركة لوكسري هاوسينغ"
                     className="w-full h-96 object-cover"
                   />
                 </CardContent>

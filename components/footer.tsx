@@ -67,7 +67,7 @@ export function Footer() {
                     alt="Luxury Housing Logo"
                     width={100}
                     height={100}
-                    className="transition-transform duration-300 group-hover:scale-110"
+                    className="transition-transform duration-300 group-hover:scale-110 brightness-0 invert"
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-pink-400/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
@@ -89,9 +89,11 @@ export function Footer() {
                     <div className="p-2 ml-2 bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 rounded-lg">
                       <Phone className="w-5 h-5 text-cyan-400" />
                     </div>
-                    <h4 className="text-lg font-semibold text-white font-cairo">
-                      تواصل سريع
-                    </h4>
+                    <Link href="/contact">
+                      <h4 className="text-lg font-semibold text-white font-cairo">
+                        تواصل سريع
+                      </h4>
+                    </Link>
                   </div>
                   <p className="text-slate-300 text-base font-cairo leading-relaxed mb-2">
                     امسح الكود للتواصل المباشر

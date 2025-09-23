@@ -260,7 +260,7 @@ export function ContactUsSection() {
             </div>
 
             {/* Premium Title - Simplified */}
-            <h1 className="text-6xl md:text-7xl font-bold mb-8 text-balance text-white">
+            <h1 className="text-6xl md:text-7xl font-bold mb-8 text-balance text-white leading-tight">
               <span className="block">نحن هنا لخدمتك</span>
               <span className="block text-transparent bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text">
                 بأفضل الطرق

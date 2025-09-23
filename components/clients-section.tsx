@@ -104,11 +104,11 @@ export function ClientsSection() {
                     key={index}
                     className="transition-all duration-300 transform hover:-translate-y-1"
                   >
-                    <div className="relative h-32 w-32 mx-auto">
+                    <div className="relative h-32 w-full mx-auto flex items-center justify-center">
                       {/* Background Image */}
                       <div className="absolute inset-0 bg-white rounded-xl shadow-sm border border-gray-200"></div>
                       {/* Client Logo */}
-                      <div className="relative h-full w-full p-4">
+                      <div className="relative h-[80%] w-[80%] px-4 py-2 mx-auto my-auto">
                         <Image
                           src={image}
                           alt={`Client ${

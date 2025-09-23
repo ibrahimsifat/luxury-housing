@@ -201,7 +201,7 @@ export default function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/20 shadow-2xl shadow-slate-900/10"
@@ -334,19 +334,6 @@ export default function Header() {
                 />
               </motion.div>
 
-              {/* Application Forms Dropdown */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 + 0.2 }}
-              >
-                <DropdownMenu
-                  title="تقدم طلبك الان"
-                  items={applicationItems}
-                  isScrolled={isScrolled}
-                />
-              </motion.div>
-
               {/* Gallery Dropdown */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -389,6 +376,19 @@ export default function Header() {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Application Forms Dropdown */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + 0.2 }}
+              >
+                <DropdownMenu
+                  title="تقدم طلبك الان"
+                  items={applicationItems}
+                  isScrolled={isScrolled}
+                />
+              </motion.div>
             </nav>
 
             {/* CTA Button */}

@@ -413,7 +413,7 @@ export function HeroSection() {
 
             <div className="mb-8">
               <h1
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance leading-tight"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 text-balance leading-tight"
                 itemProp="name"
               >
                 <motion.div
@@ -423,7 +423,7 @@ export function HeroSection() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
                   <motion.span
-                    className="inline-block"
+                    className="inline-block leading-tight"
                     animate={
                       inView
                         ? {
@@ -436,7 +436,7 @@ export function HeroSection() {
                         : {}
                     }
                     transition={{
-                      duration: 3,
+                      duration: 2,
                       repeat: Number.POSITIVE_INFINITY,
                       ease: "easeInOut",
                     }}
