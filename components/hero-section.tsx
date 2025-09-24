@@ -113,7 +113,7 @@ export function HeroSection() {
     setIsSubmitting(true);
 
     try {
-      console.log("[v0] Starting email submission process");
+      console.log("Starting email submission process");
 
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -126,7 +126,7 @@ export function HeroSection() {
         }),
       });
 
-      console.log("[v0] Email API response status:", response.status);
+      console.log("Email API response status:", response.status);
 
       let responseData;
       const contentType = response.headers.get("content-type");
@@ -137,7 +137,7 @@ export function HeroSection() {
         // If response is not JSON (like HTML error page), get text
         const responseText = await response.text();
         console.log(
-          "[v0] Non-JSON response received:",
+          "Non-JSON response received:",
           responseText.substring(0, 100)
         );
         responseData = { error: "Server error occurred" };
@@ -157,11 +157,11 @@ export function HeroSection() {
           });
         }, 5000);
       } else {
-        console.log("[v0] Email API error response:", responseData);
+        console.log("Email API error response:", responseData);
         throw new Error(responseData.error || "Failed to send email");
       }
     } catch (error) {
-      console.error("[v0] Error sending email:", error);
+      console.error("Error sending email:", error);
       alert(
         "حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة على 0581111488"
       );

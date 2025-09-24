@@ -193,11 +193,11 @@ export type FormData =
 // Function to send emails
 export async function sendEmail(type: EmailType, data: FormData) {
   try {
-    console.log("[v0] Processing email for type:", type);
+    console.log("Processing email for type:", type);
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
-      console.error("[v0] RESEND_API_KEY is not configured");
+      console.error("RESEND_API_KEY is not configured");
       throw new Error(
         "Email service is not configured. Please contact the administrator."
       );
@@ -217,7 +217,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
       "real-estate-mortgage": "طلب رهن عقاري جديد - شركة لوكسري هاوسينج",
     };
 
-    console.log("[v0] Sending admin notification email");
+    console.log("Sending admin notification email");
 
     // Send email to admin with proper React component syntax
     let adminResult;
@@ -225,7 +225,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
       switch (type) {
         case "hero":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"], // Admin email as requested
             subject: subjects[type],
             react: HeroEmailTemplate(data as HeroFormData),
@@ -236,7 +236,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "contact":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: ContactFormEmailTemplate(data as ContactFormData),
@@ -247,7 +247,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "product":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: ProductInquiryEmailTemplate(data as ProductFormData),
@@ -258,7 +258,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "service":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: ServiceInquiryEmailTemplate(data as ServiceFormData),
@@ -269,7 +269,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "personal-financing":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: PersonalFinancingEmailTemplate({
@@ -282,7 +282,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "real-estate-financing":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: RealEstateFinancingEmailTemplate({
@@ -295,7 +295,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "business-sector":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: BusinessSectorEmailTemplate({
@@ -308,7 +308,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "real-estate-refinancing":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: RealEstateRefinancingEmailTemplate({
@@ -321,7 +321,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
           break;
         case "real-estate-mortgage":
           adminResult = await resend.emails.send({
-            from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+            from: "Luxury Housing <info@luxuryhousing.sa>",
             to: ["info@luxuryhousing.sa"],
             subject: subjects[type],
             react: RealEstateMortgageEmailTemplate({
@@ -336,9 +336,9 @@ export async function sendEmail(type: EmailType, data: FormData) {
           throw new Error("Invalid email type");
       }
 
-      console.log("[v0] Admin email sent successfully:", adminResult);
+      console.log("Admin email sent successfully:", adminResult);
     } catch (adminError) {
-      console.error("[v0] Failed to send admin email:", adminError);
+      console.error("Failed to send admin email:", adminError);
       throw new Error(
         `Failed to send admin notification: ${
           adminError instanceof Error ? adminError.message : "Unknown error"
@@ -346,21 +346,21 @@ export async function sendEmail(type: EmailType, data: FormData) {
       );
     }
 
-    console.log("[v0] Admin email sent, sending customer confirmation");
+    console.log("Admin email sent, sending customer confirmation");
 
     // Send Arabic confirmation email to customer (skip for personal financing as no email provided)
     if (type !== "personal-financing") {
       await sendCustomerConfirmation(type, data);
-      console.log("[v0] Customer confirmation sent");
+      console.log("Customer confirmation sent");
     } else {
       console.log(
-        "[v0] Skipping customer confirmation for personal financing (no email provided)"
+        "Skipping customer confirmation for personal financing (no email provided)"
       );
     }
 
     return { success: true, data: adminResult };
   } catch (error) {
-    console.error("[v0] Error sending email:", error);
+    console.error("Error sending email:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
@@ -399,7 +399,7 @@ async function sendCustomerConfirmation(type: EmailType, data: FormData) {
       "name" in data ? data.name : "fullName" in data ? data.fullName : "";
 
     await resend.emails.send({
-      from: "Luxury Housing <no-reply@luxuryhousing.sa>",
+      from: "Luxury Housing <info@luxuryhousing.sa>",
       to: [email],
       subject: subjects[type],
       react: CustomerConfirmationEmailTemplate({
@@ -413,7 +413,7 @@ async function sendCustomerConfirmation(type: EmailType, data: FormData) {
 
     return { success: true };
   } catch (error) {
-    console.error("[v0] Error sending customer confirmation:", error);
+    console.error("Error sending customer confirmation:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",

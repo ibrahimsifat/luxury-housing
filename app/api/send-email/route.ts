@@ -1,10 +1,10 @@
-import { sendEmail } from "@/lib/email";
+import { sendEmailSMTP } from "@/lib/smtp-email";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    console.log("[v0] Received email request:", {
+    console.log("Received email request:", {
       ...body,
       recaptchaToken: body.recaptchaToken ? "[REDACTED]" : undefined,
     });
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     } = rawFormData;
 
     if (!emailType) {
-      console.log("[v0] Missing form type");
+      console.log("Missing form type");
       return NextResponse.json(
         { success: false, error: "Missing form type" },
         { status: 400 }
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         "real-estate-mortgage",
       ].includes(emailType)
     ) {
-      console.log("[v0] Invalid form type:", emailType);
+      console.log("Invalid form type:", emailType);
       return NextResponse.json(
         { success: false, error: "Invalid form type" },
         { status: 400 }
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     // Different validation for different form types
     if (emailType === "personal-financing") {
       if (!formData.fullName || formData.fullName.trim() === "") {
-        console.log("[v0] Missing required fields - fullName is empty");
+        console.log("Missing required fields - fullName is empty");
         return NextResponse.json(
           {
             success: false,
@@ -73,9 +73,7 @@ export async function POST(request: NextRequest) {
         !formData.email ||
         formData.email.trim() === ""
       ) {
-        console.log(
-          "[v0] Missing required fields - fullName or email is empty"
-        );
+        console.log("Missing required fields - fullName or email is empty");
         return NextResponse.json(
           {
             success: false,
@@ -91,9 +89,7 @@ export async function POST(request: NextRequest) {
         !formData.email ||
         formData.email.trim() === ""
       ) {
-        console.log(
-          "[v0] Missing required fields - fullName or email is empty"
-        );
+        console.log("Missing required fields - fullName or email is empty");
         return NextResponse.json(
           {
             success: false,
@@ -109,9 +105,7 @@ export async function POST(request: NextRequest) {
         !formData.email ||
         formData.email.trim() === ""
       ) {
-        console.log(
-          "[v0] Missing required fields - fullName or email is empty"
-        );
+        console.log("Missing required fields - fullName or email is empty");
         return NextResponse.json(
           {
             success: false,
@@ -127,9 +121,7 @@ export async function POST(request: NextRequest) {
         !formData.email ||
         formData.email.trim() === ""
       ) {
-        console.log(
-          "[v0] Missing required fields - fullName or email is empty"
-        );
+        console.log("Missing required fields - fullName or email is empty");
         return NextResponse.json(
           {
             success: false,
@@ -139,7 +131,7 @@ export async function POST(request: NextRequest) {
         );
       }
     } else {
-      console.log("[v0] Validating fields:", {
+      console.log("Validating fields:", {
         name: formData.name,
         email: formData.email,
         nameExists: !!formData.name,
@@ -154,7 +146,7 @@ export async function POST(request: NextRequest) {
         formData.name.trim() === "" ||
         formData.email.trim() === ""
       ) {
-        console.log("[v0] Missing required fields - name or email is empty");
+        console.log("Missing required fields - name or email is empty");
         return NextResponse.json(
           {
             success: false,
@@ -165,23 +157,23 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log("[v0] Sending email for form type:", emailType);
+    console.log("Sending email for form type:", emailType);
 
-    // Send email
-    const result = await sendEmail(emailType, formData);
+    // Send email via SMTP
+    const result = await sendEmailSMTP(emailType, formData);
 
     if (!result.success) {
-      console.error("[v0] Email sending failed:", result.error);
+      console.error("Email sending failed:", result.error);
       return NextResponse.json(
         { success: false, error: result.error },
         { status: 500 }
       );
     }
 
-    console.log("[v0] Email sent successfully");
+    console.log("Email sent successfully");
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("[v0] Error in send-email route:", error);
+    console.error("Error in send-email route:", error);
     return NextResponse.json(
       {
         success: false,
