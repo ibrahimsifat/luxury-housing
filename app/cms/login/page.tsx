@@ -65,7 +65,7 @@ export default function CMSLoginPage() {
                 لوحة تحكم إدارة المحتوى
               </CardTitle>
               <CardDescription className="text-sm sm:text-base text-slate-600">
-                نظام إدارة محتوى الإسكان الفاخر
+                نظام إدارة محتوى المساكن الفاخرة
               </CardDescription>
             </CardHeader>
 

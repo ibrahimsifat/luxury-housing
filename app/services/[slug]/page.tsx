@@ -32,12 +32,12 @@ export async function generateMetadata({
   const title = `${service.title} | خدماتنا`;
   const description =
     service.description ||
-    `اكتشف ${service.title} من خدمات الإسكان الفاخر مع أفضل الخبرات والجودة`;
+    `اكتشف ${service.title} من خدمات المساكن الفاخرة مع أفضل الخبرات والجودة`;
   const keywords = [
     service.title,
     "خدمات عقارية",
     "تمويل عقاري",
-    "الإسكان الفاخر",
+    "المساكن الفاخرة",
     ...(service.features || []),
   ];
 

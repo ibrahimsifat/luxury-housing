@@ -1,6 +1,6 @@
 // SEO Configuration and Utilities
 export const seoConfig = {
-  siteName: "الإسكان الفاخر",
+  siteName: "المساكن الفاخرة",
   siteNameEn: "Luxury Housing",
   description:
     "نقدم خدمات التمويل العقاري والاستثمار العقاري في المملكة العربية السعودية مع أفضل الشروط والأسعار",
@@ -20,7 +20,7 @@ export const seoConfig = {
     "property investment",
     "Saudi Arabia",
   ],
-  author: "الإسكان الفاخر",
+  author: "المساكن الفاخرة",
   twitter: "@luxuryhousing",
   facebook: "luxuryhousing.sa",
   linkedin: "luxury-housing-sa",

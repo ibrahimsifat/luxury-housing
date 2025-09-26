@@ -212,7 +212,7 @@ export function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-700"
       role="banner"
-      aria-label="الصفحة الرئيسية - الإسكان الفاخر"
+      aria-label="الصفحة الرئيسية - المساكن الفاخرة"
     >
       <div className="absolute inset-0 z-0">
         {/* Dynamic background images - optimized for mobile */}
@@ -587,44 +587,54 @@ export function HeroSection() {
               </p>
 
               <motion.div
-                className="flex flex-wrap gap-2 mt-4 text-right justify-start"
+                className="flex flex-wrap gap-3 mt-6 text-right justify-start"
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.9 }}
               >
-                {["استشارة مجانية", "تمويل عقاري", "حلول استثمارية"].map(
-                  (badge, index) => (
-                    <motion.span
-                      key={badge}
-                      className="px-3 py-1 bg-amber-600/80 border border-amber-500 rounded-full text-white text-sm font-medium relative overflow-hidden"
-                      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                      animate={
-                        inView ? { opacity: 1, scale: 1, rotate: 0 } : {}
-                      }
-                      transition={{
-                        duration: 0.4,
-                        delay: 0.9 + index * 0.15,
-                        type: "spring",
-                        stiffness: 200,
-                      }}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: 2,
-                        boxShadow: "0 10px 25px rgba(251, 191, 36, 0.3)",
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {/* Animated background */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                        initial={{ x: "-100%" }}
-                        whileHover={{ x: "100%" }}
-                        transition={{ duration: 0.6 }}
-                      />
-                      <span className="relative z-10">{badge}</span>
-                    </motion.span>
-                  )
-                )}
+                {[
+                  {
+                    text: "اطلب خدمة التمويل العقاري",
+                    href: "/apply/real-estate-mortgage",
+                  },
+                  {
+                    text: "اطلب خدمة تمويل قطاع الأعمال",
+                    href: "/apply/business-sector",
+                  },
+                  {
+                    text: "اطلب خدمة التمويل الشخصي",
+                    href: "/apply/personal-financing",
+                  },
+                ].map((button, index) => (
+                  <motion.a
+                    key={button.text}
+                    href={button.href}
+                    className="px-4 py-2 bg-amber-600/80 border border-amber-500 rounded-full text-white text-sm font-medium relative overflow-hidden hover:bg-amber-700/90 transition-colors duration-300"
+                    initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                    animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.9 + index * 0.15,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      rotate: 2,
+                      boxShadow: "0 10px 25px rgba(251, 191, 36, 0.3)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {/* Animated background */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    <span className="relative z-10">{button.text}</span>
+                  </motion.a>
+                ))}
               </motion.div>
             </motion.div>
           </motion.div>

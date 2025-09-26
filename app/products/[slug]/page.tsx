@@ -29,16 +29,16 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${product.title} - منتجات الإسكان الفاخر`;
+  const title = `${product.title} - منتجات المساكن الفاخرة`;
   const description =
     product.description ||
-    `اكتشف ${product.title} من منتجات الإسكان الفاخر مع أفضل الشروط والأسعار`;
+    `اكتشف ${product.title} من منتجات المساكن الفاخرة مع أفضل الشروط والأسعار`;
   const keywords = [
     product.title,
     product.category,
     "تمويل عقاري",
     "منتجات عقارية",
-    "الإسكان الفاخر",
+    "المساكن الفاخرة",
     ...(product.features || []),
   ];
 

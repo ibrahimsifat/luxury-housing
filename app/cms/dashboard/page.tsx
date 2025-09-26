@@ -168,7 +168,7 @@ export default function CMSDashboard() {
                   لوحة تحكم إدارة المحتوى
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-600">
-                  إدارة محتوى الإسكان الفاخر
+                  إدارة محتوى المساكن الفاخرة
                 </p>
               </div>
             </div>
