@@ -17,7 +17,6 @@ import { motion } from "framer-motion";
 import {
   Building,
   Building2,
-  Calendar,
   CheckCircle,
   CreditCard,
   DollarSign,
@@ -25,51 +24,58 @@ import {
   MapPin,
   Phone,
   Send,
-  User,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface BusinessSectorForm {
-  fullName: string;
-  phoneNumber: string;
-  email: string;
-  nationalId: string;
-  birthDate: string;
-  city: string;
-  businessType: string;
   businessName: string;
-  businessRegistration: string;
-  businessStartDate: string;
-  monthlyRevenue: string;
-  numberOfEmployees: string;
-  businessAddress: string;
-  bankName: string;
-  existingLoans: string;
-  requestedAmount: string;
-  loanPurpose: string;
+  phoneNumber: string;
+  mainBranchCity: string;
+  activityCategory: string;
+  accountMovement: string;
+  auditedBudgets: string;
+  bankName1: string;
+  bankName2: string;
+  budgetMovement: string;
+  posMovement: string;
+  realEstateAssets: string;
+  zakatCertificate: string;
+  taxCertificate: string;
+  taxDeclarations: string;
+  insuranceCertificate: string;
+  localizationCertificate: string;
+  municipalityLicense: string;
+  electronicLeaseContract: string;
+  serviceType: string;
+  creditIssues: string;
+  serviceSuspension: string;
   message: string;
 }
 
 export default function BusinessSectorPage() {
   const [formData, setFormData] = useState<BusinessSectorForm>({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    nationalId: "",
-    birthDate: "",
-    city: "",
-    businessType: "",
     businessName: "",
-    businessRegistration: "",
-    businessStartDate: "",
-    monthlyRevenue: "",
-    numberOfEmployees: "",
-    businessAddress: "",
-    bankName: "",
-    existingLoans: "",
-    requestedAmount: "",
-    loanPurpose: "",
+    phoneNumber: "",
+    mainBranchCity: "",
+    activityCategory: "",
+    accountMovement: "",
+    auditedBudgets: "",
+    bankName1: "",
+    bankName2: "",
+    budgetMovement: "",
+    posMovement: "",
+    realEstateAssets: "",
+    zakatCertificate: "",
+    taxCertificate: "",
+    taxDeclarations: "",
+    insuranceCertificate: "",
+    localizationCertificate: "",
+    municipalityLicense: "",
+    electronicLeaseContract: "",
+    serviceType: "",
+    creditIssues: "",
+    serviceSuspension: "",
     message: "",
   });
 
@@ -139,23 +145,27 @@ export default function BusinessSectorPage() {
                 onClick={() => {
                   setIsSubmitted(false);
                   setFormData({
-                    fullName: "",
-                    phoneNumber: "",
-                    email: "",
-                    nationalId: "",
-                    birthDate: "",
-                    city: "",
-                    businessType: "",
                     businessName: "",
-                    businessRegistration: "",
-                    businessStartDate: "",
-                    monthlyRevenue: "",
-                    numberOfEmployees: "",
-                    businessAddress: "",
-                    bankName: "",
-                    existingLoans: "",
-                    requestedAmount: "",
-                    loanPurpose: "",
+                    phoneNumber: "",
+                    mainBranchCity: "",
+                    activityCategory: "",
+                    accountMovement: "",
+                    auditedBudgets: "",
+                    bankName1: "",
+                    bankName2: "",
+                    budgetMovement: "",
+                    posMovement: "",
+                    realEstateAssets: "",
+                    zakatCertificate: "",
+                    taxCertificate: "",
+                    taxDeclarations: "",
+                    insuranceCertificate: "",
+                    localizationCertificate: "",
+                    municipalityLicense: "",
+                    electronicLeaseContract: "",
+                    serviceType: "",
+                    creditIssues: "",
+                    serviceSuspension: "",
                     message: "",
                   });
                 }}
@@ -210,29 +220,29 @@ export default function BusinessSectorPage() {
                 </CardHeader>
                 <CardContent className="p-10 bg-gray-50">
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Personal Information */}
+                    {/* Business Information */}
                     <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-blue-300 shadow-lg">
                       <h3 className="text-xl font-bold text-blue-800 border-b-2 border-blue-400 pb-3 flex items-center gap-2">
-                        <User className="w-5 h-5" />
-                        البيانات الشخصية
+                        <Building2 className="w-5 h-5" />
+                        معلومات النشاط التجاري
                       </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-3">
                           <Label
-                            htmlFor="fullName"
+                            htmlFor="businessName"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <User className="w-4 h-4 text-blue-600" />
-                            الاسم ثلاثي *
+                            <Building2 className="w-4 h-4 text-blue-600" />
+                            الاسم التجاري *
                           </Label>
                           <Input
-                            id="fullName"
-                            value={formData.fullName}
+                            id="businessName"
+                            value={formData.businessName}
                             onChange={(e) =>
-                              handleInputChange("fullName", e.target.value)
+                              handleInputChange("businessName", e.target.value)
                             }
-                            placeholder="أدخل الاسم ثلاثي"
+                            placeholder="الاسم التجاري"
                             className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
@@ -261,273 +271,59 @@ export default function BusinessSectorPage() {
 
                         <div className="space-y-3">
                           <Label
-                            htmlFor="email"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <CreditCard className="w-4 h-4 text-blue-600" />
-                            البريد الإلكتروني *
-                          </Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) =>
-                              handleInputChange("email", e.target.value)
-                            }
-                            placeholder="example@email.com"
-                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="nationalId"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <CreditCard className="w-4 h-4 text-blue-600" />
-                            رقم الهوية *
-                          </Label>
-                          <Input
-                            id="nationalId"
-                            value={formData.nationalId}
-                            onChange={(e) =>
-                              handleInputChange("nationalId", e.target.value)
-                            }
-                            placeholder="xxxxxxxxxxxxxxx"
-                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="birthDate"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <Calendar className="w-4 h-4 text-blue-600" />
-                            تاريخ الميلاد *
-                          </Label>
-                          <Input
-                            id="birthDate"
-                            type="date"
-                            value={formData.birthDate}
-                            onChange={(e) =>
-                              handleInputChange("birthDate", e.target.value)
-                            }
-                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="city"
+                            htmlFor="mainBranchCity"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
                             <MapPin className="w-4 h-4 text-blue-600" />
-                            المدينة *
+                            الفرع الرئيسي بأي مدينة؟ *
                           </Label>
                           <Input
-                            id="city"
-                            value={formData.city}
+                            id="mainBranchCity"
+                            value={formData.mainBranchCity}
                             onChange={(e) =>
-                              handleInputChange("city", e.target.value)
+                              handleInputChange(
+                                "mainBranchCity",
+                                e.target.value
+                              )
                             }
                             placeholder="المدينة"
                             className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Business Information */}
-                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-green-300 shadow-lg">
-                      <h3 className="text-xl font-bold text-green-800 border-b-2 border-green-400 pb-3 flex items-center gap-2">
-                        <Building2 className="w-5 h-5" />
-                        معلومات النشاط التجاري
-                      </h3>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-3">
                           <Label
-                            htmlFor="businessType"
+                            htmlFor="activityCategory"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4 text-green-600" />
-                            نوع النشاط التجاري *
+                            <Building className="w-4 h-4 text-blue-600" />
+                            فئة النشاط؟ *
                           </Label>
                           <Select
-                            value={formData.businessType}
+                            value={formData.activityCategory}
                             onValueChange={(value) =>
-                              handleInputChange("businessType", value)
+                              handleInputChange("activityCategory", value)
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
-                              <SelectValue placeholder="اختر نوع النشاط" />
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Select" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="تجارة عامة">
-                                تجارة عامة
-                              </SelectItem>
-                              <SelectItem value="تجارة إلكترونية">
-                                تجارة إلكترونية
-                              </SelectItem>
-                              <SelectItem value="صناعة">صناعة</SelectItem>
-                              <SelectItem value="خدمات">خدمات</SelectItem>
-                              <SelectItem value="مقاولات">مقاولات</SelectItem>
-                              <SelectItem value="استيراد وتصدير">
-                                استيراد وتصدير
-                              </SelectItem>
+                              <SelectItem value="شركة">شركة</SelectItem>
+                              <SelectItem value="مؤسسة">مؤسسة</SelectItem>
+                              <SelectItem value="مصنع">مصنع</SelectItem>
                               <SelectItem value="أخرى">أخرى</SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="businessName"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <Building2 className="w-4 h-4 text-green-600" />
-                            اسم النشاط التجاري *
-                          </Label>
-                          <Input
-                            id="businessName"
-                            value={formData.businessName}
-                            onChange={(e) =>
-                              handleInputChange("businessName", e.target.value)
-                            }
-                            placeholder="اسم النشاط التجاري"
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="businessRegistration"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <FileText className="w-4 h-4 text-green-600" />
-                            رقم السجل التجاري *
-                          </Label>
-                          <Input
-                            id="businessRegistration"
-                            value={formData.businessRegistration}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "businessRegistration",
-                                e.target.value
-                              )
-                            }
-                            placeholder="رقم السجل التجاري"
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="businessStartDate"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <Calendar className="w-4 h-4 text-green-600" />
-                            تاريخ بداية النشاط *
-                          </Label>
-                          <Input
-                            id="businessStartDate"
-                            type="date"
-                            value={formData.businessStartDate}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "businessStartDate",
-                                e.target.value
-                              )
-                            }
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="monthlyRevenue"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <DollarSign className="w-4 h-4 text-green-600" />
-                            الإيرادات الشهرية *
-                          </Label>
-                          <Input
-                            id="monthlyRevenue"
-                            type="number"
-                            value={formData.monthlyRevenue}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "monthlyRevenue",
-                                e.target.value
-                              )
-                            }
-                            placeholder="الإيرادات الشهرية بالريال السعودي"
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="numberOfEmployees"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <User className="w-4 h-4 text-green-600" />
-                            عدد الموظفين *
-                          </Label>
-                          <Input
-                            id="numberOfEmployees"
-                            type="number"
-                            value={formData.numberOfEmployees}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "numberOfEmployees",
-                                e.target.value
-                              )
-                            }
-                            placeholder="عدد الموظفين"
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3 md:col-span-2">
-                          <Label
-                            htmlFor="businessAddress"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <MapPin className="w-4 h-4 text-green-600" />
-                            عنوان النشاط التجاري *
-                          </Label>
-                          <Input
-                            id="businessAddress"
-                            value={formData.businessAddress}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "businessAddress",
-                                e.target.value
-                              )
-                            }
-                            placeholder="عنوان النشاط التجاري"
-                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
                         </div>
                       </div>
                     </div>
 
                     {/* Financial Information */}
-                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-purple-300 shadow-lg">
-                      <h3 className="text-xl font-bold text-purple-800 border-b-2 border-purple-400 pb-3 flex items-center gap-2">
+                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-green-300 shadow-lg">
+                      <h3 className="text-xl font-bold text-green-800 border-b-2 border-green-400 pb-3 flex items-center gap-2">
                         <DollarSign className="w-5 h-5" />
                         المعلومات المالية
                       </h3>
@@ -535,82 +331,49 @@ export default function BusinessSectorPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-3">
                           <Label
-                            htmlFor="bankName"
+                            htmlFor="accountMovement"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4 text-purple-600" />
-                            اسم البنك *
+                            <DollarSign className="w-4 h-4 text-green-600" />
+                            كم إجمالي حركة كشوف الحسابات لأخر سنة ميلادية؟ *
                           </Label>
                           <Input
-                            id="bankName"
-                            value={formData.bankName}
-                            onChange={(e) =>
-                              handleInputChange("bankName", e.target.value)
-                            }
-                            placeholder="اسم البنك"
-                            className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-3">
-                          <Label
-                            htmlFor="requestedAmount"
-                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
-                          >
-                            <DollarSign className="w-4 h-4 text-purple-600" />
-                            المبلغ المطلوب *
-                          </Label>
-                          <Input
-                            id="requestedAmount"
+                            id="accountMovement"
                             type="number"
-                            value={formData.requestedAmount}
+                            value={formData.accountMovement}
                             onChange={(e) =>
                               handleInputChange(
-                                "requestedAmount",
+                                "accountMovement",
                                 e.target.value
                               )
                             }
-                            placeholder="المبلغ المطلوب بالريال السعودي"
-                            className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            placeholder="إجمالي حركة كشوف الحسابات"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
 
                         <div className="space-y-3">
                           <Label
-                            htmlFor="loanPurpose"
+                            htmlFor="auditedBudgets"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <FileText className="w-4 h-4 text-purple-600" />
-                            الغرض من التمويل *
+                            <FileText className="w-4 h-4 text-green-600" />
+                            هل يوجد ميزانيات مدققة معتمدة لأخر ثلاث سنوات؟ *
                           </Label>
                           <Select
-                            value={formData.loanPurpose}
+                            value={formData.auditedBudgets}
                             onValueChange={(value) =>
-                              handleInputChange("loanPurpose", value)
+                              handleInputChange("auditedBudgets", value)
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
-                              <SelectValue placeholder="اختر الغرض من التمويل" />
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="رأس مال عامل">
-                                رأس مال عامل
-                              </SelectItem>
-                              <SelectItem value="توسيع النشاط">
-                                توسيع النشاط
-                              </SelectItem>
-                              <SelectItem value="شراء معدات">
-                                شراء معدات
-                              </SelectItem>
-                              <SelectItem value="تطوير البنية التحتية">
-                                تطوير البنية التحتية
-                              </SelectItem>
-                              <SelectItem value="استيراد بضائع">
-                                استيراد بضائع
-                              </SelectItem>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
                               <SelectItem value="أخرى">أخرى</SelectItem>
                             </SelectContent>
                           </Select>
@@ -618,39 +381,466 @@ export default function BusinessSectorPage() {
 
                         <div className="space-y-3">
                           <Label
-                            htmlFor="existingLoans"
+                            htmlFor="bankName1"
                             className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <CreditCard className="w-4 h-4 text-purple-600" />
-                            القروض الموجودة
+                            <Building className="w-4 h-4 text-green-600" />
+                            اسم البنوك التي يتم التعامل معها؟ *
+                          </Label>
+                          <Select
+                            value={formData.bankName1}
+                            onValueChange={(value) =>
+                              handleInputChange("bankName1", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="الراجحي">الراجحي</SelectItem>
+                              <SelectItem value="الأهلي">الأهلي</SelectItem>
+                              <SelectItem value="الانماء">الانماء</SelectItem>
+                              <SelectItem value="الرياض">الرياض</SelectItem>
+                              <SelectItem value="البلاد">البلاد</SelectItem>
+                              <SelectItem value="العربي">العربي</SelectItem>
+                              <SelectItem value="الجزيره">الجزيره</SelectItem>
+                              <SelectItem value="ساب">ساب</SelectItem>
+                              <SelectItem value="الفرنسي">الفرنسي</SelectItem>
+                              <SelectItem value="الإستثمار">
+                                الإستثمار
+                              </SelectItem>
+                              <SelectItem value="بنك الإمارات دبي الوطني">
+                                بنك الإمارات دبي الوطني
+                              </SelectItem>
+                              <SelectItem value="بنك الخليج">
+                                بنك الخليج
+                              </SelectItem>
+                              <SelectItem value="بنك ابوظبي">
+                                بنك ابوظبي
+                              </SelectItem>
+                              <SelectItem value="البنك الاول">
+                                البنك الاول
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="bankName2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Building className="w-4 h-4 text-green-600" />
+                            اسم البنوك التي يتم التعامل معها؟
+                          </Label>
+                          <Select
+                            value={formData.bankName2}
+                            onValueChange={(value) =>
+                              handleInputChange("bankName2", value)
+                            }
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="الراجحي">الراجحي</SelectItem>
+                              <SelectItem value="الأهلي">الأهلي</SelectItem>
+                              <SelectItem value="الانماء">الانماء</SelectItem>
+                              <SelectItem value="الرياض">الرياض</SelectItem>
+                              <SelectItem value="البلاد">البلاد</SelectItem>
+                              <SelectItem value="العربي">العربي</SelectItem>
+                              <SelectItem value="الجزيره">الجزيره</SelectItem>
+                              <SelectItem value="ساب">ساب</SelectItem>
+                              <SelectItem value="الفرنسي">الفرنسي</SelectItem>
+                              <SelectItem value="الإستثمار">
+                                الإستثمار
+                              </SelectItem>
+                              <SelectItem value="بنك الإمارات دبي الوطني">
+                                بنك الإمارات دبي الوطني
+                              </SelectItem>
+                              <SelectItem value="بنك الخليج">
+                                بنك الخليج
+                              </SelectItem>
+                              <SelectItem value="بنك ابوظبي">
+                                بنك ابوظبي
+                              </SelectItem>
+                              <SelectItem value="البنك الاول">
+                                البنك الاول
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="budgetMovement"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <DollarSign className="w-4 h-4 text-green-600" />
+                            كم حركة الميزانيات اخر سنة؟ *
                           </Label>
                           <Input
-                            id="existingLoans"
-                            value={formData.existingLoans}
+                            id="budgetMovement"
+                            type="number"
+                            value={formData.budgetMovement}
                             onChange={(e) =>
-                              handleInputChange("existingLoans", e.target.value)
+                              handleInputChange(
+                                "budgetMovement",
+                                e.target.value
+                              )
                             }
-                            placeholder="وصف القروض الموجودة (إن وجدت)"
-                            className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            placeholder="حركة الميزانيات"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            required
                           />
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="posMovement"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <CreditCard className="w-4 h-4 text-green-600" />
+                            كم حركة نقاط البيع آخر (12) شهر؟ *
+                          </Label>
+                          <Input
+                            id="posMovement"
+                            type="number"
+                            value={formData.posMovement}
+                            onChange={(e) =>
+                              handleInputChange("posMovement", e.target.value)
+                            }
+                            placeholder="حركة نقاط البيع"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="realEstateAssets"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Building2 className="w-4 h-4 text-green-600" />
+                            هل توجد أصول عقارية؟ *
+                          </Label>
+                          <Select
+                            value={formData.realEstateAssets}
+                            onValueChange={(value) =>
+                              handleInputChange("realEstateAssets", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Documents Section */}
+                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-purple-300 shadow-lg">
+                      <h3 className="text-xl font-bold text-purple-800 border-b-2 border-purple-400 pb-3 flex items-center gap-2">
+                        <FileText className="w-5 h-5" />
+                        هل تتوفر المستندات التالية؟
+                      </h3>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="zakatCertificate"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            شهادة الزكاة *
+                          </Label>
+                          <Select
+                            value={formData.zakatCertificate}
+                            onValueChange={(value) =>
+                              handleInputChange("zakatCertificate", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="taxCertificate"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            شهادة الضريبة *
+                          </Label>
+                          <Select
+                            value={formData.taxCertificate}
+                            onValueChange={(value) =>
+                              handleInputChange("taxCertificate", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="taxDeclarations"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            شهادة إقرارات ضريبية *
+                          </Label>
+                          <Select
+                            value={formData.taxDeclarations}
+                            onValueChange={(value) =>
+                              handleInputChange("taxDeclarations", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="insuranceCertificate"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            شهادة التأمينات *
+                          </Label>
+                          <Select
+                            value={formData.insuranceCertificate}
+                            onValueChange={(value) =>
+                              handleInputChange("insuranceCertificate", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="localizationCertificate"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            شهادة توطين *
+                          </Label>
+                          <Select
+                            value={formData.localizationCertificate}
+                            onValueChange={(value) =>
+                              handleInputChange(
+                                "localizationCertificate",
+                                value
+                              )
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="municipalityLicense"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            رخصة البلدية *
+                          </Label>
+                          <Select
+                            value={formData.municipalityLicense}
+                            onValueChange={(value) =>
+                              handleInputChange("municipalityLicense", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="electronicLeaseContract"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            عقد إيجار إلكتروني *
+                          </Label>
+                          <Select
+                            value={formData.electronicLeaseContract}
+                            onValueChange={(value) =>
+                              handleInputChange(
+                                "electronicLeaseContract",
+                                value
+                              )
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Service Information */}
+                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-orange-300 shadow-lg">
+                      <h3 className="text-xl font-bold text-orange-800 border-b-2 border-orange-400 pb-3 flex items-center gap-2">
+                        <Building className="w-5 h-5" />
+                        معلومات الخدمة
+                      </h3>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="serviceType"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Building className="w-4 h-4 text-orange-600" />
+                            الخدمة المطلوبة: *
+                          </Label>
+                          <Select
+                            value={formData.serviceType}
+                            onValueChange={(value) =>
+                              handleInputChange("serviceType", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="تمويل عقاري لشراء عقار تجاري أو سكني">
+                                تمويل عقاري لشراء عقار تجاري أو سكني
+                              </SelectItem>
+                              <SelectItem value="رهن عقاري للحصول على سيولة">
+                                رهن عقاري للحصول على سيولة
+                              </SelectItem>
+                              <SelectItem value="رهن عقاري بضمان عقود إيجار من منصة إيجار">
+                                رهن عقاري بضمان عقود إيجار من منصة إيجار
+                              </SelectItem>
+                              <SelectItem value="تمويل سيولة بضمان نقاط البيع">
+                                تمويل سيولة بضمان نقاط البيع
+                              </SelectItem>
+                              <SelectItem value="تمويل أسطول سيارات">
+                                تمويل أسطول سيارات
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="creditIssues"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <CreditCard className="w-4 h-4 text-orange-600" />
+                            هل لديك تعثر في سمة؟ *
+                          </Label>
+                          <Select
+                            value={formData.creditIssues}
+                            onValueChange={(value) =>
+                              handleInputChange("creditIssues", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="serviceSuspension"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <CreditCard className="w-4 h-4 text-orange-600" />
+                            هل لديك إيقاف خدمات؟ *
+                          </Label>
+                          <Select
+                            value={formData.serviceSuspension}
+                            onValueChange={(value) =>
+                              handleInputChange("serviceSuspension", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
 
                     {/* Additional Information */}
-                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-orange-300 shadow-lg">
-                      <h3 className="text-xl font-bold text-orange-800 border-b-2 border-orange-400 pb-3 flex items-center gap-2">
-                        <FileText className="w-5 h-5" />
-                        معلومات إضافية
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+                        للأستفسار والملاحظات
                       </h3>
 
-                      <div className="space-y-3">
-                        <Label
-                          htmlFor="message"
-                          className="text-sm font-semibold text-gray-700"
-                        >
-                          ملاحظات إضافية
-                        </Label>
+                      <div className="space-y-2">
+                        <Label htmlFor="message">ملاحظات إضافية</Label>
                         <Textarea
                           id="message"
                           value={formData.message}
@@ -659,7 +849,6 @@ export default function BusinessSectorPage() {
                           }
                           placeholder="أي معلومات إضافية تريد إضافتها..."
                           rows={4}
-                          className="border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg px-4 py-3 text-lg font-medium"
                         />
                       </div>
                     </div>

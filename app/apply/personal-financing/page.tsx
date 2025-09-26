@@ -12,9 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import {
-  AlertCircle,
   Building,
   Calendar,
   CheckCircle,
@@ -31,23 +31,22 @@ interface PersonalFinancingForm {
   fullName: string;
   phoneNumber: string;
   nationalId: string;
+  financingType: string;
   birthDate: string;
+  birthDateType: string;
   workplace: string;
   militaryRank: string;
   workStartDate: string;
-  bankName: string;
-  totalSalary: string;
-  hasViolations: string;
-  personalLoans: string;
+  workStartDateType: string;
+  monthlySalary: string;
   personalLoanInstallment: string;
-  realEstateLoans: string;
-  realEstateLoanInstallment: string;
-  supportAmount: string;
-  creditCardDebts: string;
-  carLoans: string;
-  carLoanInstallment: string;
+  personalLoanEarlyPayment: string;
+  bankName: string;
   houseOwnership: string;
   city: string;
+  creditIssues: string;
+  serviceSuspension: string;
+  message: string;
 }
 
 export default function PersonalFinancingPage() {
@@ -55,23 +54,22 @@ export default function PersonalFinancingPage() {
     fullName: "",
     phoneNumber: "",
     nationalId: "",
+    financingType: "",
     birthDate: "",
+    birthDateType: "",
     workplace: "",
     militaryRank: "",
     workStartDate: "",
-    bankName: "",
-    totalSalary: "",
-    hasViolations: "",
-    personalLoans: "",
+    workStartDateType: "",
+    monthlySalary: "",
     personalLoanInstallment: "",
-    realEstateLoans: "",
-    realEstateLoanInstallment: "",
-    supportAmount: "",
-    creditCardDebts: "",
-    carLoans: "",
-    carLoanInstallment: "",
-    houseOwnership: "نعم",
+    personalLoanEarlyPayment: "",
+    bankName: "",
+    houseOwnership: "",
     city: "",
+    creditIssues: "",
+    serviceSuspension: "",
+    message: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -143,23 +141,22 @@ export default function PersonalFinancingPage() {
                     fullName: "",
                     phoneNumber: "",
                     nationalId: "",
+                    financingType: "",
                     birthDate: "",
+                    birthDateType: "",
                     workplace: "",
                     militaryRank: "",
                     workStartDate: "",
-                    bankName: "",
-                    totalSalary: "",
-                    hasViolations: "",
-                    personalLoans: "",
+                    workStartDateType: "",
+                    monthlySalary: "",
                     personalLoanInstallment: "",
-                    realEstateLoans: "",
-                    realEstateLoanInstallment: "",
-                    supportAmount: "",
-                    creditCardDebts: "",
-                    carLoans: "",
-                    carLoanInstallment: "",
-                    houseOwnership: "نعم",
+                    personalLoanEarlyPayment: "",
+                    bankName: "",
+                    houseOwnership: "",
                     city: "",
+                    creditIssues: "",
+                    serviceSuspension: "",
+                    message: "",
                   });
                 }}
                 className="w-full"
@@ -222,13 +219,13 @@ export default function PersonalFinancingPage() {
                       </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="fullName"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <User className="w-4 h-4" />
-                            الاسم ثلاثي *
+                            <User className="w-4 h-4 text-blue-600" />
+                            الاسم الثلاثي *
                           </Label>
                           <Input
                             id="fullName"
@@ -236,17 +233,18 @@ export default function PersonalFinancingPage() {
                             onChange={(e) =>
                               handleInputChange("fullName", e.target.value)
                             }
-                            placeholder="أدخل الاسم ثلاثي"
+                            placeholder="أدخل الاسم الثلاثي"
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="phoneNumber"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Phone className="w-4 h-4" />
+                            <Phone className="w-4 h-4 text-blue-600" />
                             رقم الجوال *
                           </Label>
                           <Input
@@ -257,16 +255,17 @@ export default function PersonalFinancingPage() {
                               handleInputChange("phoneNumber", e.target.value)
                             }
                             placeholder="05xxxxxxxx"
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="nationalId"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <CreditCard className="w-4 h-4" />
+                            <CreditCard className="w-4 h-4 text-blue-600" />
                             رقم الهوية *
                           </Label>
                           <Input
@@ -276,16 +275,46 @@ export default function PersonalFinancingPage() {
                               handleInputChange("nationalId", e.target.value)
                             }
                             placeholder="xxxxxxxxxxxxxxx"
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="financingType"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Building className="w-4 h-4 text-blue-600" />
+                            نوع التمويل *
+                          </Label>
+                          <Select
+                            value={formData.financingType}
+                            onValueChange={(value) =>
+                              handleInputChange("financingType", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="شخصي أساسي">
+                                شخصي أساسي
+                              </SelectItem>
+                              <SelectItem value="شخصي إضافي">
+                                شخصي إضافي
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
                           <Label
                             htmlFor="birthDate"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Calendar className="w-4 h-4" />
+                            <Calendar className="w-4 h-4 text-blue-600" />
                             تاريخ الميلاد *
                           </Label>
                           <Input
@@ -295,44 +324,68 @@ export default function PersonalFinancingPage() {
                             onChange={(e) =>
                               handleInputChange("birthDate", e.target.value)
                             }
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Work Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
-                        البيانات الوظيفية
-                      </h3>
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="birthDateType"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Calendar className="w-4 h-4 text-blue-600" />
+                            هجري أو ميلادي
+                          </Label>
+                          <Select
+                            value={formData.birthDateType}
+                            onValueChange={(value) =>
+                              handleInputChange("birthDateType", value)
+                            }
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر نوع التاريخ" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="هجري">هجري</SelectItem>
+                              <SelectItem value="ميلادي">ميلادي</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="workplace"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4" />
+                            <Building className="w-4 h-4 text-blue-600" />
                             جهة العمل *
                           </Label>
-                          <Input
-                            id="workplace"
+                          <Select
                             value={formData.workplace}
-                            onChange={(e) =>
-                              handleInputChange("workplace", e.target.value)
+                            onValueChange={(value) =>
+                              handleInputChange("workplace", value)
                             }
-                            placeholder="اسم جهة العمل"
                             required
-                          />
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="قطاع خاص">قطاع خاص</SelectItem>
+                              <SelectItem value="متقاعد">متقاعد</SelectItem>
+                              <SelectItem value="مدني">مدني</SelectItem>
+                              <SelectItem value="عسكري">عسكري</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="militaryRank"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <User className="w-4 h-4" />
+                            <Building className="w-4 h-4 text-blue-600" />
                             الرتبة العسكرية
                           </Label>
                           <Input
@@ -341,16 +394,17 @@ export default function PersonalFinancingPage() {
                             onChange={(e) =>
                               handleInputChange("militaryRank", e.target.value)
                             }
-                            placeholder="الرتبة العسكرية (إن وجدت)"
+                            placeholder="للموظفين القطاع العسكري"
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                           />
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="workStartDate"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Calendar className="w-4 h-4" />
+                            <Calendar className="w-4 h-4 text-blue-600" />
                             تاريخ بداية العمل *
                           </Label>
                           <Input
@@ -360,269 +414,199 @@ export default function PersonalFinancingPage() {
                             onChange={(e) =>
                               handleInputChange("workStartDate", e.target.value)
                             }
+                            className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
-                            htmlFor="bankName"
-                            className="flex items-center gap-2"
+                            htmlFor="workStartDateType"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4" />
-                            اسم البنك الذي ينزل عليه الراتب *
+                            <Calendar className="w-4 h-4 text-blue-600" />
+                            هجري أو ميلادي
                           </Label>
-                          <Input
-                            id="bankName"
-                            value={formData.bankName}
-                            onChange={(e) =>
-                              handleInputChange("bankName", e.target.value)
+                          <Select
+                            value={formData.workStartDateType}
+                            onValueChange={(value) =>
+                              handleInputChange("workStartDateType", value)
                             }
-                            placeholder="اسم البنك"
-                            required
-                          />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor="totalSalary"
-                            className="flex items-center gap-2"
                           >
-                            <DollarSign className="w-4 h-4" />
-                            الراتب الإجمالي بكشف الحساب (بدون بدل غلاء المعيشة)
-                            *
-                          </Label>
-                          <Input
-                            id="totalSalary"
-                            type="number"
-                            value={formData.totalSalary}
-                            onChange={(e) =>
-                              handleInputChange("totalSalary", e.target.value)
-                            }
-                            placeholder="الراتب بالريال السعودي"
-                            required
-                          />
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر نوع التاريخ" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="هجري">هجري</SelectItem>
+                              <SelectItem value="ميلادي">ميلادي</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
 
                     {/* Financial Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-green-300 shadow-lg">
+                      <h3 className="text-xl font-bold text-green-800 border-b-2 border-green-400 pb-3 flex items-center gap-2">
+                        <DollarSign className="w-5 h-5" />
                         المعلومات المالية
                       </h3>
 
-                      <div className="space-y-4">
-                        <div className="space-y-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-3">
                           <Label
-                            htmlFor="hasViolations"
-                            className="flex items-center gap-2"
+                            htmlFor="monthlySalary"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <AlertCircle className="w-4 h-4" />
-                            هل يوجد لديك تعثرات في سمة أو أحكام قضائية قيد
-                            التنفيذ سابقة أو حالية؟ *
+                            <DollarSign className="w-4 h-4 text-green-600" />
+                            كم الراتب الشهري المودع بالحساب؟ *
+                          </Label>
+                          <Input
+                            id="monthlySalary"
+                            type="number"
+                            value={formData.monthlySalary}
+                            onChange={(e) =>
+                              handleInputChange("monthlySalary", e.target.value)
+                            }
+                            placeholder="الراتب الشهري بالريال السعودي"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="personalLoanInstallment"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <DollarSign className="w-4 h-4 text-green-600" />
+                            كم قسط القرض الشخصي؟ *
+                          </Label>
+                          <Input
+                            id="personalLoanInstallment"
+                            type="number"
+                            value={formData.personalLoanInstallment}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "personalLoanInstallment",
+                                e.target.value
+                              )
+                            }
+                            placeholder="قسط القرض الشخصي"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="personalLoanEarlyPayment"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <DollarSign className="w-4 h-4 text-green-600" />
+                            كم مبلغ السداد المبكر للقرض الشخصي؟ *
+                          </Label>
+                          <Input
+                            id="personalLoanEarlyPayment"
+                            type="number"
+                            value={formData.personalLoanEarlyPayment}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "personalLoanEarlyPayment",
+                                e.target.value
+                              )
+                            }
+                            placeholder="مبلغ السداد المبكر"
+                            className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="bankName"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <Building className="w-4 h-4 text-green-600" />
+                            اسم البنك الذي ينزل عليه الراتب؟ *
                           </Label>
                           <Select
-                            value={formData.hasViolations}
+                            value={formData.bankName}
                             onValueChange={(value) =>
-                              handleInputChange("hasViolations", value)
+                              handleInputChange("bankName", value)
                             }
                             required
                           >
-                            <SelectTrigger>
-                              <SelectValue placeholder="اختر الإجابة" />
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="نعم">نعم</SelectItem>
-                              <SelectItem value="ربما">ربما</SelectItem>
-                              <SelectItem value="أخرى">أخرى</SelectItem>
+                              <SelectItem value="الراجحي">الراجحي</SelectItem>
+                              <SelectItem value="الأهلي">الأهلي</SelectItem>
+                              <SelectItem value="الانماء">الانماء</SelectItem>
+                              <SelectItem value="الرياض">الرياض</SelectItem>
+                              <SelectItem value="البلاد">البلاد</SelectItem>
+                              <SelectItem value="العربي">العربي</SelectItem>
+                              <SelectItem value="الجزيره">الجزيره</SelectItem>
+                              <SelectItem value="ساب">ساب</SelectItem>
+                              <SelectItem value="الفرنسي">الفرنسي</SelectItem>
+                              <SelectItem value="الإستثمار">
+                                الإستثمار
+                              </SelectItem>
+                              <SelectItem value="بنك الإمارات دبي الوطني">
+                                بنك الإمارات دبي الوطني
+                              </SelectItem>
+                              <SelectItem value="بنك الخليج">
+                                بنك الخليج
+                              </SelectItem>
+                              <SelectItem value="بنك ابوظبي">
+                                بنك ابوظبي
+                              </SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="personalLoans">
-                              المديونيات (القروض الشخصية)
-                            </Label>
-                            <Input
-                              id="personalLoans"
-                              type="number"
-                              value={formData.personalLoans}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "personalLoans",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="مبلغ القروض الشخصية"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="personalLoanInstallment">
-                              القسط
-                            </Label>
-                            <Input
-                              id="personalLoanInstallment"
-                              type="number"
-                              value={formData.personalLoanInstallment}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "personalLoanInstallment",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="القسط الشهري"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="realEstateLoans">
-                              المديونيات (القروض العقارية)
-                            </Label>
-                            <Input
-                              id="realEstateLoans"
-                              type="number"
-                              value={formData.realEstateLoans}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "realEstateLoans",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="مبلغ القروض العقارية"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="realEstateLoanInstallment">
-                              القسط
-                            </Label>
-                            <Input
-                              id="realEstateLoanInstallment"
-                              type="number"
-                              value={formData.realEstateLoanInstallment}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "realEstateLoanInstallment",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="القسط الشهري"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="supportAmount">
-                              القرض العقاري مدعوم من الصندوق - كم مبلغ الدعم
-                              المرتجع لحسابك؟
-                            </Label>
-                            <Input
-                              id="supportAmount"
-                              type="number"
-                              value={formData.supportAmount}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "supportAmount",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="مبلغ الدعم"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="creditCardDebts">
-                              المديونيات (البطاقات الائتمانية)
-                            </Label>
-                            <Input
-                              id="creditCardDebts"
-                              type="number"
-                              value={formData.creditCardDebts}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "creditCardDebts",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="مبلغ البطاقات الائتمانية"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="carLoans">
-                              المديونيات (قروض السيارات)
-                            </Label>
-                            <Input
-                              id="carLoans"
-                              type="number"
-                              value={formData.carLoans}
-                              onChange={(e) =>
-                                handleInputChange("carLoans", e.target.value)
-                              }
-                              placeholder="مبلغ قروض السيارات"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="carLoanInstallment">القسط</Label>
-                            <Input
-                              id="carLoanInstallment"
-                              type="number"
-                              value={formData.carLoanInstallment}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "carLoanInstallment",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="القسط الشهري"
-                            />
-                          </div>
                         </div>
                       </div>
                     </div>
 
                     {/* Additional Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+                    <div className="space-y-6 p-6 bg-white rounded-lg border-2 border-purple-300 shadow-lg">
+                      <h3 className="text-xl font-bold text-purple-800 border-b-2 border-purple-400 pb-3 flex items-center gap-2">
+                        <Building className="w-5 h-5" />
                         معلومات إضافية
                       </h3>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="houseOwnership"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4" />
-                            البيت ملك؟ *
+                            <Building className="w-4 h-4 text-purple-600" />
+                            هل البيت ملك؟
                           </Label>
                           <Select
                             value={formData.houseOwnership}
                             onValueChange={(value) =>
                               handleInputChange("houseOwnership", value)
                             }
-                            required
                           >
-                            <SelectTrigger>
-                              <SelectValue />
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="نعم">نعم</SelectItem>
                               <SelectItem value="لا">لا</SelectItem>
-                              <SelectItem value="إيجار">إيجار</SelectItem>
+                              <SelectItem value="أخرى">أخرى</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label
                             htmlFor="city"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
                           >
-                            <Building className="w-4 h-4" />
+                            <Building className="w-4 h-4 text-purple-600" />
                             بأي مدينة *
                           </Label>
                           <Input
@@ -632,9 +616,80 @@ export default function PersonalFinancingPage() {
                               handleInputChange("city", e.target.value)
                             }
                             placeholder="المدينة"
+                            className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium"
                             required
                           />
                         </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="creditIssues"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <CreditCard className="w-4 h-4 text-purple-600" />
+                            هل لديك تعثر في سمة؟ *
+                          </Label>
+                          <Select
+                            value={formData.creditIssues}
+                            onValueChange={(value) =>
+                              handleInputChange("creditIssues", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-3">
+                          <Label
+                            htmlFor="serviceSuspension"
+                            className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                          >
+                            <CreditCard className="w-4 h-4 text-purple-600" />
+                            هل لديك إيقاف خدمات؟ *
+                          </Label>
+                          <Select
+                            value={formData.serviceSuspension}
+                            onValueChange={(value) =>
+                              handleInputChange("serviceSuspension", value)
+                            }
+                            required
+                          >
+                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                              <SelectValue placeholder="اختر" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="نعم">نعم</SelectItem>
+                              <SelectItem value="لا">لا</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Additional Information */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+                        للأستفسارات والملاحظات
+                      </h3>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="message">ملاحظات إضافية</Label>
+                        <Textarea
+                          id="message"
+                          value={formData.message}
+                          onChange={(e) =>
+                            handleInputChange("message", e.target.value)
+                          }
+                          placeholder="أي معلومات إضافية تريد إضافتها..."
+                          rows={4}
+                        />
                       </div>
                     </div>
 
