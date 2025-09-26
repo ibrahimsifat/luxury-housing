@@ -56,12 +56,20 @@ export async function POST(request: NextRequest) {
 
     // Different validation for different form types
     if (emailType === "personal-financing") {
-      if (!formData.fullName || formData.fullName.trim() === "") {
-        console.log("Missing required fields - fullName is empty");
+      if (
+        !formData.fullName ||
+        formData.fullName.trim() === "" ||
+        !formData.phoneNumber ||
+        formData.phoneNumber.trim() === ""
+      ) {
+        console.log(
+          "Missing required fields - fullName or phoneNumber is empty"
+        );
         return NextResponse.json(
           {
             success: false,
-            error: "Missing required fields (fullName is required)",
+            error:
+              "Missing required fields (fullName and phoneNumber are required)",
           },
           { status: 400 }
         );
@@ -70,30 +78,36 @@ export async function POST(request: NextRequest) {
       if (
         !formData.fullName ||
         formData.fullName.trim() === "" ||
-        !formData.email ||
-        formData.email.trim() === ""
+        !formData.phoneNumber ||
+        formData.phoneNumber.trim() === ""
       ) {
-        console.log("Missing required fields - fullName or email is empty");
+        console.log(
+          "Missing required fields - fullName or phoneNumber is empty"
+        );
         return NextResponse.json(
           {
             success: false,
-            error: "Missing required fields (fullName and email are required)",
+            error:
+              "Missing required fields (fullName and phoneNumber are required)",
           },
           { status: 400 }
         );
       }
     } else if (emailType === "business-sector") {
       if (
-        !formData.fullName ||
-        formData.fullName.trim() === "" ||
-        !formData.email ||
-        formData.email.trim() === ""
+        !formData.businessName ||
+        formData.businessName.trim() === "" ||
+        !formData.phoneNumber ||
+        formData.phoneNumber.trim() === ""
       ) {
-        console.log("Missing required fields - fullName or email is empty");
+        console.log(
+          "Missing required fields - businessName or phoneNumber is empty"
+        );
         return NextResponse.json(
           {
             success: false,
-            error: "Missing required fields (fullName and email are required)",
+            error:
+              "Missing required fields (businessName and phoneNumber are required)",
           },
           { status: 400 }
         );

@@ -73,63 +73,78 @@ export interface PersonalFinancingFormData {
   fullName: string;
   phoneNumber: string;
   nationalId: string;
+  financingType: string;
   birthDate: string;
+  birthDateType: string;
   workplace: string;
   militaryRank: string;
   workStartDate: string;
-  bankName: string;
-  totalSalary: string;
-  hasViolations: string;
-  personalLoans: string;
+  workStartDateType: string;
+  monthlySalary: string;
   personalLoanInstallment: string;
-  realEstateLoans: string;
-  realEstateLoanInstallment: string;
-  supportAmount: string;
-  creditCardDebts: string;
-  carLoans: string;
-  carLoanInstallment: string;
+  personalLoanEarlyPayment: string;
+  bankName: string;
   houseOwnership: string;
   city: string;
+  creditIssues: string;
+  serviceSuspension: string;
+  message: string;
 }
 
 // Real estate financing form data
 export interface RealEstateFinancingFormData {
   fullName: string;
   phoneNumber: string;
-  email: string;
   nationalId: string;
+  serviceType: string;
   birthDate: string;
-  city: string;
-  propertyType: string;
+  birthDateType: string;
+  familyMembers: string;
+  workplace: string;
+  militaryRank: string;
+  workStartDate: string;
+  workStartDateType: string;
+  monthlySalary: string;
+  personalLoanInstallment: string;
+  personalLoanEarlyPayment: string;
+  creditCardDebt: string;
+  creditCardInstallment: string;
+  personalLoanDebt: string;
+  personalLoanInstallmentDebt: string;
+  carLoanDebt: string;
+  carLoanInstallment: string;
+  salaryBank: string;
+  housingSupportEligibility: string;
   propertyValue: string;
-  downPayment: string;
-  monthlyIncome: string;
-  employmentType: string;
-  workExperience: string;
-  bankName: string;
-  existingLoans: string;
+  propertyCity: string;
+  creditIssues: string;
+  serviceSuspension: string;
   message: string;
 }
 
 // Business sector form data
 export interface BusinessSectorFormData {
-  fullName: string;
-  phoneNumber: string;
-  email: string;
-  nationalId: string;
-  birthDate: string;
-  city: string;
-  businessType: string;
   businessName: string;
-  businessRegistration: string;
-  businessStartDate: string;
-  monthlyRevenue: string;
-  numberOfEmployees: string;
-  businessAddress: string;
-  bankName: string;
-  existingLoans: string;
-  requestedAmount: string;
-  loanPurpose: string;
+  phoneNumber: string;
+  mainBranchCity: string;
+  activityCategory: string;
+  accountMovement: string;
+  auditedBudgets: string;
+  bankName1: string;
+  bankName2: string;
+  budgetMovement: string;
+  posMovement: string;
+  realEstateAssets: string;
+  zakatCertificate: string;
+  taxCertificate: string;
+  taxDeclarations: string;
+  insuranceCertificate: string;
+  localizationCertificate: string;
+  municipalityLicense: string;
+  electronicLeaseContract: string;
+  serviceType: string;
+  creditIssues: string;
+  serviceSuspension: string;
   message: string;
 }
 
@@ -302,7 +317,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
               formData: data as BusinessSectorFormData,
             }),
             text: `${subjects[type]} من ${
-              (data as BusinessSectorFormData).fullName
+              (data as BusinessSectorFormData).businessName
             }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
           });
           break;

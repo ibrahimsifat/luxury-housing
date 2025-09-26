@@ -2,23 +2,22 @@ interface PersonalFinancingFormData {
   fullName: string;
   phoneNumber: string;
   nationalId: string;
+  financingType: string;
   birthDate: string;
+  birthDateType: string;
   workplace: string;
   militaryRank: string;
   workStartDate: string;
-  bankName: string;
-  totalSalary: string;
-  hasViolations: string;
-  personalLoans: string;
+  workStartDateType: string;
+  monthlySalary: string;
   personalLoanInstallment: string;
-  realEstateLoans: string;
-  realEstateLoanInstallment: string;
-  supportAmount: string;
-  creditCardDebts: string;
-  carLoans: string;
-  carLoanInstallment: string;
+  personalLoanEarlyPayment: string;
+  bankName: string;
   houseOwnership: string;
   city: string;
+  creditIssues: string;
+  serviceSuspension: string;
+  message: string;
 }
 
 interface PersonalFinancingEmailProps {
@@ -133,7 +132,21 @@ export default function PersonalFinancingEmail({
                   تاريخ الميلاد:
                 </td>
                 <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                  {formData.birthDate}
+                  {formData.birthDate} ({formData.birthDateType || "ميلادي"})
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    padding: "8px 0",
+                    fontWeight: "bold",
+                    color: "#374151",
+                  }}
+                >
+                  نوع التمويل:
+                </td>
+                <td style={{ padding: "8px 0", color: "#6b7280" }}>
+                  {formData.financingType}
                 </td>
               </tr>
               <tr>
@@ -211,7 +224,8 @@ export default function PersonalFinancingEmail({
                   تاريخ بداية العمل:
                 </td>
                 <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                  {formData.workStartDate}
+                  {formData.workStartDate} (
+                  {formData.workStartDateType || "ميلادي"})
                 </td>
               </tr>
               <tr>
@@ -236,10 +250,10 @@ export default function PersonalFinancingEmail({
                     color: "#374151",
                   }}
                 >
-                  الراتب الإجمالي:
+                  الراتب الشهري:
                 </td>
                 <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                  {formData.totalSalary} ريال سعودي
+                  {formData.monthlySalary} ريال سعودي
                 </td>
               </tr>
             </tbody>
@@ -270,140 +284,54 @@ export default function PersonalFinancingEmail({
                     width: "40%",
                   }}
                 >
-                  تعثرات في سمة:
+                  قسط القرض الشخصي:
                 </td>
                 <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                  {formData.hasViolations}
+                  {formData.personalLoanInstallment} ريال
                 </td>
               </tr>
-              {formData.personalLoans && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    القروض الشخصية:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.personalLoans} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.personalLoanInstallment && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    قسط القروض الشخصية:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.personalLoanInstallment} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.realEstateLoans && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    القروض العقارية:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.realEstateLoans} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.realEstateLoanInstallment && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    قسط القروض العقارية:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.realEstateLoanInstallment} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.supportAmount && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    مبلغ الدعم:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.supportAmount} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.creditCardDebts && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    البطاقات الائتمانية:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.creditCardDebts} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.carLoans && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    قروض السيارات:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.carLoans} ريال
-                  </td>
-                </tr>
-              )}
-              {formData.carLoanInstallment && (
-                <tr>
-                  <td
-                    style={{
-                      padding: "8px 0",
-                      fontWeight: "bold",
-                      color: "#374151",
-                    }}
-                  >
-                    قسط قروض السيارات:
-                  </td>
-                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
-                    {formData.carLoanInstallment} ريال
-                  </td>
-                </tr>
-              )}
+              <tr>
+                <td
+                  style={{
+                    padding: "8px 0",
+                    fontWeight: "bold",
+                    color: "#374151",
+                  }}
+                >
+                  مبلغ السداد المبكر:
+                </td>
+                <td style={{ padding: "8px 0", color: "#6b7280" }}>
+                  {formData.personalLoanEarlyPayment} ريال
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    padding: "8px 0",
+                    fontWeight: "bold",
+                    color: "#374151",
+                  }}
+                >
+                  تعثر في سمة:
+                </td>
+                <td style={{ padding: "8px 0", color: "#6b7280" }}>
+                  {formData.creditIssues}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    padding: "8px 0",
+                    fontWeight: "bold",
+                    color: "#374151",
+                  }}
+                >
+                  إيقاف خدمات:
+                </td>
+                <td style={{ padding: "8px 0", color: "#6b7280" }}>
+                  {formData.serviceSuspension}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -438,6 +366,23 @@ export default function PersonalFinancingEmail({
                   {formData.houseOwnership}
                 </td>
               </tr>
+              {formData.message && (
+                <tr>
+                  <td
+                    style={{
+                      padding: "8px 0",
+                      fontWeight: "bold",
+                      color: "#374151",
+                      verticalAlign: "top",
+                    }}
+                  >
+                    ملاحظات إضافية:
+                  </td>
+                  <td style={{ padding: "8px 0", color: "#6b7280" }}>
+                    {formData.message}
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

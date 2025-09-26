@@ -1,18 +1,30 @@
 interface RealEstateFinancingFormData {
   fullName: string;
   phoneNumber: string;
-  email: string;
   nationalId: string;
+  serviceType: string;
   birthDate: string;
-  city: string;
-  propertyType: string;
+  birthDateType: string;
+  familyMembers: string;
+  workplace: string;
+  militaryRank: string;
+  workStartDate: string;
+  workStartDateType: string;
+  monthlySalary: string;
+  personalLoanInstallment: string;
+  personalLoanEarlyPayment: string;
+  creditCardDebt: string;
+  creditCardInstallment: string;
+  personalLoanDebt: string;
+  personalLoanInstallmentDebt: string;
+  carLoanDebt: string;
+  carLoanInstallment: string;
+  salaryBank: string;
+  housingSupportEligibility: string;
   propertyValue: string;
-  downPayment: string;
-  monthlyIncome: string;
-  employmentType: string;
-  workExperience: string;
-  bankName: string;
-  existingLoans: string;
+  propertyCity: string;
+  creditIssues: string;
+  serviceSuspension: string;
   message: string;
 }
 
