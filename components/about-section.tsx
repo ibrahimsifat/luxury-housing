@@ -13,12 +13,25 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const controls = useAnimation();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -51,10 +64,10 @@ export function AboutSection() {
 
   const floatingVariants = {
     animate: {
-      y: [0, -20, 0],
-      rotate: [0, 5, 0],
+      y: isMobile ? [0, -5, 0] : [0, -20, 0], // Reduced movement on mobile
+      rotate: isMobile ? [0, 1, 0] : [0, 5, 0], // Reduced rotation on mobile
       transition: {
-        duration: 6,
+        duration: isMobile ? 8 : 6, // Slower on mobile
         repeat: Number.POSITIVE_INFINITY,
         ease: "easeInOut",
       },
@@ -66,50 +79,57 @@ export function AboutSection() {
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-100/60"></div>
 
-      {/* Animated Gradient Orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-500/20 rounded-full blur-3xl"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-indigo-400/20 to-pink-500/20 rounded-full blur-3xl"
-        animate={{
-          x: [0, -80, 0],
-          y: [0, 60, 0],
-          scale: [1, 0.8, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
+      {/* Animated Gradient Orbs - optimized for mobile */}
+      {!isMobile && (
+        <>
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-500/20 rounded-full blur-3xl"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+            style={{ willChange: "transform" }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-indigo-400/20 to-pink-500/20 rounded-full blur-3xl"
+            animate={{
+              x: [0, -80, 0],
+              y: [0, 60, 0],
+              scale: [1, 0.8, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+            style={{ willChange: "transform" }}
+          />
+        </>
+      )}
 
-      {/* Floating Geometric Shapes */}
-      {[...Array(8)].map((_, i) => (
+      {/* Floating Geometric Shapes - reduced on mobile */}
+      {[...Array(isMobile ? 3 : 8)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-4 h-4 bg-blue-400/10 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
+            willChange: isMobile ? "auto" : "transform, opacity",
           }}
           animate={{
-            y: [0, -30, 0],
+            y: [0, isMobile ? -10 : -30, 0], // Reduced movement on mobile
             opacity: [0.3, 1, 0.3],
             scale: [0.5, 1, 0.5],
           }}
           transition={{
-            duration: 4 + Math.random() * 4,
+            duration: isMobile ? 6 + Math.random() * 4 : 4 + Math.random() * 4, // Slower on mobile
             repeat: Number.POSITIVE_INFINITY,
             delay: Math.random() * 2,
             ease: "easeInOut",
@@ -117,22 +137,25 @@ export function AboutSection() {
         />
       ))}
 
-      {/* Animated Grid Pattern */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.03]"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "linear",
-        }}
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23000000' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+      {/* Animated Grid Pattern - disabled on mobile */}
+      {!isMobile && (
+        <motion.div
+          className="absolute inset-0 opacity-[0.03]"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23000000' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: "60px 60px",
+            willChange: "background-position",
+          }}
+        />
+      )}
 
       <motion.div
         ref={ref}
@@ -213,7 +236,7 @@ export function AboutSection() {
               </motion.span>
             </motion.h2>
 
-            {/* Animated Divider */}
+            {/* Animated Divider - optimized for mobile */}
             <motion.div
               className="flex items-center justify-center gap-3 my-8"
               initial={{ opacity: 0, scale: 0 }}
@@ -222,42 +245,54 @@ export function AboutSection() {
             >
               <motion.div
                 className="w-12 h-[3px] bg-gradient-to-r from-transparent via-blue-500 to-blue-600 rounded-full"
-                animate={{
-                  scaleX: [0, 1, 0],
-                }}
+                animate={
+                  !isMobile
+                    ? {
+                        scaleX: [0, 1, 0],
+                      }
+                    : {}
+                }
                 transition={{
-                  duration: 2,
-                  delay: 1,
-                  repeat: Number.POSITIVE_INFINITY,
+                  duration: isMobile ? 0 : 2,
+                  delay: isMobile ? 0 : 1,
+                  repeat: isMobile ? 0 : Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}
               />
               <motion.div
                 className="w-3 h-3 bg-blue-500 rounded-full"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  boxShadow: [
-                    "0 0 0 0 rgba(59, 130, 246, 0.4)",
-                    "0 0 0 10px rgba(59, 130, 246, 0)",
-                    "0 0 0 0 rgba(59, 130, 246, 0)",
-                  ],
-                }}
+                animate={
+                  !isMobile
+                    ? {
+                        scale: [1, 1.5, 1],
+                        boxShadow: [
+                          "0 0 0 0 rgba(59, 130, 246, 0.4)",
+                          "0 0 0 10px rgba(59, 130, 246, 0)",
+                          "0 0 0 0 rgba(59, 130, 246, 0)",
+                        ],
+                      }
+                    : {}
+                }
                 transition={{
-                  duration: 2,
-                  delay: 1.2,
-                  repeat: Number.POSITIVE_INFINITY,
+                  duration: isMobile ? 0 : 2,
+                  delay: isMobile ? 0 : 1.2,
+                  repeat: isMobile ? 0 : Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}
               />
               <motion.div
                 className="w-12 h-[3px] bg-gradient-to-l from-transparent via-blue-500 to-blue-600 rounded-full"
-                animate={{
-                  scaleX: [0, 1, 0],
-                }}
+                animate={
+                  !isMobile
+                    ? {
+                        scaleX: [0, 1, 0],
+                      }
+                    : {}
+                }
                 transition={{
-                  duration: 2,
-                  delay: 1.4,
-                  repeat: Number.POSITIVE_INFINITY,
+                  duration: isMobile ? 0 : 2,
+                  delay: isMobile ? 0 : 1.4,
+                  repeat: isMobile ? 0 : Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}
               />

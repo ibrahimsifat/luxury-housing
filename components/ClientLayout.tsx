@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Footer from "./footer";
 import Header from "./header";
+import { MobileNavigation } from "./mobile-navigation";
 import WhatsAppFloat from "./whatsapp-float";
 
 interface ClientLayoutProps {
@@ -16,10 +17,11 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <>
       {!isCMSRoute && <Header />}
-      <main className={!isCMSRoute ? "" : ""}>{children}</main>
+      <main className={!isCMSRoute ? "pb-16 md:pb-0" : ""}>{children}</main>
       {!isCMSRoute && (
         <>
           <Footer />
+          <MobileNavigation />
           <WhatsAppFloat />
         </>
       )}

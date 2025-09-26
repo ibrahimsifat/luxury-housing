@@ -5,11 +5,15 @@ import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
+  Briefcase,
   Building,
   Building2,
+  ChevronDown,
   Eye,
   Heart,
   Home,
+  Image as ImageIcon,
+  Mail,
   Menu,
   RefreshCw,
   Target,
@@ -22,10 +26,20 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiMail, FiPhone } from "react-icons/fi";
 
+// Icon components using Lucide React for better TypeScript support
+const AboutIcon = () => <Building2 className="w-5 h-5" />;
+const ProductsIcon = () => <Briefcase className="w-5 h-5" />;
+const ServicesIcon = () => <Briefcase className="w-5 h-5" />;
+const ApplicationsIcon = () => <Mail className="w-5 h-5" />;
+const GalleryIcon = () => <ImageIcon className="w-5 h-5" />;
+
 export { Header };
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedDropdowns, setExpandedDropdowns] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,8 +49,41 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isMobileMenuOpen && !target.closest(".mobile-menu-container")) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("click", handleClickOutside);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleDropdown = (dropdownName: string) => {
+    setExpandedDropdowns((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(dropdownName)) {
+        newSet.delete(dropdownName);
+      } else {
+        newSet.add(dropdownName);
+      }
+      return newSet;
+    });
   };
 
   const aboutUsItems = [
@@ -427,7 +474,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="lg:hidden p-2 rounded-lg transition-all duration-300"
+              className="lg:hidden p-2 rounded-lg transition-all duration-300 mobile-menu-container"
               onClick={toggleMobileMenu}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -476,15 +523,11 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="fixed top-20 left-4 right-4 z-40 lg:hidden"
+            className="fixed top-20 left-4 right-4 z-40 lg:hidden max-h-[calc(100vh-120px)] overflow-y-auto mobile-menu-container"
           >
-            {/* Glass morphism container */}
+            {/* Solid background container */}
             <motion.div
-              className={`relative overflow-hidden rounded-2xl backdrop-blur-2xl border ${
-                isScrolled
-                  ? "bg-white/10 border-white/20 shadow-2xl shadow-slate-900/20"
-                  : "bg-black/20 border-white/30 shadow-2xl shadow-black/30"
-              }`}
+              className="relative overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-2xl shadow-slate-900/20"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -549,18 +592,14 @@ export default function Header() {
                   >
                     <Link
                       href="/"
-                      className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                        isScrolled
-                          ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                          : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                      }`}
+                      className="relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden text-slate-700 hover:text-blue-600 hover:bg-blue-50"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <span className="relative z-10">الرئيسية</span>
                     </Link>
                   </motion.div>
 
-                  {/* About Us Section in Mobile */}
+                  {/* About Us Section in Mobile - Collapsible */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotateY: -15 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -571,46 +610,65 @@ export default function Header() {
                       stiffness: 200,
                     }}
                   >
-                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
-                      من نحن
-                    </div>
-                    {aboutUsItems.map((item, index) => (
+                    <motion.button
+                      onClick={() => toggleDropdown("about")}
+                      className="w-full flex items-center justify-between py-3 px-6 rounded-xl font-semibold text-base transition-all duration-300 text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        <AboutIcon />
+                        من نحن
+                      </span>
                       <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay: 0.1 + (index + 1) * 0.1,
-                          type: "spring",
-                          stiffness: 200,
+                        animate={{
+                          rotate: expandedDropdowns.has("about") ? 180 : 0,
                         }}
-                        whileHover={{
-                          scale: 1.05,
-                          rotateY: 5,
-                          z: 50,
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <Link
-                          href={item.href}
-                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                            isScrolled
-                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            {item.icon}
-                            {item.name}
-                          </span>
-                        </Link>
+                        <ChevronDown className="w-4 h-4" />
                       </motion.div>
-                    ))}
+                    </motion.button>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedDropdowns.has("about") ? "auto" : 0,
+                        opacity: expandedDropdowns.has("about") ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4">
+                        {aboutUsItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: expandedDropdowns.has("about") ? 1 : 0,
+                              x: expandedDropdowns.has("about") ? 0 : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1,
+                            }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="relative block py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <span className="flex items-center gap-2">
+                                {item.icon}
+                                {item.name}
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </motion.div>
 
-                  {/* Products Section in Mobile */}
+                  {/* Products Section in Mobile - Collapsible */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotateY: -15 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -621,49 +679,67 @@ export default function Header() {
                       stiffness: 200,
                     }}
                   >
-                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
-                      المنتجات
-                    </div>
-                    {productsItems.map((item, index) => (
+                    <motion.button
+                      onClick={() => toggleDropdown("products")}
+                      className="w-full flex items-center justify-between py-3 px-6 rounded-xl font-semibold text-base transition-all duration-300 text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        <ProductsIcon />
+                        المنتجات
+                      </span>
                       <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay:
-                            0.1 +
-                            (aboutUsItems.length + 1) * 0.1 +
-                            (index + 1) * 0.1,
-                          type: "spring",
-                          stiffness: 200,
+                        animate={{
+                          rotate: expandedDropdowns.has("products") ? 180 : 0,
                         }}
-                        whileHover={{
-                          scale: 1.05,
-                          rotateY: 5,
-                          z: 50,
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <Link
-                          href={item.href}
-                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                            isScrolled
-                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            {item.icon}
-                            {item.name}
-                          </span>
-                        </Link>
+                        <ChevronDown className="w-4 h-4" />
                       </motion.div>
-                    ))}
+                    </motion.button>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedDropdowns.has("products") ? "auto" : 0,
+                        opacity: expandedDropdowns.has("products") ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4">
+                        {productsItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: expandedDropdowns.has("products")
+                                ? 1
+                                : 0,
+                              x: expandedDropdowns.has("products") ? 0 : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1,
+                            }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="relative block py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <span className="flex items-center gap-2">
+                                {item.icon}
+                                {item.name}
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </motion.div>
 
-                  {/* Services Section in Mobile */}
+                  {/* Services Section in Mobile - Collapsible */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotateY: -15 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -676,50 +752,67 @@ export default function Header() {
                       stiffness: 200,
                     }}
                   >
-                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
-                      الخدمات
-                    </div>
-                    {servicesItems.map((item, index) => (
+                    <motion.button
+                      onClick={() => toggleDropdown("services")}
+                      className="w-full flex items-center justify-between py-3 px-6 rounded-xl font-semibold text-base transition-all duration-300 text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        <ProductsIcon />
+                        الخدمات
+                      </span>
                       <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay:
-                            0.1 +
-                            (aboutUsItems.length + productsItems.length + 2) *
-                              0.1 +
-                            (index + 1) * 0.1,
-                          type: "spring",
-                          stiffness: 200,
+                        animate={{
+                          rotate: expandedDropdowns.has("services") ? 180 : 0,
                         }}
-                        whileHover={{
-                          scale: 1.05,
-                          rotateY: 5,
-                          z: 50,
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <Link
-                          href={item.href}
-                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                            isScrolled
-                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            {item.icon}
-                            {item.name}
-                          </span>
-                        </Link>
+                        <ChevronDown className="w-4 h-4" />
                       </motion.div>
-                    ))}
+                    </motion.button>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedDropdowns.has("services") ? "auto" : 0,
+                        opacity: expandedDropdowns.has("services") ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4">
+                        {servicesItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: expandedDropdowns.has("services")
+                                ? 1
+                                : 0,
+                              x: expandedDropdowns.has("services") ? 0 : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1,
+                            }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="relative block py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <span className="flex items-center gap-2">
+                                {item.icon}
+                                {item.name}
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </motion.div>
 
-                  {/* Application Forms Section in Mobile */}
+                  {/* Application Forms Section in Mobile - Collapsible */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotateY: -15 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -736,53 +829,73 @@ export default function Header() {
                       stiffness: 200,
                     }}
                   >
-                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
-                      تقدم طلبك الان
-                    </div>
-                    {applicationItems.map((item, index) => (
+                    <motion.button
+                      onClick={() => toggleDropdown("applications")}
+                      className="w-full flex items-center justify-between py-3 px-6 rounded-xl font-semibold text-base transition-all duration-300 text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        <ApplicationsIcon />
+                        تقدم طلبك الان
+                      </span>
                       <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay:
-                            0.1 +
-                            (aboutUsItems.length +
-                              productsItems.length +
-                              servicesItems.length +
-                              3) *
-                              0.1 +
-                            (index + 1) * 0.1,
-                          type: "spring",
-                          stiffness: 200,
+                        animate={{
+                          rotate: expandedDropdowns.has("applications")
+                            ? 180
+                            : 0,
                         }}
-                        whileHover={{
-                          scale: 1.05,
-                          rotateY: 5,
-                          z: 50,
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <Link
-                          href={item.href}
-                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                            isScrolled
-                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            {item.icon}
-                            {item.name}
-                          </span>
-                        </Link>
+                        <ChevronDown className="w-4 h-4" />
                       </motion.div>
-                    ))}
+                    </motion.button>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedDropdowns.has("applications")
+                          ? "auto"
+                          : 0,
+                        opacity: expandedDropdowns.has("applications") ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4">
+                        {applicationItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: expandedDropdowns.has("applications")
+                                ? 1
+                                : 0,
+                              x: expandedDropdowns.has("applications")
+                                ? 0
+                                : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1,
+                            }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="relative block py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <span className="flex items-center gap-2">
+                                {item.icon}
+                                {item.name}
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </motion.div>
 
-                  {/* Gallery Section in Mobile */}
+                  {/* Gallery Section in Mobile - Collapsible */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotateY: -15 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -800,51 +913,62 @@ export default function Header() {
                       stiffness: 200,
                     }}
                   >
-                    <div className="text-sm font-bold text-gray-500 mb-2 px-2">
-                      معرض الصور
-                    </div>
-                    {galleryItems.map((item, index) => (
+                    <motion.button
+                      onClick={() => toggleDropdown("gallery")}
+                      className="w-full flex items-center justify-between py-3 px-6 rounded-xl font-semibold text-base transition-all duration-300 text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="flex items-center gap-3">
+                        <AboutIcon />
+                        معرض الصور
+                      </span>
                       <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay:
-                            0.1 +
-                            (aboutUsItems.length +
-                              productsItems.length +
-                              servicesItems.length +
-                              applicationItems.length +
-                              4) *
-                              0.1 +
-                            (index + 1) * 0.1,
-                          type: "spring",
-                          stiffness: 200,
+                        animate={{
+                          rotate: expandedDropdowns.has("gallery") ? 180 : 0,
                         }}
-                        whileHover={{
-                          scale: 1.05,
-                          rotateY: 5,
-                          z: 50,
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <Link
-                          href={item.href}
-                          className={`relative block py-3 px-6 rounded-xl font-medium text-base transition-all duration-300 group overflow-hidden ${
-                            isScrolled
-                              ? "text-slate-700 hover:text-blue-600 hover:bg-blue-50"
-                              : "text-white/90 hover:text-blue-200 hover:bg-white/10"
-                          }`}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <span className="relative z-10 flex items-center gap-3">
-                            {item.icon}
-                            {item.name}
-                          </span>
-                        </Link>
+                        <ChevronDown className="w-4 h-4" />
                       </motion.div>
-                    ))}
+                    </motion.button>
+
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedDropdowns.has("gallery") ? "auto" : 0,
+                        opacity: expandedDropdowns.has("gallery") ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4">
+                        {galleryItems.map((item, index) => (
+                          <motion.div
+                            key={item.name}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{
+                              opacity: expandedDropdowns.has("gallery") ? 1 : 0,
+                              x: expandedDropdowns.has("gallery") ? 0 : -20,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1,
+                            }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="relative block py-2 px-4 rounded-lg font-medium text-sm transition-all duration-300 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              <span className="flex items-center gap-2">
+                                {item.icon}
+                                {item.name}
+                              </span>
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   </motion.div>
 
                   {/* Other Navigation Items */}
@@ -884,12 +1008,8 @@ export default function Header() {
                           href={item.href}
                           className={`relative block py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 group overflow-hidden ${
                             isActive
-                              ? isScrolled
-                                ? "bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-500/30"
-                                : "bg-gradient-to-r from-blue-500/90 to-purple-600/90 text-white shadow-lg shadow-blue-500/40"
-                              : isScrolled
-                              ? "text-slate-800 hover:text-blue-600 hover:bg-white/20"
-                              : "text-white hover:text-blue-200 hover:bg-white/10"
+                              ? "bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-500/30"
+                              : "text-slate-800 hover:text-blue-600 hover:bg-blue-50"
                           }`}
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -973,11 +1093,7 @@ export default function Header() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <motion.div
-                        className={`relative overflow-hidden rounded-xl font-semibold text-lg py-4 px-6 text-center transition-all duration-300 ${
-                          isScrolled
-                            ? "bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 shadow-lg shadow-blue-500/30"
-                            : "bg-gradient-to-r from-blue-500/90 to-purple-600/90 hover:from-blue-600 hover:to-purple-700 shadow-lg shadow-blue-500/40"
-                        }`}
+                        className="relative overflow-hidden rounded-xl font-semibold text-lg py-4 px-6 text-center transition-all duration-300 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 shadow-lg shadow-blue-500/30 text-white"
                         whileHover={{
                           boxShadow:
                             "0 20px 40px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)",

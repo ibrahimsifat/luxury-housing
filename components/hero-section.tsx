@@ -35,6 +35,7 @@ export function HeroSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef(null);
   const inView = useInView(containerRef, { once: true, margin: "-100px" });
@@ -52,6 +53,18 @@ export function HeroSection() {
   ];
 
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Typing animation effect
   useEffect(() => {
@@ -72,16 +85,19 @@ export function HeroSection() {
     }
   }, [inView]);
 
-  // Background cycling effect
+  // Background cycling effect - reduced for mobile
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBgIndex(
-        (prevIndex) => (prevIndex + 1) % backgroundImages.length
-      );
-    }, 5000); // Change background every 5 seconds
+    const interval = setInterval(
+      () => {
+        setCurrentBgIndex(
+          (prevIndex) => (prevIndex + 1) % backgroundImages.length
+        );
+      },
+      isMobile ? 8000 : 5000
+    ); // Slower cycling on mobile
 
     return () => clearInterval(interval);
-  }, [backgroundImages.length]);
+  }, [backgroundImages.length, isMobile]);
 
   const validateSaudiPhone = (phone: string) => {
     // Remove any spaces or special characters
@@ -199,7 +215,7 @@ export function HeroSection() {
       aria-label="الصفحة الرئيسية - الإسكان الفاخر"
     >
       <div className="absolute inset-0 z-0">
-        {/* Dynamic background images */}
+        {/* Dynamic background images - optimized for mobile */}
         {backgroundImages.map((image, index) => (
           <motion.div
             key={image}
@@ -207,11 +223,14 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{
               opacity: index === currentBgIndex ? 0.8 : 0,
-              scale: index === currentBgIndex ? 1 : 1.1,
+              scale: index === currentBgIndex ? 1 : isMobile ? 1.02 : 1.1, // Reduced scale on mobile
             }}
             transition={{
-              duration: 1.5,
+              duration: isMobile ? 2.5 : 1.5, // Slower transitions on mobile
               ease: "easeInOut",
+            }}
+            style={{
+              willChange: isMobile ? "auto" : "opacity, transform", // Disable willChange on mobile
             }}
           >
             <Image
@@ -220,6 +239,7 @@ export function HeroSection() {
               fill
               className="object-cover"
               priority={index === 0}
+              quality={isMobile ? 75 : 90} // Lower quality on mobile
             />
           </motion.div>
         ))}
@@ -242,86 +262,94 @@ export function HeroSection() {
           ))}
         </div>
 
-        {/* Enhanced animated floating background elements */}
-        <motion.div
-          className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-gradient-to-br from-amber-500/10 to-orange-100/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.05, 1],
-            opacity: [0.7, 0.9, 0.7],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
+        {/* Enhanced animated floating background elements - reduced on mobile */}
+        {!isMobile && (
+          <>
+            <motion.div
+              className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-gradient-to-br from-amber-500/10 to-orange-100/20 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.7, 0.9, 0.7],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
 
-        <motion.div
-          className="absolute top-[60%] -left-[5%] w-[30%] h-[40%] bg-gradient-to-tr from-amber-500/10 to-orange-100/15 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.7, 0.5],
-            rotate: [0, -180, -360],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
+            <motion.div
+              className="absolute top-[60%] -left-[5%] w-[30%] h-[40%] bg-gradient-to-tr from-amber-500/10 to-orange-100/15 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.7, 0.5],
+                rotate: [0, -180, -360],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+            />
 
-        <motion.div
-          className="absolute top-[20%] left-[60%] w-[15%] h-[15%] bg-gradient-to-bl from-amber-500/15 to-orange-100/20 rounded-full blur-2xl"
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.6, 0.8, 0.6],
-            rotate: [0, 90, 180, 270, 360],
-          }}
-          transition={{
-            duration: 7,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
+            <motion.div
+              className="absolute top-[20%] left-[60%] w-[15%] h-[15%] bg-gradient-to-bl from-amber-500/15 to-orange-100/20 rounded-full blur-2xl"
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.6, 0.8, 0.6],
+                rotate: [0, 90, 180, 270, 360],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+            />
+          </>
+        )}
 
-        {/* Additional floating elements */}
-        <motion.div
-          className="absolute top-[10%] left-[20%] w-[8%] h-[8%] bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 0.5,
-          }}
-        />
+        {/* Additional floating elements - disabled on mobile */}
+        {!isMobile && (
+          <>
+            <motion.div
+              className="absolute top-[10%] left-[20%] w-[8%] h-[8%] bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
+              animate={{
+                y: [0, -20, 0],
+                x: [0, 10, 0],
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
+            />
 
-        <motion.div
-          className="absolute bottom-[20%] right-[15%] w-[6%] h-[6%] bg-gradient-to-r from-green-400/20 to-teal-400/20 rounded-full blur-lg"
-          animate={{
-            y: [0, 15, 0],
-            x: [0, -15, 0],
-            scale: [1, 1.3, 1],
-            opacity: [0.4, 0.7, 0.4],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1.5,
-          }}
-        />
+            <motion.div
+              className="absolute bottom-[20%] right-[15%] w-[6%] h-[6%] bg-gradient-to-r from-green-400/20 to-teal-400/20 rounded-full blur-lg"
+              animate={{
+                y: [0, 15, 0],
+                x: [0, -15, 0],
+                scale: [1, 1.3, 1],
+                opacity: [0.4, 0.7, 0.4],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 1.5,
+              }}
+            />
+          </>
+        )}
 
-        {/* Floating particles */}
-        {[...Array(8)].map((_, i) => (
+        {/* Floating particles - reduced on mobile */}
+        {[...Array(isMobile ? 3 : 8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-amber-400/60 rounded-full"
@@ -330,12 +358,14 @@ export function HeroSection() {
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
+              y: [0, isMobile ? -15 : -30, 0], // Reduced movement on mobile
               opacity: [0, 1, 0],
               scale: [0, 1, 0],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: isMobile
+                ? 4 + Math.random() * 2
+                : 3 + Math.random() * 2, // Slower on mobile
               repeat: Number.POSITIVE_INFINITY,
               delay: Math.random() * 2,
               ease: "easeInOut",
@@ -343,53 +373,57 @@ export function HeroSection() {
           />
         ))}
 
-        {/* Floating icons */}
-        <motion.div
-          className="absolute top-[15%] right-[25%] text-amber-400/30"
-          animate={{
-            y: [0, -10, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        >
-          <Home className="w-8 h-8" />
-        </motion.div>
+        {/* Floating icons - disabled on mobile */}
+        {!isMobile && (
+          <>
+            <motion.div
+              className="absolute top-[15%] right-[25%] text-amber-400/30"
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <Home className="w-8 h-8" />
+            </motion.div>
 
-        <motion.div
-          className="absolute bottom-[25%] left-[30%] text-blue-400/30"
-          animate={{
-            y: [0, 10, 0],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        >
-          <TrendingUp className="w-6 h-6" />
-        </motion.div>
+            <motion.div
+              className="absolute bottom-[25%] left-[30%] text-blue-400/30"
+              animate={{
+                y: [0, 10, 0],
+                rotate: [0, -5, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+            >
+              <TrendingUp className="w-6 h-6" />
+            </motion.div>
 
-        <motion.div
-          className="absolute top-[40%] right-[10%] text-purple-400/30"
-          animate={{
-            y: [0, -15, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        >
-          <Star className="w-5 h-5" />
-        </motion.div>
+            <motion.div
+              className="absolute top-[40%] right-[10%] text-purple-400/30"
+              animate={{
+                y: [0, -15, 0],
+                rotate: [0, 10, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+            >
+              <Star className="w-5 h-5" />
+            </motion.div>
+          </>
+        )}
       </div>
 
       {/* Content Container */}
