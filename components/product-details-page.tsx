@@ -1,4 +1,3 @@
-import { Footer } from "@/components/footer";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ProductDetailsClient } from "@/components/product-details-client";
 import WhatsAppFloat from "@/components/whatsapp-float";
@@ -186,7 +185,6 @@ export function ProductDetailsPage({ product }: ProductDetailsPageProps) {
       <ProductDetailsClient product={product} />
       <WhatsAppFloat />
       <MobileNavigation />
-      <Footer />
     </div>
   );
 }

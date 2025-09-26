@@ -4,7 +4,6 @@ import {
   ArrowUp,
   Facebook,
   Instagram,
-  Linkedin,
   Mail,
   MapPin,
   Phone,
@@ -12,6 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { FaSnapchat, FaTelegram, FaTiktok } from "react-icons/fa";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -127,34 +127,96 @@ export function Footer() {
               <h4 className="text-lg font-semibold text-white font-cairo">
                 تابعونا على
               </h4>
-              <div className="flex space-x-3 rtl:space-x-reverse">
+              <div className="flex flex-wrap gap-2">
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 transition-all duration-300 rounded-xl"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
                 >
-                  <Facebook className="w-5 h-5" />
+                  <Link
+                    href="https://www.facebook.com/luxuryhousing.sa/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Facebook"
+                  >
+                    <Facebook className="w-5 h-5" />
+                  </Link>
                 </Button>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-sky-500 hover:to-sky-600 transition-all duration-300 rounded-xl"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
                 >
-                  <Twitter className="w-5 h-5" />
+                  <Link
+                    href="https://www.instagram.com/luxuryhousing.sa/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </Link>
                 </Button>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 transition-all duration-300 rounded-xl"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-sky-500 hover:to-sky-600 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
                 >
-                  <Instagram className="w-5 h-5" />
+                  <Link
+                    href="https://x.com/luxuryhousingsa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="X (Twitter)"
+                  >
+                    <Twitter className="w-5 h-5" />
+                  </Link>
                 </Button>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-800 transition-all duration-300 rounded-xl"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-red-600 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Link
+                    href="https://www.tiktok.com/@luxuryhousing.sa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="TikTok"
+                  >
+                    <FaTiktok className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
+                >
+                  <Link
+                    href="https://www.snapchat.com/@luxuryhousingsa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Snapchat"
+                  >
+                    <FaSnapchat className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 transition-all duration-300 rounded-xl w-10 h-10"
+                  asChild
+                >
+                  <Link
+                    href="https://t.me/luxuryhousingsa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Telegram"
+                  >
+                    <FaTelegram className="w-5 h-5" />
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -259,7 +321,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="text-center md:text-right">
               <p className="text-gray-100 font-cairo text-base">
-                © 2024 شركة لوكسري هاوسينج العقارية. جميع الحقوق محفوظة.
+                © thi شركة لوكسري هاوسينج العقارية. جميع الحقوق محفوظة.
               </p>
             </div>
             <div className="flex items-center space-x-8 rtl:space-x-reverse">

@@ -1,4 +1,3 @@
-import { Footer } from "@/components/footer";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { ServiceDetailsClient } from "@/components/service-details-client";
 import WhatsAppFloat from "@/components/whatsapp-float";
@@ -24,7 +23,6 @@ export function ServiceDetailsPage({ service }: ServiceDetailsPageProps) {
       <ServiceDetailsClient service={serviceWithIconName} />
       <WhatsAppFloat />
       <MobileNavigation />
-      <Footer />
     </div>
   );
 }

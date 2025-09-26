@@ -29,7 +29,6 @@ import {
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
-import Footer from "./footer";
 import { MobileNavigation } from "./mobile-navigation";
 import { AnimatedCounter } from "./ui/animated-counter";
 import WhatsAppFloat from "./whatsapp-float";
@@ -490,7 +489,6 @@ export function ContactUsSection() {
           </div>
         </div>
       </section>
-      <Footer />
       <MobileNavigation />
       <WhatsAppFloat />
     </div>
