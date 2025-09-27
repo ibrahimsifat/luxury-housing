@@ -1,17 +1,16 @@
 "use client";
 
-import { ProductInquiryForm } from "@/components/product-inquiry-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Product } from "@/lib/types";
 import {
+  ArrowRight,
   Award,
   CheckCircle,
   ChevronDown,
   ChevronUp,
   Mail,
-  MessageCircle,
   Shield,
 } from "lucide-react";
 import Link from "next/link";
@@ -29,30 +28,44 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
 
-  const scrollToForm = () => {
-    const formElement = document.getElementById("product-inquiry-form");
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth" });
-    }
+  // Map product categories to apply form routes
+  const getApplyRoute = (category: string) => {
+    const categoryMap: Record<string, string> = {
+      "real-estate-financing": "/apply/real-estate-financing",
+      "business-financing": "/apply/business-sector",
+      "personal-financing": "/apply/personal-financing",
+      "real-estate-refinancing": "/apply/real-estate-refinancing",
+    };
+    return categoryMap[category] || "/apply/real-estate-financing";
   };
 
   return (
     <>
-      {/* Product Inquiry Form Section */}
+      {/* Apply for Service Section */}
       <section
-        id="product-inquiry-form"
+        id="product-apply-section"
         className="py-20 bg-gradient-to-br from-white to-slate-50"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              استفسر عن {product.title}
+              اطلب خدمة {product.title}
             </h2>
             <p className="text-lg text-slate-600">
-              املأ النموذج أدناه وسنتواصل معك في أقرب وقت ممكن
+              ابدأ رحلتك الآن واحصل على أفضل الحلول التمويلية
             </p>
           </div>
-          <ProductInquiryForm product={product} />
+          <div className="flex justify-center">
+            <Link href={getApplyRoute(product.category)}>
+              <Button
+                size="lg"
+                className={`bg-gradient-to-r ${product.gradient} text-white border-0 font-cairo font-semibold px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-xl`}
+              >
+                <span className="ml-3">اطلب الخدمة</span>
+                <ArrowRight className="w-6 h-6" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -238,13 +251,14 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button
-                    onClick={scrollToForm}
-                    className={`w-full py-4 bg-gradient-to-r ${product.gradient} text-white border-0 font-cairo font-semibold hover:shadow-lg transition-all duration-300`}
-                  >
-                    <MessageCircle className="w-5 h-5 mr-2 rtl:mr-0 rtl:ml-2" />
-                    استفسار عن المنتج
-                  </Button>
+                  <Link href={getApplyRoute(product.category)}>
+                    <Button
+                      className={`w-full py-4 bg-gradient-to-r ${product.gradient} text-white border-0 font-cairo font-semibold hover:shadow-lg transition-all duration-300`}
+                    >
+                      <ArrowRight className="w-5 h-5 mr-2 rtl:mr-0 rtl:ml-2" />
+                      اطلب الخدمة
+                    </Button>
+                  </Link>
 
                   <div className="grid grid-cols-2 gap-3">
                     <Link href="/contact">

@@ -1,12 +1,12 @@
 "use client";
 
-import { ServiceInquiryForm } from "@/components/service-inquiry-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Service } from "@/lib/services";
 import {
   ArrowLeft,
+  ArrowRight,
   Calculator,
   CheckCircle,
   ChevronDown,
@@ -15,7 +15,6 @@ import {
   CreditCard,
   FileText,
   Home,
-  MessageCircle,
   Phone,
   Sparkles,
   Star,
@@ -44,11 +43,16 @@ export function ServiceDetailsClient({ service }: ServiceDetailsClientProps) {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
 
-  const scrollToForm = () => {
-    const formElement = document.getElementById("service-inquiry-form");
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth" });
-    }
+  // Map service IDs to apply form routes
+  const getApplyRoute = (serviceId: string) => {
+    const serviceMap: Record<string, string> = {
+      "debt-settlement": "/apply/real-estate-financing",
+      "down-payment-solutions": "/apply/real-estate-financing",
+      "tax-solutions": "/apply/real-estate-financing",
+      "salary-housing-integration": "/apply/real-estate-financing",
+      "installment-unification": "/apply/personal-financing",
+    };
+    return serviceMap[serviceId] || "/apply/real-estate-financing";
   };
 
   const IconComponent =
@@ -99,13 +103,12 @@ export function ServiceDetailsClient({ service }: ServiceDetailsClientProps) {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Button
-                  onClick={scrollToForm}
-                  className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                >
-                  <MessageCircle className="w-5 h-5 ml-2" />
-                  استفسر عن الخدمة
-                </Button>
+                <Link href={getApplyRoute(service.id)}>
+                  <Button className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                    اطلب الخدمة
+                  </Button>
+                </Link>
 
                 <Button
                   variant="outline"
@@ -144,19 +147,29 @@ export function ServiceDetailsClient({ service }: ServiceDetailsClientProps) {
       </section>
 
       <section
-        id="service-inquiry-form"
+        id="service-apply-section"
         className="py-20 bg-gradient-to-br from-white to-slate-50"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              استفسر عن {service.title}
+              اطلب خدمة {service.title}
             </h2>
             <p className="text-lg text-slate-600">
-              املأ النموذج أدناه وسنتواصل معك في أقرب وقت ممكن
+              ابدأ رحلتك الآن واحصل على أفضل الحلول التمويلية
             </p>
           </div>
-          <ServiceInquiryForm service={service as Service} />
+          <div className="flex justify-center">
+            <Link href={getApplyRoute(service.id)}>
+              <Button
+                size="lg"
+                className={`bg-gradient-to-r ${service.gradient} text-white border-0 font-cairo font-semibold px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 text-xl`}
+              >
+                <span className="ml-3">اطلب الخدمة</span>
+                <ArrowRight className="w-6 h-6" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -304,13 +317,10 @@ export function ServiceDetailsClient({ service }: ServiceDetailsClientProps) {
             تواصل معنا الآن للحصول على استشارة مجانية حول {service.title}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact">
-              <Button
-                onClick={scrollToForm}
-                className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-              >
-                <MessageCircle className="w-5 h-5 ml-2" />
-                استفسر الآن
+            <Link href={getApplyRoute(service.id)}>
+              <Button className="bg-white text-slate-900 hover:bg-slate-100 px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <ArrowRight className="w-5 h-5 ml-2" />
+                اطلب الخدمة الآن
               </Button>
             </Link>
           </div>
