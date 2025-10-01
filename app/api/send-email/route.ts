@@ -9,11 +9,11 @@ export async function POST(request: NextRequest) {
       recaptchaToken: body.recaptchaToken ? "[REDACTED]" : undefined,
     });
 
-    const { type, formType, formData: nestedFormData } = body;
+    const { type, formType, data: nestedFormData } = body;
     const emailType = type || formType;
 
     // Handle both data formats:
-    // 1. New format: { type: "business-sector", formData: {...} }
+    // 1. New format: { type: "contact-form", data: {...} }
     // 2. Old format: { formType: "hero", name: "...", email: "...", ... }
     const rawFormData = nestedFormData || body;
 
@@ -21,7 +21,8 @@ export async function POST(request: NextRequest) {
     const {
       type: _,
       formType: __,
-      recaptchaToken: ___,
+      data: ___,
+      recaptchaToken: ____,
       ...formData
     } = rawFormData;
 
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
       ![
         "hero",
         "contact",
+        "contact-form",
         "product",
         "service",
         "personal-financing",
@@ -140,6 +142,27 @@ export async function POST(request: NextRequest) {
           {
             success: false,
             error: "Missing required fields (fullName and email are required)",
+          },
+          { status: 400 }
+        );
+      }
+    } else if (emailType === "contact-form") {
+      if (
+        !formData.name ||
+        formData.name.trim() === "" ||
+        !formData.email ||
+        formData.email.trim() === "" ||
+        !formData.phone ||
+        formData.phone.trim() === "" ||
+        !formData.message ||
+        formData.message.trim() === ""
+      ) {
+        console.log("Missing required fields for contact form");
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Missing required fields (name, email, phone, and message are required)",
           },
           { status: 400 }
         );

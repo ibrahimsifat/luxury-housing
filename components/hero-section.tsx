@@ -595,7 +595,7 @@ export function HeroSection() {
                 {[
                   {
                     text: "اطلب خدمة التمويل العقاري",
-                    href: "/apply/real-estate-mortgage",
+                    href: "/apply/real-estate-financing",
                   },
                   {
                     text: "اطلب خدمة تمويل قطاع الأعمال",

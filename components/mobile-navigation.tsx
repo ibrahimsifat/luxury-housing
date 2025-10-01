@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { FiHome, FiPhone } from "react-icons/fi"
-import { HiOutlineOfficeBuilding, HiBriefcase } from "react-icons/hi"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FiHome, FiPhone } from "react-icons/fi";
+import { HiBriefcase, HiOutlineOfficeBuilding } from "react-icons/hi";
 
 export function MobileNavigation() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const navItems = [
     {
@@ -15,7 +15,7 @@ export function MobileNavigation() {
       icon: FiPhone,
     },
     {
-      name: "مشاريعنا",
+      name: "منتجاتنا",
       href: "/products",
       icon: HiOutlineOfficeBuilding,
     },
@@ -29,15 +29,15 @@ export function MobileNavigation() {
       href: "/",
       icon: FiHome,
     },
-  ]
+  ];
 
   return (
     <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-slate-900/10 border border-slate-200/50">
         <nav className="flex items-center justify-around py-3 px-2">
           {navItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
 
             return (
               <Link
@@ -50,9 +50,11 @@ export function MobileNavigation() {
                 }`}
               >
                 <Icon className="w-5 h-5" />
-                <span className="text-xs font-medium font-cairo">{item.name}</span>
+                <span className="text-xs font-medium font-cairo">
+                  {item.name}
+                </span>
               </Link>
-            )
+            );
           })}
         </nav>
 
@@ -63,5 +65,5 @@ export function MobileNavigation() {
         </div>
       </div>
     </div>
-  )
+  );
 }

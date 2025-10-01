@@ -19,7 +19,7 @@ export function Footer() {
   };
 
   const quickLinks = [
-    { name: "الرئيسية", href: "/home" },
+    { name: "الرئيسية", href: "/" },
     { name: "من نحن", href: "/about" },
     { name: "خدماتنا", href: "/services" },
     { name: "منتجاتنا", href: "/products" },
@@ -27,14 +27,14 @@ export function Footer() {
   ];
 
   const services = [
-    { name: "تقفيل المديونيات", href: "/services/تقفيل-المديونيات" },
+    { name: "تقفيل المديونيات", href: "/services/debt-settlement" },
     { name: "حلول الدفعة المقدمة", href: "/services/down-payment-solutions" },
-    { name: "حلول الضريبة", href: "/services/tax-solutions" },
-    { name: "أعلى مبلغ تمويلي", href: "/services/highest-financing" },
+    { name: "حلول زيادة الضريبة", href: "/services/tax-solutions" },
     {
-      name: "دمج الراتب مع الدعم السكني",
+      name: "دمج الدعم مع الراتب",
       href: "/services/salary-housing-integration",
     },
+    { name: "حلول توحيد الاقساط", href: "/services/installment-unification" },
   ];
 
   const legalLinks = [
@@ -274,9 +274,12 @@ export function Footer() {
                   <Phone className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">
+                  <Link
+                    href="tel:+966581111488"
+                    className="text-white font-semibold font-cairo hover:text-cyan-400 transition-colors duration-200"
+                  >
                     0581111488
-                  </p>
+                  </Link>
                   <p className="text-slate-300 text-sm font-cairo">
                     خدمة العملاء
                   </p>
@@ -288,9 +291,12 @@ export function Footer() {
                   <Mail className="w-5 h-5 text-pink-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">
+                  <Link
+                    href="mailto:info@luxuryhousing.sa"
+                    className="text-white font-semibold font-cairo hover:text-pink-400 transition-colors duration-200"
+                  >
                     info@luxuryhousing.sa
-                  </p>
+                  </Link>
                   <p className="text-slate-300 text-sm font-cairo">
                     البريد الإلكتروني
                   </p>
@@ -302,9 +308,14 @@ export function Footer() {
                   <MapPin className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold font-cairo">
+                  <Link
+                    href="https://maps.google.com/?q=Novotel+Business+Park+Dammam+Al+Khaleej+Al+Shamaliyah+32232+Saudi+Arabia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white font-semibold font-cairo hover:text-cyan-400 transition-colors duration-200"
+                  >
                     الدمام، السعودية
-                  </p>
+                  </Link>
                   <p className="text-slate-300 text-sm font-cairo">
                     نوفوتيل بيزنس بارك، شارع الوليد بن سلامة، الخالدية الشمالية،
                     الدمام 32232

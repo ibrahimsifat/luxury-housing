@@ -17,6 +17,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export type EmailType =
   | "hero"
   | "contact"
+  | "contact-form"
   | "product"
   | "service"
   | "personal-financing"
@@ -41,6 +42,13 @@ export interface HeroFormData extends BaseEmailData {
 
 // Contact form data
 export interface ContactFormData extends BaseEmailData {
+  phone: string;
+  service?: string;
+  message: string;
+}
+
+// Contact us form data
+export interface ContactUsFormData extends BaseEmailData {
   phone: string;
   service?: string;
   message: string;
@@ -222,6 +230,7 @@ export async function sendEmail(type: EmailType, data: FormData) {
     const subjects = {
       hero: "طلب استشارة مجانية جديد - شركة لوكسري هاوسينج",
       contact: "رسالة تواصل جديدة - شركة لوكسري هاوسينج",
+      "contact-form": "رسالة تواصل جديدة - شركة لوكسري هاوسينج",
       product: "استفسار منتج تمويلي جديد - شركة لوكسري هاوسينج",
       service: "استفسار خدمة جديد - شركة لوكسري هاوسينج",
       "personal-financing": "طلب تمويل شخصي جديد - شركة لوكسري هاوسينج",
@@ -257,6 +266,17 @@ export async function sendEmail(type: EmailType, data: FormData) {
             react: ContactFormEmailTemplate(data as ContactFormData),
             text: `${subjects[type]} من ${
               (data as ContactFormData).name
+            }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
+          });
+          break;
+        case "contact-form":
+          adminResult = await resend.emails.send({
+            from: "Luxury Housing <info@luxuryhousing.sa>",
+            to: ["info@luxuryhousing.sa"],
+            subject: subjects[type],
+            react: ContactFormEmailTemplate(data as ContactUsFormData),
+            text: `${subjects[type]} من ${
+              (data as ContactUsFormData).name
             }. يرجى مراجعة النسخة HTML من هذا البريد للحصول على التفاصيل الكاملة.`,
           });
           break;
@@ -390,6 +410,7 @@ async function sendCustomerConfirmation(type: EmailType, data: FormData) {
     const subjects = {
       hero: "تأكيد استلام طلب الاستشارة - شركة لوكسري هاوسينج",
       contact: "تأكيد استلام رسالتك - شركة لوكسري هاوسينج",
+      "contact-form": "تأكيد استلام رسالتك - شركة لوكسري هاوسينج",
       product: "تأكيد استلام استفسار المنتج - شركة لوكسري هاوسينج",
       service: "تأكيد استلام استفسار الخدمة - شركة لوكسري هاوسينج",
       "personal-financing":
@@ -465,6 +486,18 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 مستشار تمويل عقاري معتمد من الهيئة العامة للعقار`;
 
     case "contact":
+      return `${baseMessage}
+
+تم استلام رسالتك بنجاح وسنقوم بالرد عليك خلال 24 ساعة. نحن نقدر تواصلك معنا ونتطلع لخدمتك.
+
+التاريخ: ${currentDate}
+
+للاستفسارات العاجلة: 0581111488
+
+مع أطيب التحيات،
+فريق شركة لوكسري هاوسينج`;
+
+    case "contact-form":
       return `${baseMessage}
 
 تم استلام رسالتك بنجاح وسنقوم بالرد عليك خلال 24 ساعة. نحن نقدر تواصلك معنا ونتطلع لخدمتك.
