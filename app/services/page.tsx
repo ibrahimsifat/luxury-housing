@@ -2,7 +2,7 @@ import { MobileNavigation } from "@/components/mobile-navigation";
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import servicesData from "@/lib/services.json";
+import { getAllServices } from "@/lib/cms-data";
 import Link from "next/link";
 import {
   FiActivity,
@@ -14,6 +14,9 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
+// Force dynamic rendering to avoid build-time data fetching
+export const dynamic = "force-dynamic";
+
 const iconMap = {
   CreditCard: FiCreditCard,
   Home: FiHome,
@@ -22,8 +25,8 @@ const iconMap = {
   Users: FiUsers,
 };
 
-export default function ServicesPage() {
-  const services = servicesData;
+export default async function ServicesPage() {
+  const services = await getAllServices();
 
   const getIconComponent = (iconName: string) => {
     const IconComponent =

@@ -1,168 +1,235 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import { Client } from "@/lib/types";
 import { useEffect, useState } from "react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-export function ClientsSection() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [imagesPerSlide, setImagesPerSlide] = useState(5);
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-  // Client images from the public/clients folder
-  const clientImages = [
-    "/clients/imgi_13_download.png",
-    "/clients/imgi_14_9404f6_c147c8d811f14beb916d6cd3567758ec_mv2.png",
-    "/clients/imgi_16_002.jpg",
-    "/clients/imgi_17_9404f6_556dd3f4f9f54128a9d2b0393e0ffcbd_mv2.png",
-    "/clients/imgi_18_07.jpg",
-    "/clients/imgi_19_001.jpg",
-  ];
+// Custom Swiper styles
+const swiperStyles = `
+  .clients-swiper .swiper-button-next:after,
+  .clients-swiper .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .clients-swiper .swiper-pagination-bullet {
+    background: #cbd5e1;
+    opacity: 1;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .clients-swiper .swiper-pagination-bullet-active {
+    background: #2563eb;
+    transform: scale(1.25);
+  }
+  
+  .clients-swiper .swiper-slide {
+    height: auto;
+  }
+`;
 
-  // Calculate total slides - always show at least 2 slides for proper looping
-  const totalSlides = Math.max(
-    2,
-    Math.ceil(clientImages.length / imagesPerSlide)
-  );
+interface ClientsSectionProps {
+  clients?: Client[];
+  title?: string;
+  description?: string;
+  showAll?: boolean;
+  maxItems?: number;
+}
 
-  useEffect(() => {
-    const updateImagesPerSlide = () => {
-      if (window.innerWidth >= 1024) {
-        setImagesPerSlide(5); // Desktop: 5 images
-      } else if (window.innerWidth >= 768) {
-        setImagesPerSlide(4); // Tablet: 4 images
+export function ClientsSection({
+  clients: initialClients,
+  title = "شركاء النجاح",
+  description = "نفتخر بشراكتنا مع أبرز المؤسسات والشركات الرائدة في مجال العقارات والتمويل",
+  showAll = false,
+  maxItems = 8,
+}: ClientsSectionProps) {
+  const [clients, setClients] = useState<Client[]>(initialClients || []);
+  const [isLoading, setIsLoading] = useState(!initialClients);
+
+  const fetchClients = async () => {
+    try {
+      const response = await fetch("/api/cms/clients", {
+        next: {
+          revalidate: 300, // 5 minutes cache
+          tags: ["clients"],
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setClients(data);
       } else {
-        setImagesPerSlide(2); // Mobile: 2 images
+        console.error("Failed to fetch clients");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    updateImagesPerSlide();
-    window.addEventListener("resize", updateImagesPerSlide);
-    return () => window.removeEventListener("resize", updateImagesPerSlide);
-  }, []);
+  const displayClients = showAll
+    ? clients.sort((a, b) => a.order - b.order)
+    : clients.sort((a, b) => a.order - b.order).slice(0, maxItems);
+
+  // Debug logging
+  console.log("ClientsSection - Total clients:", clients.length);
+  console.log("ClientsSection - Display clients:", displayClients.length);
+  console.log("ClientsSection - First client:", displayClients[0]);
 
   useEffect(() => {
-    setCurrentSlide(0);
-  }, [imagesPerSlide]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const getCurrentSlideImages = () => {
-    const startIndex = currentSlide * imagesPerSlide;
-    const endIndex = Math.min(startIndex + imagesPerSlide, clientImages.length);
-    let slideImages = clientImages.slice(startIndex, endIndex);
-
-    // If we don't have enough images for the current slide, fill from the beginning
-    if (slideImages.length < imagesPerSlide) {
-      const remainingSlots = imagesPerSlide - slideImages.length;
-      const additionalImages = clientImages.slice(0, remainingSlots);
-      slideImages = [...slideImages, ...additionalImages];
+    if (!initialClients) {
+      fetchClients();
     }
+  }, [initialClients]);
 
-    return slideImages;
-  };
+  // Force autoplay to start after component mounts
+  useEffect(() => {
+    if (displayClients.length > 0) {
+      // Small delay to ensure Swiper is fully initialized
+      const timer = setTimeout(() => {
+        const swiperEl = document.querySelector(".clients-swiper") as any;
+        if (swiperEl && swiperEl.swiper) {
+          swiperEl.swiper.autoplay.start();
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [displayClients.length]);
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-slate-600">Loading clients...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (displayClients.length === 0) {
+    return null;
+  }
 
   return (
-    <section
-      id="clients"
-      className="py-20 bg-gradient-to-br from-slate-50 to-blue-50"
-    >
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-            الشركاء
+    <>
+      <style jsx>{swiperStyles}</style>
+      <section
+        id="clients"
+        className="py-20 bg-gradient-to-br from-slate-50 to-blue-50"
+      >
+        <div className="container mx-auto px-4">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+              الشركاء
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {title}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {description}
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            شركاء النجاح
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            نفتخر بشراكتنا مع أبرز المؤسسات والشركات الرائدة في مجال العقارات
-            والتمويل
-          </p>
-        </div>
 
-        {/* Multi-Image Carousel */}
-        <div className="max-w-6xl mx-auto">
-          <div className="relative">
-            {/* Images Grid */}
-            <div className="mb-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {getCurrentSlideImages().map((image, index) => (
-                  <div
-                    key={index}
-                    className="transition-all duration-300 transform hover:-translate-y-1"
-                  >
+          {/* Swiper Carousel */}
+          <div className="max-w-6xl mx-auto">
+            <Swiper
+              key={displayClients.length}
+              modules={[Autoplay, Navigation, Pagination]}
+              spaceBetween={24}
+              slidesPerView={2}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                reverseDirection: false,
+                stopOnLastSlide: false,
+              }}
+              speed={800}
+              allowTouchMove={true}
+              grabCursor={true}
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              }}
+              pagination={{
+                clickable: true,
+                el: ".swiper-pagination",
+              }}
+              loop={displayClients.length > 4}
+              breakpoints={{
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 24,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 24,
+                },
+                1024: {
+                  slidesPerView: 5,
+                  spaceBetween: 24,
+                },
+              }}
+              className="clients-swiper"
+            >
+              {displayClients.map((client) => (
+                <SwiperSlide key={client.id}>
+                  <div className="transition-all duration-300 transform hover:-translate-y-1">
                     <div className="relative h-32 w-full mx-auto flex items-center justify-center">
-                      {/* Background Image */}
-                      <div className="absolute inset-0 bg-white rounded-xl shadow-sm border border-gray-200"></div>
+                      {/* Background */}
+                      <div className="absolute inset-0 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300"></div>
                       {/* Client Logo */}
                       <div className="relative h-[80%] w-[80%] px-4 py-2 mx-auto my-auto">
-                        <Image
-                          src={image}
-                          alt={`Client ${
-                            ((currentSlide * imagesPerSlide + index) %
-                              clientImages.length) +
-                            1
-                          }`}
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 20vw"
+                        <img
+                          src={client.logo}
+                          alt={client.name}
+                          className="w-full h-full object-contain"
+                          onError={(e) => {
+                            console.error(
+                              "Image failed to load:",
+                              client.logo,
+                              e
+                            );
+                          }}
+                          onLoad={() => {
+                            console.log(
+                              "Image loaded successfully:",
+                              client.logo
+                            );
+                          }}
                         />
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Navigation Arrows */}
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg border-0 z-10"
-              onClick={prevSlide}
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg border-0 z-10"
-              onClick={nextSlide}
-            >
-              <ChevronRight className="h-5 w-5" />
-            </Button>
-
-            {/* Dots Indicator */}
-            <div className="flex justify-center gap-2">
-              {Array.from({ length: totalSlides }).map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? "bg-blue-600 scale-125"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  onClick={() => goToSlide(index)}
-                />
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
+
+            {/* Custom Navigation Buttons */}
+            <div className="swiper-button-prev !text-blue-600 !bg-white/90 !shadow-lg !border-0 !rounded-full !w-12 !h-12 !mt-0 !top-1/2 !-translate-y-1/2 !left-4 hover:!bg-white hover:!scale-110 transition-all duration-200"></div>
+            <div className="swiper-button-next !text-blue-600 !bg-white/90 !shadow-lg !border-0 !rounded-full !w-12 !h-12 !mt-0 !top-1/2 !-translate-y-1/2 !right-4 hover:!bg-white hover:!scale-110 transition-all duration-200"></div>
+
+            {/* Custom Pagination */}
+            <div className="swiper-pagination !relative !mt-8 !bottom-0"></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

@@ -1,9 +1,8 @@
+import { CacheInvalidator } from "@/lib/cache";
+import { deleteImagesFromUrls } from "@/lib/cloudinary";
+import { gallery } from "@/lib/database";
 import { GalleryImage } from "@/lib/types";
-import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-
-const galleryFilePath = path.join(process.cwd(), "lib", "gallery.json");
 
 // GET - Fetch specific gallery image
 export async function GET(
@@ -13,17 +12,7 @@ export async function GET(
   try {
     const { id } = params;
 
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json(
-        { error: "Gallery data not found" },
-        { status: 404 }
-      );
-    }
-
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images: GalleryImage[] = JSON.parse(fileContent);
-
-    const image = images.find((img) => img.id === id);
+    const image = await gallery.findById(id);
     if (!image) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
@@ -48,43 +37,28 @@ export async function PUT(
     const body = await request.json();
     const { title, description, category, image, alt, featured } = body;
 
-    // Read existing data
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json(
-        { error: "Gallery data not found" },
-        { status: 404 }
-      );
-    }
-
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images: GalleryImage[] = JSON.parse(fileContent);
-
-    // Find image index
-    const imageIndex = images.findIndex((img) => img.id === id);
-    if (imageIndex === -1) {
-      return NextResponse.json({ error: "Image not found" }, { status: 404 });
-    }
-
-    // Update image
-    const updatedImage = {
-      ...images[imageIndex],
-      ...(title && { title }),
-      ...(description && { description }),
-      ...(category && { category }),
-      ...(image && { image }),
-      ...(alt && { alt }),
-      ...(featured !== undefined && { featured: Boolean(featured) }),
-    };
-
     // Validate category if provided
     if (category && !["business", "offers", "branch"].includes(category)) {
       return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
-    images[imageIndex] = updatedImage;
+    // Prepare update data
+    const updateData: Partial<GalleryImage> = {};
+    if (title) updateData.title = title;
+    if (description) updateData.description = description;
+    if (category) updateData.category = category;
+    if (image) updateData.image = image;
+    if (alt) updateData.alt = alt;
+    if (featured !== undefined) updateData.featured = Boolean(featured);
 
-    // Write back to file
-    fs.writeFileSync(galleryFilePath, JSON.stringify(images, null, 2));
+    const updatedImage = await gallery.update(id, updateData);
+
+    if (!updatedImage) {
+      return NextResponse.json({ error: "Image not found" }, { status: 404 });
+    }
+
+    // Invalidate cache after updating gallery image
+    CacheInvalidator.onGalleryUpdate();
 
     return NextResponse.json(
       { message: "Gallery image updated successfully", image: updatedImage },
@@ -107,31 +81,56 @@ export async function DELETE(
   try {
     const { id } = params;
 
-    // Read existing data
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json(
-        { error: "Gallery data not found" },
-        { status: 404 }
-      );
-    }
+    // First, get the gallery image to collect image URL for deletion
+    const galleryImage = await gallery.findById(id);
 
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images: GalleryImage[] = JSON.parse(fileContent);
-
-    // Find image index
-    const imageIndex = images.findIndex((img) => img.id === id);
-    if (imageIndex === -1) {
+    if (!galleryImage) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
-    // Remove image
-    const deletedImage = images.splice(imageIndex, 1)[0];
+    // Collect image URL from the gallery image
+    const imageUrls: string[] = [];
 
-    // Write back to file
-    fs.writeFileSync(galleryFilePath, JSON.stringify(images, null, 2));
+    // Add image if it's a Cloudinary URL
+    if (
+      galleryImage.image &&
+      galleryImage.image.startsWith("https://res.cloudinary.com/")
+    ) {
+      imageUrls.push(galleryImage.image);
+    }
+
+    // Delete the gallery image from database
+    const deleted = await gallery.delete(id);
+
+    if (!deleted) {
+      return NextResponse.json({ error: "Image not found" }, { status: 404 });
+    }
+
+    // Delete associated image from Cloudinary
+    if (imageUrls.length > 0) {
+      const cloudinaryResult = await deleteImagesFromUrls(imageUrls);
+
+      if (!cloudinaryResult.success) {
+        console.warn(
+          "Cloudinary image failed to delete:",
+          cloudinaryResult.errors
+        );
+        // Don't fail the entire operation if Cloudinary deletion fails
+      } else {
+        console.log(
+          `Successfully deleted ${cloudinaryResult.deleted.length} images from Cloudinary`
+        );
+      }
+    }
+
+    // Invalidate cache after deleting gallery image
+    CacheInvalidator.onGalleryDelete();
 
     return NextResponse.json(
-      { message: "Gallery image deleted successfully", image: deletedImage },
+      {
+        message: "Gallery image deleted successfully",
+        cloudinaryDeleted: imageUrls.length > 0 ? imageUrls.length : 0,
+      },
       { status: 200 }
     );
   } catch (error) {

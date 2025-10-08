@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import servicesData from "@/lib/services.json";
+import { Service } from "@/lib/types";
 import Link from "next/link";
 import {
   FiActivity,
@@ -22,8 +22,21 @@ const iconMap = {
   Users: FiUsers,
 };
 
-export function ServicesSection() {
-  const services = servicesData;
+interface ServicesSectionProps {
+  services: Service[];
+}
+
+export function ServicesSection({ services }: ServicesSectionProps) {
+  if (!services || services.length === 0) {
+    return (
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-slate-800 mb-4">خدماتنا</h2>
+          <p className="text-lg text-slate-600">لا توجد خدمات متاحة حالياً</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -38,6 +51,7 @@ export function ServicesSection() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-indigo-600/10 backdrop-blur-sm rounded-full border border-blue-200/30 shadow-lg mb-6 hover:shadow-xl hover:scale-105 transition-all duration-300">
             <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+            {/* @ts-ignore - React Icons type issue */}
             <FiStar className="w-4 h-4 text-blue-600" />
             <span className="text-sm font-semibold text-blue-700 px-2 py-1 bg-white/50 rounded-full">
               خدماتنا المتميزة
@@ -80,6 +94,7 @@ export function ServicesSection() {
                     <div
                       className={`relative w-16 h-16 ${service.iconBg} rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-700`}
                     >
+                      {/* @ts-ignore - React Icons type issue */}
                       <IconComponent className="w-8 h-8 text-white" />
                       <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       {/* Floating particles around icon */}
@@ -126,6 +141,7 @@ export function ServicesSection() {
                     <Button className="w-full mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-black hover:via-slate-900 hover:to-black text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-105 rounded-2xl py-6 h-14 font-semibold text-base relative overflow-hidden">
                       <span className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                       <span className="relative z-10 flex items-center justify-center gap-3 text-white drop-shadow-lg">
+                        {/* @ts-ignore - React Icons type issue */}
                         <FiExternalLink className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                         تفاصيل الخدمة
                       </span>

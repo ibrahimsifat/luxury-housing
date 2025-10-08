@@ -12,6 +12,7 @@ import {
   Plus,
   Settings,
   Trash2,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -57,13 +58,25 @@ interface Product {
   eligibility: string[];
 }
 
+interface Client {
+  id: string;
+  name: string;
+  logo: string;
+  website?: string;
+  description?: string;
+  category?: string;
+  featured: boolean;
+  order: number;
+}
+
 export default function CMSDashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [activeTab, setActiveTab] = useState<"services" | "products">(
-    "services"
-  );
+  const [clients, setClients] = useState<Client[]>([]);
+  const [activeTab, setActiveTab] = useState<
+    "services" | "products" | "clients"
+  >("services");
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -90,11 +103,17 @@ export default function CMSDashboard() {
       const productsResponse = await fetch("/api/cms/products");
       const productsData = await productsResponse.json();
       setProducts(Array.isArray(productsData) ? productsData : []);
+
+      // Load clients
+      const clientsResponse = await fetch("/api/cms/clients");
+      const clientsData = await clientsResponse.json();
+      setClients(Array.isArray(clientsData) ? clientsData : []);
     } catch (error) {
       console.error("Error loading data:", error);
       // Ensure arrays are set even on error
       setServices([]);
       setProducts([]);
+      setClients([]);
     } finally {
       setIsLoading(false);
     }
@@ -146,6 +165,26 @@ export default function CMSDashboard() {
       }
     } catch (error) {
       console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleDeleteClient = async (id: string) => {
+    if (!confirm("هل أنت متأكد من حذف هذا العميل؟")) return;
+
+    try {
+      const response = await fetch(`/api/cms/clients/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setClients((prevClients) =>
+          Array.isArray(prevClients)
+            ? prevClients.filter((client) => client.id !== id)
+            : []
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting client:", error);
     }
   };
 
@@ -226,14 +265,31 @@ export default function CMSDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs sm:text-sm font-medium text-purple-600">
-                      إجمالي العناصر
+                      إجمالي العملاء
                     </p>
                     <p className="text-2xl sm:text-3xl font-bold text-purple-900">
-                      {(Array.isArray(services) ? services.length : 0) +
-                        (Array.isArray(products) ? products.length : 0)}
+                      {Array.isArray(clients) ? clients.length : 0}
                     </p>
                   </div>
-                  <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" />
+                  <Users className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs sm:text-sm font-medium text-orange-600">
+                      إجمالي العناصر
+                    </p>
+                    <p className="text-2xl sm:text-3xl font-bold text-orange-900">
+                      {(Array.isArray(services) ? services.length : 0) +
+                        (Array.isArray(products) ? products.length : 0) +
+                        (Array.isArray(clients) ? clients.length : 0)}
+                    </p>
+                  </div>
+                  <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
                 </div>
               </CardContent>
             </Card>
@@ -304,6 +360,20 @@ export default function CMSDashboard() {
                   </span>
                   <span className="sm:hidden">المنتجات</span>
                 </button>
+                <button
+                  onClick={() => setActiveTab("clients")}
+                  className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
+                    activeTab === "clients"
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                  }`}
+                >
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">
+                    العملاء ({Array.isArray(clients) ? clients.length : 0})
+                  </span>
+                  <span className="sm:hidden">العملاء</span>
+                </button>
               </nav>
             </div>
 
@@ -313,7 +383,9 @@ export default function CMSDashboard() {
                 <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
                   {activeTab === "services"
                     ? "إدارة الخدمات"
-                    : "إدارة المنتجات"}
+                    : activeTab === "products"
+                    ? "إدارة المنتجات"
+                    : "إدارة العملاء"}
                 </h2>
                 <Link
                   href={`/cms/${activeTab}/add`}
@@ -323,10 +395,19 @@ export default function CMSDashboard() {
                     <Plus className="w-4 h-4 mr-2" />
                     <span className="hidden sm:inline">
                       إضافة{" "}
-                      {activeTab === "services" ? "خدمة جديدة" : "منتج جديد"}
+                      {activeTab === "services"
+                        ? "خدمة جديدة"
+                        : activeTab === "products"
+                        ? "منتج جديد"
+                        : "عميل جديد"}
                     </span>
                     <span className="sm:hidden">
-                      إضافة {activeTab === "services" ? "خدمة" : "منتج"}
+                      إضافة{" "}
+                      {activeTab === "services"
+                        ? "خدمة"
+                        : activeTab === "products"
+                        ? "منتج"
+                        : "عميل"}
                     </span>
                   </Button>
                 </Link>
@@ -419,40 +500,128 @@ export default function CMSDashboard() {
                         </Card>
                       ))
                     )
-                  ) : !Array.isArray(products) || products.length === 0 ? (
+                  ) : activeTab === "products" ? (
+                    !Array.isArray(products) || products.length === 0 ? (
+                      <div className="text-center py-8 text-slate-500">
+                        <Package className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+                        <p>لم يتم العثور على منتجات. أضف منتجك الأول!</p>
+                      </div>
+                    ) : (
+                      products.map((product) => (
+                        <Card
+                          key={product.id}
+                          className="hover:shadow-md transition-shadow"
+                        >
+                          <CardContent className="p-4 sm:p-6">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+                              <div className="flex-1 w-full sm:w-auto">
+                                <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
+                                  {product.title}
+                                </h3>
+                                <p className="text-sm sm:text-base text-slate-600 mb-3 line-clamp-2">
+                                  {product.description}
+                                </p>
+                                <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-slate-500">
+                                  <span>المعرف: {product.id}</span>
+                                  <span>الفئة: {product.category}</span>
+                                  <span className="hidden sm:inline">
+                                    المبلغ: {product.minAmount} -{" "}
+                                    {product.maxAmount}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2 w-full sm:w-auto">
+                                <Link
+                                  href={`/products/${encodeURIComponent(
+                                    product.slug
+                                  )}`}
+                                  className="flex-1 sm:flex-none"
+                                >
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full sm:w-auto text-xs"
+                                  >
+                                    <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                    <span className="hidden sm:inline">
+                                      عرض
+                                    </span>
+                                  </Button>
+                                </Link>
+                                <Link
+                                  href={`/cms/products/${product.id}/edit`}
+                                  className="flex-1 sm:flex-none"
+                                >
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full sm:w-auto text-xs"
+                                  >
+                                    <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                    <span className="hidden sm:inline">
+                                      تعديل
+                                    </span>
+                                  </Button>
+                                </Link>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() =>
+                                    handleDeleteProduct(product.id)
+                                  }
+                                  className="flex-1 sm:flex-none text-red-600 hover:text-red-700 hover:border-red-300 w-full sm:w-auto text-xs"
+                                >
+                                  <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                  <span className="hidden sm:inline">حذف</span>
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))
+                    )
+                  ) : !Array.isArray(clients) || clients.length === 0 ? (
                     <div className="text-center py-8 text-slate-500">
-                      <Package className="w-12 h-12 mx-auto mb-4 text-slate-300" />
-                      <p>لم يتم العثور على منتجات. أضف منتجك الأول!</p>
+                      <Users className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+                      <p>لم يتم العثور على عملاء. أضف عميلك الأول!</p>
                     </div>
                   ) : (
-                    products.map((product) => (
+                    clients.map((client) => (
                       <Card
-                        key={product.id}
+                        key={client.id}
                         className="hover:shadow-md transition-shadow"
                       >
                         <CardContent className="p-4 sm:p-6">
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-                            <div className="flex-1 w-full sm:w-auto">
-                              <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
-                                {product.title}
-                              </h3>
-                              <p className="text-sm sm:text-base text-slate-600 mb-3 line-clamp-2">
-                                {product.description}
-                              </p>
-                              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-slate-500">
-                                <span>المعرف: {product.id}</span>
-                                <span>الفئة: {product.category}</span>
-                                <span className="hidden sm:inline">
-                                  المبلغ: {product.minAmount} -{" "}
-                                  {product.maxAmount}
-                                </span>
+                            <div className="flex items-center space-x-4 flex-1 w-full sm:w-auto">
+                              <div className="w-12 h-12 bg-white rounded-lg border border-slate-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                <img
+                                  src={client.logo}
+                                  alt={client.name}
+                                  className="w-10 h-10 object-contain"
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-1">
+                                  {client.name}
+                                </h3>
+                                <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-slate-500">
+                                  <span>المعرف: {client.id}</span>
+                                  {client.category && (
+                                    <span>الفئة: {client.category}</span>
+                                  )}
+                                  <span>الترتيب: {client.order}</span>
+                                  {client.featured && (
+                                    <span className="text-blue-600 font-medium">
+                                      مميز
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                             <div className="flex items-center space-x-2 w-full sm:w-auto">
                               <Link
-                                href={`/products/${encodeURIComponent(
-                                  product.slug
-                                )}`}
+                                href={`/clients`}
                                 className="flex-1 sm:flex-none"
                               >
                                 <Button
@@ -465,7 +634,7 @@ export default function CMSDashboard() {
                                 </Button>
                               </Link>
                               <Link
-                                href={`/cms/products/${product.id}/edit`}
+                                href={`/cms/clients/${client.id}/edit`}
                                 className="flex-1 sm:flex-none"
                               >
                                 <Button
@@ -482,7 +651,7 @@ export default function CMSDashboard() {
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => handleDeleteProduct(product.id)}
+                                onClick={() => handleDeleteClient(client.id)}
                                 className="flex-1 sm:flex-none text-red-600 hover:text-red-700 hover:border-red-300 w-full sm:w-auto text-xs"
                               >
                                 <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />

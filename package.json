@@ -6,7 +6,12 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "migrate": "node scripts/run-migration.js",
+    "migrate:direct": "node scripts/migrate-to-mongodb.js",
+    "test:mongodb": "node scripts/test-mongodb.js",
+    "check:data": "node scripts/check-data.js",
+    "verify:data": "node scripts/verify-data.js"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -53,6 +58,7 @@
     "geist": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
+    "mongodb": "^6.20.0",
     "next": "14.2.16",
     "next-themes": "latest",
     "nodemailer": "^7.0.6",

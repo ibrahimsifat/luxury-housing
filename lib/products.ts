@@ -1,46 +1,27 @@
-import productsData from "./products.json";
+import { products as productService } from "./database";
+import { Product } from "./types";
 
-export interface Product {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  icon: string;
-  features: string[];
-  badge: string;
-  gradient: string;
-  detailedDescription: string;
-  benefits: string[];
-  requirements: string[];
-  process: Array<{
-    step: number;
-    title: string;
-    description: string;
-  }>;
-  faq: Array<{
-    question: string;
-    answer: string;
-  }>;
-  minAmount: string;
-  maxAmount: string;
-  duration: string;
-  interestRate: string;
-  processingTime: string;
-  eligibility: string[];
-  image: string;
+// Re-export the database service functions
+export const products = productService;
+
+export async function getProductById(id: string): Promise<Product | null> {
+  return await productService.findById(id);
 }
 
-export const products: Product[] = productsData as Product[];
-
-export function getProductById(id: string): Product | undefined {
-  return products.find((product) => product.id === id);
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  return await productService.findBySlug(slug);
 }
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((product) => product.slug === slug);
+export async function getProductsByCategory(
+  category: string
+): Promise<Product[]> {
+  return await productService.findByCategory(category);
 }
 
-export function getProductsByCategory(category: string): Product[] {
-  return products.filter((product) => product.category === category);
+export async function getAllProducts(): Promise<Product[]> {
+  return await productService.findAll();
+}
+
+export async function getFeaturedProducts(): Promise<Product[]> {
+  return await productService.findFeatured();
 }

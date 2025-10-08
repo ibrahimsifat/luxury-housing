@@ -1,6 +1,6 @@
 import { ServiceDetailsPage } from "@/components/service-details-page";
+import { getAllServices } from "@/lib/cms-data";
 import { generateStructuredData } from "@/lib/seo";
-import servicesData from "@/lib/services.json";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -11,6 +11,7 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
+  const servicesData = await getAllServices();
   return servicesData.map((service: any) => ({
     slug: service.id,
   }));
@@ -20,6 +21,7 @@ export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
   // Find service by id
+  const servicesData = await getAllServices();
   const service = servicesData.find((s: any) => s.id === params.slug);
 
   if (!service) {
@@ -62,8 +64,9 @@ export async function generateMetadata({
   };
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
+export default async function ServicePage({ params }: ServicePageProps) {
   // Find service by id
+  const servicesData = await getAllServices();
   const service = servicesData.find((s: any) => s.id === params.slug);
 
   if (!service) {

@@ -1,5 +1,6 @@
 // Product type definition
 export interface Product {
+  _id?: string;
   id: string;
   slug: string;
   title: string;
@@ -28,10 +29,12 @@ export interface Product {
   processingTime: string;
   eligibility: string[];
   image: string;
+  featured?: boolean;
 }
 
 // Service type definition
 export interface Service {
+  _id?: string;
   id: string;
   slug: string;
   title: string;
@@ -58,10 +61,14 @@ export interface Service {
   interestRate: string;
   processingTime: string;
   eligibility: string[];
+  featured?: boolean;
+  iconBg?: string; // Added for UI styling
+  accentColor?: string; // Added for UI styling
 }
 
 // Gallery type definition
 export interface GalleryImage {
+  _id?: string;
   id: string;
   title: string;
   description: string;
@@ -70,4 +77,17 @@ export interface GalleryImage {
   alt: string;
   uploadDate: string;
   featured: boolean;
+}
+
+// Client type definition
+export interface Client {
+  _id?: string;
+  id: string;
+  name: string;
+  logo: string;
+  website?: string;
+  description?: string;
+  category?: string;
+  featured: boolean;
+  order: number;
 }

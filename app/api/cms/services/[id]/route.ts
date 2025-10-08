@@ -1,14 +1,7 @@
-import { promises as fs } from "fs";
+import { CacheInvalidator } from "@/lib/cache";
+import { deleteImagesFromUrls } from "@/lib/cloudinary";
+import { services } from "@/lib/database";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-
-const SERVICES_FILE = path.join(process.cwd(), "lib", "services.json");
-
-// Helper function to get services from JSON file
-async function getServicesFromFile() {
-  const fileContent = await fs.readFile(SERVICES_FILE, "utf8");
-  return JSON.parse(fileContent);
-}
 
 // GET - Fetch single service
 export async function GET(
@@ -16,8 +9,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const services = await getServicesFromFile();
-    const service = services.find((s: any) => s.id === params.id);
+    const service = await services.findById(params.id);
 
     if (!service) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
@@ -40,28 +32,17 @@ export async function PUT(
 ) {
   try {
     const serviceData = await request.json();
-    const services = await getServicesFromFile();
 
-    const serviceIndex = services.findIndex((s: any) => s.id === params.id);
-    if (serviceIndex === -1) {
+    const updatedService = await services.update(params.id, serviceData);
+
+    if (!updatedService) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
-    // Update service
-    services[serviceIndex] = {
-      ...services[serviceIndex],
-      ...serviceData,
-      id: params.id, // Ensure ID doesn't change
-    };
+    // Invalidate cache after updating service
+    CacheInvalidator.onServiceUpdate();
 
-    // Update the JSON file
-    await fs.writeFile(
-      SERVICES_FILE,
-      JSON.stringify(services, null, 2),
-      "utf8"
-    );
-
-    return NextResponse.json(services[serviceIndex]);
+    return NextResponse.json(updatedService);
   } catch (error) {
     console.error("Error updating service:", error);
     return NextResponse.json(
@@ -77,24 +58,55 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const services = await getServicesFromFile();
+    // First, get the service to collect image URLs for deletion
+    const service = await services.findById(params.id);
 
-    const serviceIndex = services.findIndex((s: any) => s.id === params.id);
-    if (serviceIndex === -1) {
+    if (!service) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
-    // Remove service
-    services.splice(serviceIndex, 1);
+    // Collect all image URLs from the service
+    const imageUrls: string[] = [];
 
-    // Update the JSON file
-    await fs.writeFile(
-      SERVICES_FILE,
-      JSON.stringify(services, null, 2),
-      "utf8"
-    );
+    // Add icon if it's a Cloudinary URL
+    if (
+      service.icon &&
+      service.icon.startsWith("https://res.cloudinary.com/")
+    ) {
+      imageUrls.push(service.icon);
+    }
 
-    return NextResponse.json({ message: "Service deleted successfully" });
+    // Delete the service from database
+    const deleted = await services.delete(params.id);
+
+    if (!deleted) {
+      return NextResponse.json({ error: "Service not found" }, { status: 404 });
+    }
+
+    // Delete associated images from Cloudinary
+    if (imageUrls.length > 0) {
+      const cloudinaryResult = await deleteImagesFromUrls(imageUrls);
+
+      if (!cloudinaryResult.success) {
+        console.warn(
+          "Some Cloudinary images failed to delete:",
+          cloudinaryResult.errors
+        );
+        // Don't fail the entire operation if Cloudinary deletion fails
+      } else {
+        console.log(
+          `Successfully deleted ${cloudinaryResult.deleted.length} images from Cloudinary`
+        );
+      }
+    }
+
+    // Invalidate cache after deleting service
+    CacheInvalidator.onServiceDelete();
+
+    return NextResponse.json({
+      message: "Service deleted successfully",
+      cloudinaryDeleted: imageUrls.length > 0 ? imageUrls.length : 0,
+    });
   } catch (error) {
     console.error("Error deleting service:", error);
     return NextResponse.json(

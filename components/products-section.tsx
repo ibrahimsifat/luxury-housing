@@ -3,9 +3,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import productsData from "@/lib/products.json";
+import { Product } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FiCheckCircle, FiExternalLink } from "react-icons/fi";
 import {
   HiBriefcase,
@@ -23,8 +24,25 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export function ProductsSection() {
-  // Use all products without filtering
-  const allProducts = productsData;
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/cms/products");
+        const products = await response.json();
+        setAllProducts(Array.isArray(products) ? products : []);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setAllProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
@@ -79,7 +97,13 @@ export function ProductsSection() {
     }
   };
 
-  const ProductCard = ({ product, index }: { product: any; index: number }) => (
+  const ProductCard = ({
+    product,
+    index,
+  }: {
+    product: Product;
+    index: number;
+  }) => (
     <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative w-full h-full flex flex-col">
       <div className="relative h-32 w-full overflow-hidden flex-shrink-0 bg-gray-100 flex items-center justify-center">
         <Image
@@ -140,7 +164,11 @@ export function ProductsSection() {
         </div>
 
         <div className="relative mt-auto pt-3">
-          <Link href={`/products/${product.id}`}>
+          <Link
+            href={`/products/${
+              product.slug ? decodeURIComponent(product.slug) : product.id
+            }`}
+          >
             <Button
               size="sm"
               className="w-full py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-cairo font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]"
@@ -187,46 +215,52 @@ export function ProductsSection() {
         </div>
 
         <div className="w-full">
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={24}
-            slidesPerView={1}
-            navigation={{
-              nextEl: ".swiper-button-next-custom",
-              prevEl: ".swiper-button-prev-custom",
-            }}
-            pagination={{
-              el: ".swiper-pagination-custom",
-              clickable: true,
-              bulletClass: "swiper-pagination-bullet-custom",
-              bulletActiveClass: "swiper-pagination-bullet-active-custom",
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 24,
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 24,
-              },
-            }}
-            className="products-swiper"
-          >
-            {allProducts.map((product, index) => (
-              <SwiperSlide key={product.slug}>
-                <ProductCard product={product} index={index} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {isLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
+            </div>
+          ) : (
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
+              pagination={{
+                el: ".swiper-pagination-custom",
+                clickable: true,
+                bulletClass: "swiper-pagination-bullet-custom",
+                bulletActiveClass: "swiper-pagination-bullet-active-custom",
+              }}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 24,
+                },
+                1280: {
+                  slidesPerView: 4,
+                  spaceBetween: 24,
+                },
+              }}
+              className="products-swiper"
+            >
+              {allProducts.map((product, index) => (
+                <SwiperSlide key={product.slug}>
+                  <ProductCard product={product} index={index} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
 
           {/* Custom Navigation Buttons */}
           <div className="flex items-center justify-center gap-4 mt-8">

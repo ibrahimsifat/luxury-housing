@@ -1,14 +1,7 @@
-import { promises as fs } from "fs";
+import { CacheInvalidator } from "@/lib/cache";
+import { deleteImagesFromUrls } from "@/lib/cloudinary";
+import { products } from "@/lib/database";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-
-const PRODUCTS_FILE = path.join(process.cwd(), "lib", "products.json");
-
-// Helper function to get products from JSON file
-async function getProductsFromFile() {
-  const fileContent = await fs.readFile(PRODUCTS_FILE, "utf8");
-  return JSON.parse(fileContent);
-}
 
 // GET - Fetch single product
 export async function GET(
@@ -16,8 +9,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const products = await getProductsFromFile();
-    const product = products.find((p: any) => p.id === params.id);
+    const product = await products.findById(params.id);
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
@@ -40,28 +32,17 @@ export async function PUT(
 ) {
   try {
     const productData = await request.json();
-    const products = await getProductsFromFile();
 
-    const productIndex = products.findIndex((p: any) => p.id === params.id);
-    if (productIndex === -1) {
+    const updatedProduct = await products.update(params.id, productData);
+
+    if (!updatedProduct) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    // Update product
-    products[productIndex] = {
-      ...products[productIndex],
-      ...productData,
-      id: params.id, // Ensure ID doesn't change
-    };
+    // Invalidate cache after updating product
+    CacheInvalidator.onProductUpdate();
 
-    // Update the JSON file
-    await fs.writeFile(
-      PRODUCTS_FILE,
-      JSON.stringify(products, null, 2),
-      "utf8"
-    );
-
-    return NextResponse.json(products[productIndex]);
+    return NextResponse.json(updatedProduct);
   } catch (error) {
     console.error("Error updating product:", error);
     return NextResponse.json(
@@ -77,24 +58,55 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const products = await getProductsFromFile();
+    // First, get the product to collect image URLs for deletion
+    const product = await products.findById(params.id);
 
-    const productIndex = products.findIndex((p: any) => p.id === params.id);
-    if (productIndex === -1) {
+    if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    // Remove product
-    products.splice(productIndex, 1);
+    // Collect all image URLs from the product
+    const imageUrls: string[] = [];
 
-    // Update the JSON file
-    await fs.writeFile(
-      PRODUCTS_FILE,
-      JSON.stringify(products, null, 2),
-      "utf8"
-    );
+    // Add main image if it's a Cloudinary URL
+    if (
+      product.image &&
+      product.image.startsWith("https://res.cloudinary.com/")
+    ) {
+      imageUrls.push(product.image);
+    }
 
-    return NextResponse.json({ message: "Product deleted successfully" });
+    // Delete the product from database
+    const deleted = await products.delete(params.id);
+
+    if (!deleted) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    // Delete associated images from Cloudinary
+    if (imageUrls.length > 0) {
+      const cloudinaryResult = await deleteImagesFromUrls(imageUrls);
+
+      if (!cloudinaryResult.success) {
+        console.warn(
+          "Some Cloudinary images failed to delete:",
+          cloudinaryResult.errors
+        );
+        // Don't fail the entire operation if Cloudinary deletion fails
+      } else {
+        console.log(
+          `Successfully deleted ${cloudinaryResult.deleted.length} images from Cloudinary`
+        );
+      }
+    }
+
+    // Invalidate cache after deleting product
+    CacheInvalidator.onProductDelete();
+
+    return NextResponse.json({
+      message: "Product deleted successfully",
+      cloudinaryDeleted: imageUrls.length > 0 ? imageUrls.length : 0,
+    });
   } catch (error) {
     console.error("Error deleting product:", error);
     return NextResponse.json(

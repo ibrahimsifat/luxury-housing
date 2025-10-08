@@ -1,20 +1,12 @@
+import { CacheInvalidator } from "@/lib/cache";
+import { gallery } from "@/lib/database";
 import { GalleryImage } from "@/lib/types";
-import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-
-const galleryFilePath = path.join(process.cwd(), "lib", "gallery.json");
 
 // GET - Fetch all gallery images
 export async function GET() {
   try {
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json({ images: [] }, { status: 200 });
-    }
-
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images = JSON.parse(fileContent);
-
+    const images = await gallery.findAll();
     return NextResponse.json({ images }, { status: 200 });
   } catch (error) {
     console.error("Error reading gallery data:", error);
@@ -44,15 +36,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
-    // Read existing data
-    let images: GalleryImage[] = [];
-    if (fs.existsSync(galleryFilePath)) {
-      const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-      images = JSON.parse(fileContent);
-    }
-
     // Create new image
-    const newImage: GalleryImage = {
+    const newImage: Omit<GalleryImage, "_id"> = {
       id: `gallery-${Date.now()}`,
       title,
       description,
@@ -63,14 +48,13 @@ export async function POST(request: NextRequest) {
       featured: Boolean(featured),
     };
 
-    // Add to array
-    images.push(newImage);
+    const createdImage = await gallery.create(newImage);
 
-    // Write back to file
-    fs.writeFileSync(galleryFilePath, JSON.stringify(images, null, 2));
+    // Invalidate cache after creating gallery image
+    CacheInvalidator.onGalleryCreate();
 
     return NextResponse.json(
-      { message: "Gallery image added successfully", image: newImage },
+      { message: "Gallery image added successfully", image: createdImage },
       { status: 201 }
     );
   } catch (error) {
@@ -95,43 +79,28 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Read existing data
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json(
-        { error: "Gallery data not found" },
-        { status: 404 }
-      );
-    }
-
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images: GalleryImage[] = JSON.parse(fileContent);
-
-    // Find image index
-    const imageIndex = images.findIndex((img) => img.id === id);
-    if (imageIndex === -1) {
-      return NextResponse.json({ error: "Image not found" }, { status: 404 });
-    }
-
-    // Update image
-    const updatedImage = {
-      ...images[imageIndex],
-      ...(title && { title }),
-      ...(description && { description }),
-      ...(category && { category }),
-      ...(image && { image }),
-      ...(alt && { alt }),
-      ...(featured !== undefined && { featured: Boolean(featured) }),
-    };
-
     // Validate category if provided
     if (category && !["business", "offers", "branch"].includes(category)) {
       return NextResponse.json({ error: "Invalid category" }, { status: 400 });
     }
 
-    images[imageIndex] = updatedImage;
+    // Prepare update data
+    const updateData: Partial<GalleryImage> = {};
+    if (title) updateData.title = title;
+    if (description) updateData.description = description;
+    if (category) updateData.category = category;
+    if (image) updateData.image = image;
+    if (alt) updateData.alt = alt;
+    if (featured !== undefined) updateData.featured = Boolean(featured);
 
-    // Write back to file
-    fs.writeFileSync(galleryFilePath, JSON.stringify(images, null, 2));
+    const updatedImage = await gallery.update(id, updateData);
+
+    if (!updatedImage) {
+      return NextResponse.json({ error: "Image not found" }, { status: 404 });
+    }
+
+    // Invalidate cache after updating gallery image
+    CacheInvalidator.onGalleryUpdate();
 
     return NextResponse.json(
       { message: "Gallery image updated successfully", image: updatedImage },
@@ -159,31 +128,17 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Read existing data
-    if (!fs.existsSync(galleryFilePath)) {
-      return NextResponse.json(
-        { error: "Gallery data not found" },
-        { status: 404 }
-      );
-    }
+    const deleted = await gallery.delete(id);
 
-    const fileContent = fs.readFileSync(galleryFilePath, "utf8");
-    const images: GalleryImage[] = JSON.parse(fileContent);
-
-    // Find image index
-    const imageIndex = images.findIndex((img) => img.id === id);
-    if (imageIndex === -1) {
+    if (!deleted) {
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
-    // Remove image
-    const deletedImage = images.splice(imageIndex, 1)[0];
-
-    // Write back to file
-    fs.writeFileSync(galleryFilePath, JSON.stringify(images, null, 2));
+    // Invalidate cache after deleting gallery image
+    CacheInvalidator.onGalleryDelete();
 
     return NextResponse.json(
-      { message: "Gallery image deleted successfully", image: deletedImage },
+      { message: "Gallery image deleted successfully" },
       { status: 200 }
     );
   } catch (error) {

@@ -1,5 +1,5 @@
 import { ProductDetailsPage } from "@/components/product-details-page";
-import productsData from "@/lib/products.json";
+import { getAllProducts } from "@/lib/cms-data";
 import { generateStructuredData } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -11,16 +11,24 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
+  const productsData = await getAllProducts();
   return productsData.map((product: any) => ({
-    slug: product.id,
+    slug: product.slug ? decodeURIComponent(product.slug) : product.id,
   }));
 }
 
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
-  // Find product by id
-  const product = productsData.find((p: any) => p.id === params.slug);
+  // Find product by slug or id
+  const productsData = await getAllProducts();
+  const product = productsData.find(
+    (p: any) =>
+      p.slug === params.slug ||
+      p.id === params.slug ||
+      p.slug === encodeURIComponent(params.slug) ||
+      p.slug === decodeURIComponent(params.slug)
+  );
 
   if (!product) {
     return {
@@ -74,9 +82,16 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  // Find product by id
-  const product = productsData.find((p: any) => p.id === params.slug);
+export default async function ProductPage({ params }: ProductPageProps) {
+  // Find product by slug or id
+  const productsData = await getAllProducts();
+  const product = productsData.find(
+    (p: any) =>
+      p.slug === params.slug ||
+      p.id === params.slug ||
+      p.slug === encodeURIComponent(params.slug) ||
+      p.slug === decodeURIComponent(params.slug)
+  );
 
   if (!product) {
     notFound();

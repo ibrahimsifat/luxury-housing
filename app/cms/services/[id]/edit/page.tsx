@@ -3,6 +3,7 @@
 import { ScrollAnimation } from "@/components/scroll-animations";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import IconSelector from "@/components/ui/icon-selector";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -264,14 +265,13 @@ export default function EditServicePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="icon">الأيقونة</Label>
-                    <Input
-                      id="icon"
+                    <Label htmlFor="icon">اختر الأيقونة</Label>
+                    <IconSelector
                       value={formData.icon}
-                      onChange={(e) =>
-                        handleInputChange("icon", e.target.value)
+                      onChange={(iconName) =>
+                        handleInputChange("icon", iconName)
                       }
-                      placeholder="اسم الأيقونة (مثل: CreditCard, Home)"
+                      placeholder="اختر أيقونة من المكتبة..."
                     />
                   </div>
                 </div>
@@ -487,9 +487,9 @@ export default function EditServicePage() {
                     <Input
                       id="gradient"
                       value={formData.gradient}
-                      onChange={(e) =>
-                        handleInputChange("gradient", e.target.value)
-                      }
+                      readOnly
+                      disabled
+                      className="bg-gray-100 cursor-not-allowed"
                       placeholder="from-blue-500/20 via-cyan-500/20 to-blue-600/20"
                     />
                   </div>

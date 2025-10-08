@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import productsData from "@/lib/products.json";
+import { Product } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -25,19 +25,36 @@ export default function ProductsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("all");
-
-  const allProducts = productsData;
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // New categories based on the organizational chart
-  const businessFinancingProducts = productsData.filter(
-    (product: any) => product.category === "business-financing"
+  const businessFinancingProducts = allProducts.filter(
+    (product) => product.category === "business-financing"
   );
-  const personalFinancingProducts = productsData.filter(
-    (product: any) => product.category === "personal-financing"
+  const personalFinancingProducts = allProducts.filter(
+    (product) => product.category === "personal-financing"
   );
-  const realEstateFinancingProducts = productsData.filter(
-    (product: any) => product.category === "real-estate-financing"
+  const realEstateFinancingProducts = allProducts.filter(
+    (product) => product.category === "real-estate-financing"
   );
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/cms/products");
+        const products = await response.json();
+        setAllProducts(Array.isArray(products) ? products : []);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setAllProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Handle URL parameters to set active tab
   useEffect(() => {
@@ -57,7 +74,13 @@ export default function ProductsPage() {
     }
   };
 
-  const ProductCard = ({ product, index }: { product: any; index: number }) => {
+  const ProductCard = ({
+    product,
+    index,
+  }: {
+    product: Product;
+    index: number;
+  }) => {
     return (
       <ScrollAnimation animation="fadeInUp" delay={index * 100}>
         <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/70 backdrop-blur-md hover:bg-white/95 overflow-hidden relative h-full">
@@ -134,7 +157,12 @@ export default function ProductsPage() {
               </div>
             )}
 
-            <Link href={`/products/${product.id}`} className="mt-auto">
+            <Link
+              href={`/products/${
+                product.slug ? decodeURIComponent(product.slug) : product.id
+              }`}
+              className="mt-auto"
+            >
               <Button className="w-full py-3 md:py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-xs md:text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]">
                 <span className="flex items-center justify-center gap-1 md:gap-2 text-white drop-shadow-sm">
                   <span className="text-white font-bold">تفاصيل المنتج</span>
@@ -237,15 +265,21 @@ export default function ProductsPage() {
             </div>
 
             <TabsContent value="all" className="space-y-6 md:space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {allProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {isLoading ? (
+                <div className="flex justify-center items-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {allProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="business-financing" className="space-y-8">
