@@ -2,32 +2,16 @@
 
 import { Client } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Custom Swiper styles
 const swiperStyles = `
-  .clients-swiper .swiper-button-next:after,
-  .clients-swiper .swiper-button-prev:after {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .clients-swiper .swiper-pagination-bullet {
-    background: #cbd5e1;
-    opacity: 1;
-    width: 12px;
-    height: 12px;
-    margin: 0 6px;
-    transition: all 0.3s ease;
-  }
-  
-  .clients-swiper .swiper-pagination-bullet-active {
+    .clients-swiper .swiper-pagination-bullet-active {
     background: #2563eb;
     transform: scale(1.25);
   }
@@ -149,7 +133,7 @@ export function ClientsSection({
           <div className="max-w-6xl mx-auto">
             <Swiper
               key={displayClients.length}
-              modules={[Autoplay, Navigation, Pagination]}
+              modules={[Autoplay, Pagination]}
               spaceBetween={24}
               slidesPerView={2}
               autoplay={{
@@ -162,10 +146,6 @@ export function ClientsSection({
               speed={800}
               allowTouchMove={true}
               grabCursor={true}
-              navigation={{
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              }}
               pagination={{
                 clickable: true,
                 el: ".swiper-pagination",
@@ -219,10 +199,6 @@ export function ClientsSection({
                 </SwiperSlide>
               ))}
             </Swiper>
-
-            {/* Custom Navigation Buttons */}
-            <div className="swiper-button-prev !text-blue-600 !bg-white/90 !shadow-lg !border-0 !rounded-full !w-12 !h-12 !mt-0 !top-1/2 !-translate-y-1/2 !left-4 hover:!bg-white hover:!scale-110 transition-all duration-200"></div>
-            <div className="swiper-button-next !text-blue-600 !bg-white/90 !shadow-lg !border-0 !rounded-full !w-12 !h-12 !mt-0 !top-1/2 !-translate-y-1/2 !right-4 hover:!bg-white hover:!scale-110 transition-all duration-200"></div>
 
             {/* Custom Pagination */}
             <div className="swiper-pagination !relative !mt-8 !bottom-0"></div>
