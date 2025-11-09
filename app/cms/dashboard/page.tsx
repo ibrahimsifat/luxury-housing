@@ -74,8 +74,9 @@ export default function CMSDashboard() {
   const [services, setServices] = useState<Service[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
+  const [blogs, setBlogs] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<
-    "services" | "products" | "clients"
+    "services" | "products" | "clients" | "blogs"
   >("services");
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -108,12 +109,18 @@ export default function CMSDashboard() {
       const clientsResponse = await fetch("/api/cms/clients");
       const clientsData = await clientsResponse.json();
       setClients(Array.isArray(clientsData) ? clientsData : []);
+
+      // Load blogs
+      const blogsResponse = await fetch("/api/cms/blogs");
+      const blogsData = await blogsResponse.json();
+      setBlogs(Array.isArray(blogsData) ? blogsData : []);
     } catch (error) {
       console.error("Error loading data:", error);
       // Ensure arrays are set even on error
       setServices([]);
       setProducts([]);
       setClients([]);
+      setBlogs([]);
     } finally {
       setIsLoading(false);
     }
@@ -286,13 +293,45 @@ export default function CMSDashboard() {
                     <p className="text-2xl sm:text-3xl font-bold text-orange-900">
                       {(Array.isArray(services) ? services.length : 0) +
                         (Array.isArray(products) ? products.length : 0) +
-                        (Array.isArray(clients) ? clients.length : 0)}
+                        (Array.isArray(clients) ? clients.length : 0) +
+                        (Array.isArray(blogs) ? blogs.length : 0)}
                     </p>
                   </div>
                   <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
                 </div>
               </CardContent>
             </Card>
+
+            {/* Blog Management Card */}
+            <Link href="/cms/blogs">
+              <Card className="bg-gradient-to-r from-purple-50 to-pink-100 border-purple-200 hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs sm:text-sm font-medium text-purple-600">
+                        إجمالي المقالات
+                      </p>
+                      <p className="text-2xl sm:text-3xl font-bold text-purple-900">
+                        {Array.isArray(blogs) ? blogs.length : 0}
+                      </p>
+                    </div>
+                    <svg
+                      className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
 
             {/* Gallery Management Card */}
             <Link href="/cms/gallery">
@@ -374,6 +413,33 @@ export default function CMSDashboard() {
                   </span>
                   <span className="sm:hidden">العملاء</span>
                 </button>
+                <Link href="/cms/blogs">
+                  <button
+                    className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
+                      activeTab === "blogs"
+                        ? "border-purple-500 text-purple-600"
+                        : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                    }`}
+                  >
+                    <svg
+                      className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                    <span className="hidden sm:inline">
+                      المدونة ({Array.isArray(blogs) ? blogs.length : 0})
+                    </span>
+                    <span className="sm:hidden">المدونة</span>
+                  </button>
+                </Link>
               </nav>
             </div>
 
@@ -385,32 +451,45 @@ export default function CMSDashboard() {
                     ? "إدارة الخدمات"
                     : activeTab === "products"
                     ? "إدارة المنتجات"
+                    : activeTab === "blogs"
+                    ? "إدارة المدونة"
                     : "إدارة العملاء"}
                 </h2>
-                <Link
-                  href={`/cms/${activeTab}/add`}
-                  className="w-full sm:w-auto"
-                >
-                  <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-sm">
-                    <Plus className="w-4 h-4 mr-2" />
-                    <span className="hidden sm:inline">
-                      إضافة{" "}
-                      {activeTab === "services"
-                        ? "خدمة جديدة"
-                        : activeTab === "products"
-                        ? "منتج جديد"
-                        : "عميل جديد"}
-                    </span>
-                    <span className="sm:hidden">
-                      إضافة{" "}
-                      {activeTab === "services"
-                        ? "خدمة"
-                        : activeTab === "products"
-                        ? "منتج"
-                        : "عميل"}
-                    </span>
-                  </Button>
-                </Link>
+                {activeTab !== "blogs" && (
+                  <Link
+                    href={`/cms/${activeTab}/add`}
+                    className="w-full sm:w-auto"
+                  >
+                    <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-sm">
+                      <Plus className="w-4 h-4 mr-2" />
+                      <span className="hidden sm:inline">
+                        إضافة{" "}
+                        {activeTab === "services"
+                          ? "خدمة جديدة"
+                          : activeTab === "products"
+                          ? "منتج جديد"
+                          : "عميل جديد"}
+                      </span>
+                      <span className="sm:hidden">
+                        إضافة{" "}
+                        {activeTab === "services"
+                          ? "خدمة"
+                          : activeTab === "products"
+                          ? "منتج"
+                          : "عميل"}
+                      </span>
+                    </Button>
+                  </Link>
+                )}
+                {activeTab === "blogs" && (
+                  <Link href="/cms/blogs" className="w-full sm:w-auto">
+                    <Button className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm">
+                      <Plus className="w-4 h-4 mr-2" />
+                      <span className="hidden sm:inline">إدارة المدونة</span>
+                      <span className="sm:hidden">المدونة</span>
+                    </Button>
+                  </Link>
+                )}
               </div>
 
               {/* Content */}

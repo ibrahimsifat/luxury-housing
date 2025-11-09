@@ -91,3 +91,23 @@ export interface Client {
   featured: boolean;
   order: number;
 }
+
+// Blog type definition
+export interface Blog {
+  _id?: string;
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string; // HTML content from rich text editor
+  featuredImage: string;
+  author: string;
+  publishedAt?: string | Date;
+  updatedAt?: string | Date;
+  status: "draft" | "published";
+  featured: boolean;
+  tags: string[];
+  views: number;
+  metaTitle?: string;
+  metaDescription?: string;
+}

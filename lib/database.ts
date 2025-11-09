@@ -1,6 +1,6 @@
 import { Document, ObjectId } from "mongodb";
 import { getDatabase } from "./mongodb";
-import { Client, GalleryImage, Product, Service } from "./types";
+import { Blog, Client, GalleryImage, Product, Service } from "./types";
 
 // Utility function to convert MongoDB documents to plain objects
 function convertToPlainObject<T>(doc: any): T {
@@ -23,6 +23,7 @@ export const COLLECTIONS = {
   SERVICES: "services",
   GALLERY: "gallery",
   CLIENTS: "clients",
+  BLOGS: "blogs",
 } as const;
 
 // Generic database operations
@@ -223,8 +224,78 @@ export class ClientService extends DatabaseService<Client> {
   }
 }
 
+export class BlogService extends DatabaseService<Blog> {
+  constructor() {
+    super(COLLECTIONS.BLOGS);
+  }
+
+  async getPublishedBlogs(): Promise<Blog[]> {
+    const collection = await this.getCollection();
+    const results = await collection
+      .find({ status: "published" })
+      .sort({ publishedAt: -1 })
+      .toArray();
+    return convertArrayToPlainObjects<Blog>(results);
+  }
+
+  async getFeaturedBlogs(limit: number = 6): Promise<Blog[]> {
+    const collection = await this.getCollection();
+    const results = await collection
+      .find({ status: "published", featured: true })
+      .sort({ publishedAt: -1 })
+      .limit(limit)
+      .toArray();
+    return convertArrayToPlainObjects<Blog>(results);
+  }
+
+  async getRecentBlogs(limit: number = 6): Promise<Blog[]> {
+    const collection = await this.getCollection();
+    const results = await collection
+      .find({ status: "published" })
+      .sort({ publishedAt: -1 })
+      .limit(limit)
+      .toArray();
+    return convertArrayToPlainObjects<Blog>(results);
+  }
+
+  async searchBlogs(query: string): Promise<Blog[]> {
+    const collection = await this.getCollection();
+    const results = await collection
+      .find({
+        status: "published",
+        $or: [
+          { title: { $regex: query, $options: "i" } },
+          { excerpt: { $regex: query, $options: "i" } },
+          { content: { $regex: query, $options: "i" } },
+          { tags: { $in: [new RegExp(query, "i")] } },
+        ],
+      })
+      .sort({ publishedAt: -1 })
+      .toArray();
+    return convertArrayToPlainObjects<Blog>(results);
+  }
+
+  async findByTag(tag: string): Promise<Blog[]> {
+    const collection = await this.getCollection();
+    const results = await collection
+      .find({ status: "published", tags: { $in: [tag] } })
+      .sort({ publishedAt: -1 })
+      .toArray();
+    return convertArrayToPlainObjects<Blog>(results);
+  }
+
+  async incrementViews(slug: string): Promise<void> {
+    const collection = await this.getCollection();
+    await collection.updateOne(
+      { slug },
+      { $inc: { views: 1 } }
+    );
+  }
+}
+
 // Export instances
 export const products = new ProductService();
 export const services = new ServiceService();
 export const gallery = new GalleryService();
 export const clients = new ClientService();
+export const blogs = new BlogService();

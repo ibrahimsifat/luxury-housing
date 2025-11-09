@@ -6,6 +6,7 @@ export const CACHE_TAGS = {
   SERVICES: "services",
   GALLERY: "gallery",
   CLIENTS: "clients",
+  BLOGS: "blogs",
   CMS_DATA: "cms-data",
 } as const;
 
@@ -15,10 +16,12 @@ export const CACHE_KEYS = {
   ALL_SERVICES: "all-services",
   ALL_GALLERY: "all-gallery",
   ALL_CLIENTS: "all-clients",
+  ALL_BLOGS: "all-blogs",
   FEATURED_PRODUCTS: "featured-products",
   FEATURED_SERVICES: "featured-services",
   FEATURED_GALLERY: "featured-gallery",
   FEATURED_CLIENTS: "featured-clients",
+  FEATURED_BLOGS: "featured-blogs",
 } as const;
 
 // Cache duration in seconds
@@ -63,6 +66,7 @@ export function invalidateAllCMSCache() {
     "/services",
     "/gallery",
     "/clients",
+    "/blog",
     "/cms/dashboard",
   ];
 
@@ -160,6 +164,24 @@ export class CacheInvalidator {
     invalidateCache("CLIENTS");
     invalidateCache("CMS_DATA");
     invalidatePaths(["/clients", "/"]);
+  }
+
+  static onBlogCreate() {
+    invalidateCache("BLOGS");
+    invalidateCache("CMS_DATA");
+    invalidatePaths(["/blog", "/"]);
+  }
+
+  static onBlogUpdate() {
+    invalidateCache("BLOGS");
+    invalidateCache("CMS_DATA");
+    invalidatePaths(["/blog", "/"]);
+  }
+
+  static onBlogDelete() {
+    invalidateCache("BLOGS");
+    invalidateCache("CMS_DATA");
+    invalidatePaths(["/blog", "/"]);
   }
 
   static onBulkUpdate() {

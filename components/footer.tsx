@@ -23,6 +23,7 @@ export function Footer() {
     { name: "من نحن", href: "/about" },
     { name: "خدماتنا", href: "/services" },
     { name: "منتجاتنا", href: "/products" },
+    { name: "المدونة", href: "/blog" },
     { name: "اتصل بنا", href: "/contact" },
   ];
 

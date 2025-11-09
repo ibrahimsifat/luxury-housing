@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File;
-    const type = (formData.get("type") as string) || "general"; // "services", "products", "gallery", or "general"
+    const type = (formData.get("type") as string) || "general"; // "services", "products", "gallery", "blogs", or "general"
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({
+    const response: any = {
       success: true,
       url: uploadResult.data!.fileUrl,
       fileName: uploadResult.data!.publicId.split('/').pop(), // Extract filename from public ID
@@ -42,7 +42,25 @@ export async function POST(request: NextRequest) {
       height: uploadResult.data!.height,
       format: uploadResult.data!.format,
       bytes: uploadResult.data!.bytes,
-    });
+    };
+
+    // Add image size recommendations for blogs
+    if (type === "blogs") {
+      const recommendedWidth = 1200;
+      const recommendedHeight = 630;
+      const aspectRatio = recommendedWidth / recommendedHeight;
+      const actualAspectRatio = uploadResult.data!.width / uploadResult.data!.height;
+      
+      response.recommendation = {
+        recommendedSize: `${recommendedWidth}x${recommendedHeight}px`,
+        recommendedAspectRatio: `${aspectRatio.toFixed(2)}:1`,
+        actualSize: `${uploadResult.data!.width}x${uploadResult.data!.height}px`,
+        actualAspectRatio: `${actualAspectRatio.toFixed(2)}:1`,
+        message: `Recommended size: ${recommendedWidth}x${recommendedHeight}px (${aspectRatio.toFixed(2)}:1 aspect ratio) for optimal display. Your image is ${uploadResult.data!.width}x${uploadResult.data!.height}px (${actualAspectRatio.toFixed(2)}:1).`,
+      };
+    }
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Error uploading file:", error);
     return NextResponse.json(

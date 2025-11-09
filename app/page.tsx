@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/about-section";
+import { BlogSection } from "@/components/blog-section";
 import ClientsSection from "@/components/clients-section";
 import HeroSection from "@/components/hero-section";
 import { ProductsSection } from "@/components/products-section";
@@ -67,6 +68,10 @@ export default async function HomePage() {
 
       <ScrollAnimation animation="fadeInUp" delay={500}>
         <ContactSection />
+      </ScrollAnimation>
+
+      <ScrollAnimation animation="fadeInUp" delay={550}>
+        <BlogSection />
       </ScrollAnimation>
 
       <ScrollAnimation animation="fadeInUp" delay={600}>
