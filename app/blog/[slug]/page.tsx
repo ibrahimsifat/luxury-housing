@@ -1,12 +1,11 @@
+import { BlogCard } from "@/components/blog-card";
+import { MobileNavigation } from "@/components/mobile-navigation";
 import { getAllBlogs, getBlogBySlug } from "@/lib/blogs";
-import { generateStructuredData } from "@/lib/seo";
+import { Calendar, Eye, User } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, Eye, User } from "lucide-react";
-import { BlogCard } from "@/components/blog-card";
-import { MobileNavigation } from "@/components/mobile-navigation";
 
 interface BlogPostPageProps {
   params: {
@@ -35,7 +34,9 @@ export async function generateMetadata({
 
   const title = blog.metaTitle || `${blog.title} - مدونة المساكن الفاخرة`;
   const description =
-    blog.metaDescription || blog.excerpt || `اقرأ ${blog.title} من مدونة المساكن الفاخرة`;
+    blog.metaDescription ||
+    blog.excerpt ||
+    `اقرأ ${blog.title} من مدونة المساكن الفاخرة`;
 
   return {
     title,
@@ -130,7 +131,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50" dir="rtl">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50"
+      dir="rtl"
+    >
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -144,7 +148,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(147,51,234,0.3),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.3),transparent_50%)]"></div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 md:pt-24 pt-16">
           <div className="mb-6">
             <Link
               href="/blog"
@@ -247,7 +251,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedBlogs.map((relatedBlog, index) => (
-                <BlogCard key={relatedBlog.id} blog={relatedBlog} index={index} />
+                <BlogCard
+                  key={relatedBlog.id}
+                  blog={relatedBlog}
+                  index={index}
+                />
               ))}
             </div>
           </div>
@@ -258,4 +266,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   );
 }
-

@@ -238,6 +238,7 @@ export default function Header() {
 
   const navItems = [
     { name: "شركاء النجاح", href: "/clients" },
+    { name: "المدونة", href: "/blog" },
     // { name: "جديدنا", href: "/news" },
     { name: "الأسئلة الشائعة", href: "/faq" },
     { name: "تواصل معنا", href: "/contact" },
@@ -291,7 +292,7 @@ export default function Header() {
               }`}
               whileHover={{ scale: 1.02 }}
             >
-              مستشار تمويل عقاري معتمد من الهيئة العامة للعقار
+              مستشار تمويل عقاري معتمد
             </motion.div>
           </motion.div>
 

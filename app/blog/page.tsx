@@ -37,9 +37,7 @@ export default function BlogPage() {
   }, []);
 
   // Get all unique tags
-  const allTags = Array.from(
-    new Set(blogs.flatMap((blog) => blog.tags || []))
-  );
+  const allTags = Array.from(new Set(blogs.flatMap((blog) => blog.tags || [])));
 
   // Filter blogs based on search and tag
   useEffect(() => {
@@ -66,13 +64,16 @@ export default function BlogPage() {
   }, [searchQuery, selectedTag, blogs]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-24" dir="rtl">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50"
+      dir="rtl"
+    >
       {/* Hero Section */}
-      <section className="relative pb-16 bg-gradient-to-r from-purple-900 via-pink-900 to-purple-900 text-white overflow-hidden">
+      <section className="relative pt-24 pb-16 bg-gradient-to-r from-purple-900 via-pink-900 to-purple-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(147,51,234,0.3),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.3),transparent_50%)]"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 md:pt-24 pt-16">
           <ScrollAnimation animation="fadeInUp">
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
@@ -126,7 +127,11 @@ export default function BlogPage() {
                   variant={selectedTag === null ? "default" : "outline"}
                   size="sm"
                   onClick={() => setSelectedTag(null)}
-                  className={selectedTag === null ? "bg-purple-600 hover:bg-purple-700" : ""}
+                  className={
+                    selectedTag === null
+                      ? "bg-purple-600 hover:bg-purple-700"
+                      : ""
+                  }
                 >
                   الكل
                 </Button>
@@ -136,7 +141,11 @@ export default function BlogPage() {
                     variant={selectedTag === tag ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedTag(tag)}
-                    className={selectedTag === tag ? "bg-purple-600 hover:bg-purple-700" : ""}
+                    className={
+                      selectedTag === tag
+                        ? "bg-purple-600 hover:bg-purple-700"
+                        : ""
+                    }
                   >
                     {tag}
                   </Button>
@@ -199,4 +208,3 @@ export default function BlogPage() {
     </div>
   );
 }
-

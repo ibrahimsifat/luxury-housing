@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { FaSnapchat, FaTelegram, FaTiktok } from "react-icons/fa";
+import { LicensesSection } from "./licenses-section";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -119,8 +120,7 @@ export function Footer() {
             </div>
 
             <p className="text-gray-300 leading-relaxed font-cairo text-lg max-w-md">
-              شركة لوكسري هاوسينج العقارية - مستشار تمويل عقاري معتمد من الهيئة
-              العامة للعقار. نحقق أحلامكم في تملك المسكن المثالي بأفضل الحلول
+              شركة لوكسري هاوسينج العقارية - مستشار تمويل عقاري معتمد. نحقق أحلامكم في تملك المسكن المثالي بأفضل الحلول
               التمويلية المبتكرة.
             </p>
 
@@ -327,6 +327,9 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Licenses Section */}
+      <LicensesSection />
 
       <div className="border-t border-gradient-to-r from-transparent via-white/20 to-transparent relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
