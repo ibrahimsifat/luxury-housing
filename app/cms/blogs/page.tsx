@@ -231,7 +231,7 @@ export default function CMSBlogsPage() {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2">
-                          <Link href={`/blog/${blog.slug}`} target="_blank">
+                          <Link href={`/blog/${encodeURIComponent(blog.slug)}`} target="_blank">
                             <Button variant="outline" size="sm" className="text-xs">
                               <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                               عرض

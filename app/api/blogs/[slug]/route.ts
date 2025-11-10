@@ -7,7 +7,15 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
-    const blog = await blogs.findBySlug(params.slug);
+    // Decode URL-encoded slug to handle Arabic characters properly
+    // Next.js may already decode it, but we decode it explicitly to be safe
+    let decodedSlug = params.slug;
+    try {
+      decodedSlug = decodeURIComponent(params.slug);
+    } catch (e) {
+      decodedSlug = params.slug;
+    }
+    const blog = await blogs.findBySlug(decodedSlug);
 
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
@@ -19,7 +27,7 @@ export async function GET(
     }
 
     // Increment views (async, don't wait for it)
-    blogs.incrementViews(params.slug).catch((error) => {
+    blogs.incrementViews(decodedSlug).catch((error) => {
       console.error("Error incrementing views:", error);
     });
 

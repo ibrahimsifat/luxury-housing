@@ -16,14 +16,22 @@ interface BlogPostPageProps {
 export async function generateStaticParams() {
   const blogs = await getAllBlogs();
   return blogs.map((blog) => ({
-    slug: blog.slug,
+    slug: blog.slug, // Next.js will automatically encode this for URLs
   }));
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const blog = await getBlogBySlug(params.slug);
+  // Decode URL-encoded slug to handle Arabic characters properly
+  // Next.js may already decode it, but we decode it explicitly to be safe
+  let decodedSlug = params.slug;
+  try {
+    decodedSlug = decodeURIComponent(params.slug);
+  } catch (e) {
+    decodedSlug = params.slug;
+  }
+  const blog = await getBlogBySlug(decodedSlug);
 
   if (!blog) {
     return {
@@ -46,7 +54,7 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      url: `https://luxuryhousing.sa/blog/${params.slug}`,
+      url: `https://luxuryhousing.sa/blog/${encodeURIComponent(params.slug)}`,
       images: blog.featuredImage
         ? [
             {
@@ -70,13 +78,21 @@ export async function generateMetadata({
       images: blog.featuredImage ? [blog.featuredImage] : [],
     },
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: `/blog/${encodeURIComponent(params.slug)}`,
     },
   };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const blog = await getBlogBySlug(params.slug);
+  // Decode URL-encoded slug to handle Arabic characters properly
+  // Next.js may already decode it, but we decode it explicitly to be safe
+  let decodedSlug = params.slug;
+  try {
+    decodedSlug = decodeURIComponent(params.slug);
+  } catch (e) {
+    decodedSlug = params.slug;
+  }
+  const blog = await getBlogBySlug(decodedSlug);
 
   if (!blog || blog.status !== "published") {
     notFound();

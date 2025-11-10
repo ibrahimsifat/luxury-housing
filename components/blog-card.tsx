@@ -22,7 +22,7 @@ export function BlogCard({ blog, index = 0 }: BlogCardProps) {
     : "";
 
   return (
-    <Link href={`/blog/${blog.slug}`}>
+    <Link href={`/blog/${encodeURIComponent(blog.slug)}`}>
       <Card className="group hover:shadow-2xl transition-all duration-700 hover:-translate-y-3 border-0 bg-white/80 backdrop-blur-md hover:bg-white/95 overflow-hidden relative w-full h-full flex flex-col">
         {/* Image */}
         <div className="relative h-48 w-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-purple-100 to-pink-100">

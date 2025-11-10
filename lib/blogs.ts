@@ -9,7 +9,17 @@ export async function getBlogById(id: string): Promise<Blog | null> {
 }
 
 export async function getBlogBySlug(slug: string): Promise<Blog | null> {
-  return await blogService.findBySlug(slug);
+  // Decode URL-encoded slug to handle Arabic characters properly
+  // Next.js may already decode it, but we decode it explicitly to be safe
+  let decodedSlug = slug;
+  try {
+    // Try to decode - if it's already decoded, this will still work
+    decodedSlug = decodeURIComponent(slug);
+  } catch (e) {
+    // If decoding fails, use the original slug (it might already be decoded)
+    decodedSlug = slug;
+  }
+  return await blogService.findBySlug(decodedSlug);
 }
 
 export async function getAllBlogs(): Promise<Blog[]> {
@@ -35,4 +45,3 @@ export async function getBlogsByTag(tag: string): Promise<Blog[]> {
 export async function incrementBlogViews(slug: string): Promise<void> {
   return await blogService.incrementViews(slug);
 }
-
