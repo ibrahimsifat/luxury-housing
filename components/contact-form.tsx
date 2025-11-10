@@ -148,7 +148,7 @@ export function ContactForm({
     {
       icon: Phone,
       title: "اتصل بنا",
-      details: ["0581111488", "0544717266"],
+      details: ["0581111488", "0544717266", "0138452614"],
       color: "text-cyan-600",
       bgColor: "bg-gradient-to-br from-cyan-100 to-cyan-200",
     },

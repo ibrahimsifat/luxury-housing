@@ -275,12 +275,20 @@ export function Footer() {
                   <Phone className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <Link
-                    href="tel:+966581111488"
-                    className="text-white font-semibold font-cairo hover:text-cyan-400 transition-colors duration-200"
-                  >
-                    0581111488
-                  </Link>
+                  <div className="space-y-1">
+                    <Link
+                      href="tel:+966581111488"
+                      className="text-white font-semibold font-cairo hover:text-cyan-400 transition-colors duration-200 block"
+                    >
+                      0581111488
+                    </Link>
+                    <Link
+                      href="tel:+966138452614"
+                      className="text-white font-semibold font-cairo hover:text-cyan-400 transition-colors duration-200 block"
+                    >
+                      0138452614
+                    </Link>
+                  </div>
                   <p className="text-slate-300 text-sm font-cairo">
                     خدمة العملاء
                   </p>
