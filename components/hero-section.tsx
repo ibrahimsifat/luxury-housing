@@ -42,7 +42,7 @@ export function HeroSection() {
   const controls = useAnimation();
 
   const fullText = "شركة لوكسري هاوسينج";
-  const subText = "مستشار تمويل عقاري معتمد من الهيئة العامة للعقار";
+  const subText = "مستشار تمويل عقاري معتمد";
 
   // Dynamic background images
   const backgroundImages = [
@@ -570,7 +570,7 @@ export function HeroSection() {
                     textShadow: "0 0 20px rgba(251, 191, 36, 0.5)",
                   }}
                 >
-                  مستشار تمويل عقاري معتمد من الهيئة العامة للعقار
+                  مستشار تمويل عقاري معتمد
                 </motion.span>
                 <motion.span
                   className="block text-amber-300 font-medium"

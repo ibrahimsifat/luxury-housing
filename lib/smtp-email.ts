@@ -487,7 +487,7 @@ function getArabicAutoReplyText(type: EmailType, name: string): string {
 
 مع أطيب التحيات،
 فريق شركة لوكسري هاوسينج
-مستشار تمويل عقاري معتمد من الهيئة العامة للعقار`;
+مستشار تمويل عقاري معتمد`;
 
     case "contact":
       return `${baseMessage}

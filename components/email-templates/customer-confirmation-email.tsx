@@ -288,7 +288,7 @@ export const CustomerConfirmationEmailTemplate: React.FC<
             fontWeight: "bold",
           }}
         >
-          مستشار تمويل عقاري معتمد من الهيئة العامة للعقار
+          مستشار تمويل عقاري معتمد
         </p>
         <p
           style={{

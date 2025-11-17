@@ -136,8 +136,8 @@ export default function Header() {
       icon: <User className="w-4 h-4" />,
     },
     {
-      name: "إعادة التمويل العقاري",
-      href: "/products?category=real-estate-refinancing",
+      name: "الخدمات العقارية",
+      href: "/contact",
       icon: <RefreshCw className="w-4 h-4" />,
     },
     {
@@ -192,8 +192,8 @@ export default function Header() {
       icon: <Building className="w-4 h-4" />,
     },
     {
-      name: "إعادة التمويل العقاري",
-      href: "/apply/real-estate-refinancing",
+      name: "الخدمات العقارية",
+      href: "/contact",
       icon: <RefreshCw className="w-4 h-4" />,
     },
     {

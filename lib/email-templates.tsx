@@ -276,7 +276,7 @@ export function generateCompanyEmailTemplate(data: EmailTemplateData): string {
       <div style="text-align: center; margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef;">
         <div style="margin-bottom: 15px;">
           <h4 style="color: #003366; margin: 0 0 10px 0; font-size: 20px;">شركة لوكسري هاوسينج للحلول العقارية</h4>
-          <p style="color: #6c757d; margin: 0; font-size: 14px; font-style: italic;">مستشار تمويل عقاري معتمد من الهيئة العامة للعقار</p>
+          <p style="color: #6c757d; margin: 0; font-size: 14px; font-style: italic;">مستشار تمويل عقاري معتمد</p>
         </div>
         <div style="border-top: 1px solid #dee2e6; padding-top: 15px;">
           <p style="margin: 5px 0; color: #495057; font-size: 14px;">📍 الدمام، المملكة العربية السعودية</p>
@@ -452,7 +452,7 @@ export function generateCustomerConfirmationTemplate(
           </p>
           <div style="margin-top: 20px;">
             <span style="background: #003366; color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: bold;">
-              مستشار تمويل عقاري معتمد من الهيئة العامة للعقار
+              مستشار تمويل عقاري معتمد
             </span>
           </div>
         </div>

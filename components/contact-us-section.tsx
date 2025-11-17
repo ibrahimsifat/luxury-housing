@@ -69,7 +69,7 @@ export function ContactUsSection() {
 
             {/* Simple Description */}
             <p className="text-xl text-white/90 max-w-4xl mx-auto text-pretty leading-relaxed mb-12">
-              مستشار تمويل عقاري معتمد من الهيئة العامة للعقار
+              مستشار تمويل عقاري معتمد
               <br />
               <span className="text-amber-300 font-semibold">
                 نحقق أحلامكم في تملك المسكن المثالي
