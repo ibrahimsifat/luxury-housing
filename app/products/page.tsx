@@ -38,6 +38,12 @@ export default function ProductsPage() {
   const realEstateFinancingProducts = allProducts.filter(
     (product) => product.category === "real-estate-financing"
   );
+  const realEstateServicesProducts = allProducts.filter(
+    (product) => product.category === "real-estate-services"
+  );
+  const mortgageProducts = allProducts.filter(
+    (product) => product.category === "mortgage"
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -229,13 +235,29 @@ export default function ProductsPage() {
             className="w-full"
           >
             <div className="flex justify-center mb-8 md:mb-12 px-4">
-              <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-4xl bg-white/80 backdrop-blur-md shadow-lg border-0 h-auto sm:h-12 md:h-14 gap-1 overflow-x-auto scrollbar-hide">
+              <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 w-full max-w-6xl bg-white/80 backdrop-blur-md shadow-lg border-0 h-auto sm:h-12 md:h-14 gap-1 overflow-x-auto scrollbar-hide">
                 <TabsTrigger
                   value="all"
                   className="text-sm sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-3 sm:px-3 py-2 sm:py-0 whitespace-nowrap"
                 >
                   <span className="hidden sm:inline">جميع المنتجات</span>
                   <span className="sm:hidden">الكل</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="real-estate-services"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
+                >
+                  <span className="hidden lg:inline">الخدمات العقارية</span>
+                  <span className="lg:hidden hidden sm:inline">خدمات</span>
+                  <span className="sm:hidden">خدمات</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="mortgage"
+                  className="text-xs sm:text-sm font-semibold data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 text-slate-800 hover:text-slate-900 px-2 sm:px-3 whitespace-nowrap"
+                >
+                  <span className="hidden lg:inline">الرهن العقاري</span>
+                  <span className="lg:hidden hidden sm:inline">رهن</span>
+                  <span className="sm:hidden">رهن</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="business-financing"
@@ -313,6 +335,46 @@ export default function ProductsPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {personalFinancingProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="real-estate-services" className="space-y-8">
+              <div className="text-center mb-8 md:mb-12 px-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  الخدمات العقارية
+                </h2>
+                <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
+                  خدمات عقارية متخصصة لتلبية احتياجاتكم العقارية
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {realEstateServicesProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="mortgage" className="space-y-8">
+              <div className="text-center mb-8 md:mb-12 px-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  الرهن العقاري
+                </h2>
+                <p className="text-base md:text-lg text-slate-800 max-w-2xl mx-auto">
+                  حلول رهن عقاري مرنة لتحقيق أهدافكم المالية
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {mortgageProducts.map((product, index) => (
                   <ProductCard
                     key={product.id}
                     product={product}

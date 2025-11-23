@@ -23,7 +23,7 @@ export default function AddProductPage() {
     title: "",
     description: "",
     detailedDescription: "",
-    category: "residential",
+    category: "real-estate-services",
     icon: "",
     image: "",
     features: [""],
@@ -49,9 +49,12 @@ export default function AddProductPage() {
   const router = useRouter();
 
   const categories = [
-    { value: "residential", label: "Residential" },
-    { value: "financial", label: "Financial" },
-    { value: "commercial", label: "Commercial" },
+    { value: "real-estate-services", label: "الخدمات العقارية" },
+    { value: "mortgage", label: "الرهن العقاري" },
+    { value: "business-financing", label: "تمويل قطاع الاعمال" },
+    { value: "personal-financing", label: "التمويل الشخصي" },
+    { value: "real-estate-refinancing", label: "إعادة التمويل العقاري" },
+    { value: "real-estate-financing", label: "التمويل العقاري" },
   ];
 
   const handleInputChange = (field: string, value: any) => {

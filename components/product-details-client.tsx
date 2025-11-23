@@ -35,6 +35,8 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
       "business-financing": "/apply/business-sector",
       "personal-financing": "/apply/personal-financing",
       "mortgage": "/apply/real-estate-mortgage",
+      "real-estate-services": "/contact", // Real estate services link to contact
+      "real-estate-refinancing": "/contact", // Changed to contact page
     };
     return categoryMap[category] || "/apply/real-estate-financing";
   };

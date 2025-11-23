@@ -393,6 +393,10 @@ export default function EditProductPage() {
                         <SelectValue placeholder="اختر الفئة" />
                       </SelectTrigger>
                       <SelectContent>
+                        <SelectItem value="real-estate-services">
+                          الخدمات العقارية
+                        </SelectItem>
+                        <SelectItem value="mortgage">الرهن العقاري</SelectItem>
                         <SelectItem value="business-financing">
                           تمويل قطاع الاعمال
                         </SelectItem>
@@ -402,7 +406,6 @@ export default function EditProductPage() {
                         <SelectItem value="real-estate-refinancing">
                           إعادة التمويل العقاري
                         </SelectItem>
-                        <SelectItem value="mortgage">الرهن العقاري</SelectItem>
                         <SelectItem value="real-estate-financing">
                           التمويل العقاري
                         </SelectItem>
