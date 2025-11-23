@@ -291,6 +291,24 @@ export default function ProductsPage() {
                 <div className="flex justify-center items-center py-12">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
                 </div>
+              ) : allProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-24 h-24 md:w-32 md:h-32 bg-slate-100 rounded-full flex items-center justify-center mb-6">
+                    <FiTarget className="w-12 h-12 md:w-16 md:h-16 text-slate-400" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-3">
+                    لا توجد منتجات متاحة حالياً
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md mb-6">
+                    سيتم إضافة المنتجات قريباً. يرجى التحقق لاحقاً أو التواصل
+                    معنا للمزيد من المعلومات.
+                  </p>
+                  <Link href="/contact">
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                      تواصل معنا
+                    </Button>
+                  </Link>
+                </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {allProducts.map((product, index) => (
@@ -313,15 +331,29 @@ export default function ProductsPage() {
                   حلول تمويلية متخصصة لدعم نمو وتوسع أعمالكم التجارية
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {businessFinancingProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {businessFinancingProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                    <FiTarget className="w-10 h-10 md:w-12 md:h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-2">
+                    لا توجد منتجات في هذه الفئة
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md">
+                    سيتم إضافة منتجات تمويل قطاع الاعمال قريباً
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {businessFinancingProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="personal-financing" className="space-y-8">
@@ -333,15 +365,29 @@ export default function ProductsPage() {
                   حلول تمويلية شخصية لتحقيق أهدافكم المالية الشخصية
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {personalFinancingProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {personalFinancingProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                    <FiTarget className="w-10 h-10 md:w-12 md:h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-2">
+                    لا توجد منتجات في هذه الفئة
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md">
+                    سيتم إضافة منتجات التمويل الشخصي قريباً
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {personalFinancingProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="real-estate-services" className="space-y-8">
@@ -353,15 +399,34 @@ export default function ProductsPage() {
                   خدمات عقارية متخصصة لتلبية احتياجاتكم العقارية
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {realEstateServicesProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {realEstateServicesProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                    <FiTarget className="w-10 h-10 md:w-12 md:h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-2">
+                    لا توجد منتجات في هذه الفئة
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md mb-4">
+                    لا توجد خدمات عقارية متاحة حالياً. سيتم إضافتها قريباً.
+                  </p>
+                  <Link href="/contact">
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                      تواصل معنا
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {realEstateServicesProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="mortgage" className="space-y-8">
@@ -373,15 +438,29 @@ export default function ProductsPage() {
                   حلول رهن عقاري مرنة لتحقيق أهدافكم المالية
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {mortgageProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {mortgageProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                    <FiTarget className="w-10 h-10 md:w-12 md:h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-2">
+                    لا توجد منتجات في هذه الفئة
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md">
+                    سيتم إضافة منتجات الرهن العقاري قريباً
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {mortgageProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="real-estate-financing" className="space-y-8">
@@ -393,15 +472,29 @@ export default function ProductsPage() {
                   حلول تمويلية شاملة لتحقيق حلم امتلاك العقارات
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {realEstateFinancingProducts.map((product, index) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {realEstateFinancingProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 md:py-24">
+                  <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                    <FiTarget className="w-10 h-10 md:w-12 md:h-12 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-2">
+                    لا توجد منتجات في هذه الفئة
+                  </h3>
+                  <p className="text-slate-600 text-center max-w-md">
+                    سيتم إضافة منتجات التمويل العقاري قريباً
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {realEstateFinancingProducts.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </div>
