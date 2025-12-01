@@ -13,13 +13,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Product } from "@/lib/types";
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   Building,
   Calendar,
-  CheckCircle,
   CreditCard,
   DollarSign,
   Home,
@@ -28,8 +25,7 @@ import {
   Send,
   User,
 } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface RealEstateMortgageForm {
@@ -77,35 +73,6 @@ export default function RealEstateMortgagePage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [mortgageProducts, setMortgageProducts] = useState<Product[]>([]);
-  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-
-  useEffect(() => {
-    const fetchMortgageProducts = async () => {
-      try {
-        const response = await fetch("/api/cms/products");
-        const products = await response.json();
-        const mortgageProductsList = Array.isArray(products)
-          ? products.filter((p: Product) => p.category === "mortgage")
-          : [];
-        setMortgageProducts(mortgageProductsList);
-      } catch (error) {
-        console.error("Error fetching mortgage products:", error);
-        setMortgageProducts([]);
-      } finally {
-        setIsLoadingProducts(false);
-      }
-    };
-
-    fetchMortgageProducts();
-  }, []);
-
-  const scrollToForm = () => {
-    const formSection = document.getElementById("mortgage-form-section");
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
 
   const handleInputChange = (
     field: keyof RealEstateMortgageForm,
@@ -225,120 +192,6 @@ export default function RealEstateMortgagePage() {
               </p>
             </div>
           </ScrollAnimation>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        <div className="container mx-auto px-4">
-          <ScrollAnimation animation="fadeInUp" delay={100}>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-                منتجات الرهن العقاري
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                اكتشف مجموعة متنوعة من منتجات الرهن العقاري المصممة خصيصاً
-                لاحتياجاتك
-              </p>
-            </div>
-          </ScrollAnimation>
-
-          {isLoadingProducts ? (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-slate-600">جاري تحميل المنتجات...</p>
-            </div>
-          ) : mortgageProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-              {mortgageProducts.map((product, index) => (
-                <ScrollAnimation
-                  key={product.id}
-                  animation="fadeInUp"
-                  delay={150 + index * 50}
-                >
-                  <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 bg-white/90 backdrop-blur-sm overflow-hidden relative h-full flex flex-col">
-                    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
-                      <Image
-                        src={product.image || "/images/product-image.jpg"}
-                        alt={product.title}
-                        fill
-                        className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
-                      />
-                      {product.badge && (
-                        <div className="absolute top-3 right-3 z-10">
-                          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                            {product.badge}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-xl font-bold text-slate-800 text-center">
-                        {product.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-1 flex flex-col space-y-4">
-                      <p className="text-slate-600 text-sm leading-relaxed line-clamp-3 text-center">
-                        {product.description}
-                      </p>
-
-                      {product.features && product.features.length > 0 && (
-                        <div className="space-y-2 bg-slate-50 rounded-lg p-3">
-                          {product.features.slice(0, 3).map((feature, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-center text-xs text-slate-700"
-                            >
-                              <CheckCircle className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
-                              <span className="font-medium">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {product.minAmount && product.maxAmount && (
-                        <div className="grid grid-cols-2 gap-2 text-xs bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-2">
-                          <div className="text-center">
-                            <div className="text-slate-600 mb-1">المبلغ</div>
-                            <div className="font-bold text-slate-900">
-                              {product.minAmount} - {product.maxAmount}
-                            </div>
-                          </div>
-                          {product.duration && (
-                            <div className="text-center">
-                              <div className="text-slate-600 mb-1">المدة</div>
-                              <div className="font-bold text-slate-900">
-                                {product.duration}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      <Button
-                        onClick={scrollToForm}
-                        className="w-full mt-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-0 font-bold hover:shadow-xl transition-all duration-300 hover:scale-105"
-                      >
-                        <span className="flex items-center justify-center gap-2">
-                          <span>طلب الخدمة</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </span>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </ScrollAnimation>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-slate-600 text-lg mb-4">
-                لا توجد منتجات رهن عقاري متاحة حالياً
-              </p>
-              <p className="text-slate-500 text-sm">
-                يمكنك تقديم طلبك مباشرة من خلال النموذج أدناه
-              </p>
-            </div>
-          )}
         </div>
       </section>
 

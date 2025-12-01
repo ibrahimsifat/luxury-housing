@@ -70,6 +70,28 @@ export default function ProductsPage() {
     }
   }, [searchParams]);
 
+  // Redirect to contact page if real-estate-services has no products
+  useEffect(() => {
+    if (
+      !isLoading &&
+      activeTab === "real-estate-services" &&
+      realEstateServicesProducts.length === 0
+    ) {
+      router.push("/contact");
+    }
+  }, [isLoading, activeTab, realEstateServicesProducts.length, router]);
+
+  // Redirect to mortgage form page if mortgage has no products
+  useEffect(() => {
+    if (
+      !isLoading &&
+      activeTab === "mortgage" &&
+      mortgageProducts.length === 0
+    ) {
+      router.push("/apply/real-estate-mortgage");
+    }
+  }, [isLoading, activeTab, mortgageProducts.length, router]);
+
   // Handle tab change and update URL
   const handleTabChange = (value: string) => {
     setActiveTab(value);
