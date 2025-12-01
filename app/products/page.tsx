@@ -186,9 +186,15 @@ export default function ProductsPage() {
             )}
 
             <Link
-              href={`/products/${
-                product.slug ? decodeURIComponent(product.slug) : product.id
-              }`}
+              href={
+                product.category === "real-estate-services"
+                  ? "/products?category=real-estate-financing"
+                  : `/products/${
+                      product.slug
+                        ? decodeURIComponent(product.slug)
+                        : product.id
+                    }`
+              }
               className="mt-auto"
             >
               <Button className="w-full py-3 md:py-4 h-auto bg-gradient-to-r from-slate-900 to-slate-800 text-white border-0 font-bold hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl transition-all duration-500 rounded-lg text-xs md:text-sm shadow-lg hover:scale-[1.02] active:scale-[0.98]">
