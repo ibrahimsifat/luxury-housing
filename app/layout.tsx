@@ -107,6 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'AW-17727244191');
+              gtag('event', 'conversion', {'send_to': 'AW-17727244191/68QrCIun08kbEJ-PgYVC'});
             `,
           }}
         />

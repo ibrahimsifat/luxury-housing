@@ -137,7 +137,7 @@ export default function Header() {
     },
     {
       name: "الخدمات العقارية",
-      href: "/products?category=real-estate-financing",
+      href: "/products?category=real-estate-services",
       icon: <RefreshCw className="w-4 h-4" />,
     },
     {
