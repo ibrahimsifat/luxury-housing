@@ -5,18 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, useAnimation, useInView } from "framer-motion";
 import {
-  ArrowDown,
-  ArrowLeft,
-  CheckCircle,
-  Home,
-  Loader2,
-  Mail,
-  MessageSquare,
-  Phone,
-  Sparkles,
-  Star,
-  TrendingUp,
-  User,
+    ArrowDown,
+    ArrowLeft,
+    CheckCircle,
+    Home,
+    Loader2,
+    Mail,
+    MessageSquare,
+    Phone,
+    Sparkles,
+    Star,
+    TrendingUp,
+    User,
 } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
@@ -256,6 +256,7 @@ export function HeroSection() {
                   : "bg-white/40 hover:bg-white/60"
               }`}
               onClick={() => setCurrentBgIndex(index)}
+              aria-label={`الانتقال للخلفية ${index + 1}`}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             />

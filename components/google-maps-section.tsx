@@ -26,6 +26,7 @@ export function GoogleMapsSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="rounded-2xl"
+              title="موقع لوكسري هاوسينج على الخريطة"
             />
 
             {/* Map Overlay with Link */}
@@ -35,6 +36,7 @@ export function GoogleMapsSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                aria-label="فتح الموقع في خرائط جوجل"
               >
                 <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg">
                   <Navigation className="w-8 h-8 text-slate-800" />

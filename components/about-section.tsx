@@ -542,11 +542,12 @@ export function AboutSection() {
                     loop
                     playsInline
                     preload="metadata"
+                    poster="/modern-office-building-in-saudi-arabia-representin.jpg"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.6 }}
                   >
                     <source
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luxury-about-qFUeXMFblcRXZdSfQ00GicsrMgCAha.mp4"
+                      src="/luxury-about-4.mp4"
                       type="video/mp4"
                     />
                     Your browser does not support the video tag.

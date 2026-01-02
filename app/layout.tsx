@@ -2,6 +2,7 @@ import ClientLayout from "@/components/ClientLayout";
 import { seoConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
+import Script from "next/script";
 import type React from "react";
 import { Suspense } from "react";
 import "./globals.css";
@@ -84,8 +85,38 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <head>
-        {/* Google Tag Manager */}
-        <script
+        {/* Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.facebook.com" />
+        
+        <meta
+          name="facebook-domain-verification"
+          content="mzfvn727gdgwi3itppyev0q03fqymk"
+        />
+        
+        {/* Font Awesome - preloaded for faster loading */}
+        <link
+          rel="preload"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          as="style"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
+      <body className={`font-sans ${cairo.variable}`}>
+        {/* Google Tag Manager - deferred loading */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -94,13 +125,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-T35W7PVF');`,
           }}
         />
-        {/* End Google Tag Manager */}
-        {/* Google tag (gtag.js) */}
-        <script
-          async
+        
+        {/* Google tag (gtag.js) - deferred loading */}
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17727244191"
+          strategy="afterInteractive"
         />
-        <script
+        <Script
+          id="gtag-config"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -111,9 +144,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             `,
           }}
         />
-        {/* End Google tag (gtag.js) */}
-        {/* Meta Pixel Code */}
-        <script
+        
+        {/* Meta Pixel Code - lazy loaded */}
+        <Script
+          id="fb-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -127,20 +162,7 @@ fbq('init', '1114761430509772');
 fbq('track', 'PageView');`,
           }}
         />
-        {/* End Meta Pixel Code */}
-        <meta
-          name="facebook-domain-verification"
-          content="mzfvn727gdgwi3itppyev0q03fqymk"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </head>
-      <body className={`font-sans ${cairo.variable}`}>
+        
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -148,9 +170,11 @@ fbq('track', 'PageView');`,
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        
         {/* Meta Pixel Code (noscript) */}
         <noscript>
           <img
@@ -162,6 +186,7 @@ fbq('track', 'PageView');`,
           />
         </noscript>
         {/* End Meta Pixel Code (noscript) */}
+        
         <Suspense fallback={null}>
           <ClientLayout>{children}</ClientLayout>
         </Suspense>

@@ -5,23 +5,23 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  AlertCircle,
-  CheckCircle,
-  Clock,
-  Loader2,
-  Mail,
-  MapPin,
-  MessageCircle,
-  Phone,
-  Send,
+    AlertCircle,
+    CheckCircle,
+    Clock,
+    Loader2,
+    Mail,
+    MapPin,
+    MessageCircle,
+    Phone,
+    Send,
 } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
@@ -415,7 +415,10 @@ export function ContactForm({
                       handleInputChange("service", value)
                     }
                   >
-                    <SelectTrigger className="w-full h-12 border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-lg transition-colors">
+                    <SelectTrigger 
+                      className="w-full h-12 border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-lg transition-colors"
+                      aria-label="اختر الخدمة المطلوبة"
+                    >
                       <SelectValue placeholder="اختر الخدمة المطلوبة" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-slate-200 rounded-lg shadow-lg max-h-60">

@@ -310,6 +310,8 @@ export default function Header() {
                   alt="لوكسري هاوسينج"
                   width={220}
                   height={75}
+                  priority
+                  sizes="(max-width: 1024px) 120px, 160px"
                   className={`h-12 lg:h-16 w-auto transition-all duration-500 hover:scale-105 cursor-pointer ${
                     isScrolled ? "brightness-100" : "brightness-0 invert"
                   }`}
