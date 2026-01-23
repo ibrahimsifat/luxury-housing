@@ -323,7 +323,7 @@ export default function RealEstateFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -377,7 +377,7 @@ export default function RealEstateFinancingPage() {
                               handleInputChange("birthDateType", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر نوع التاريخ" />
                             </SelectTrigger>
                             <SelectContent>
@@ -402,7 +402,7 @@ export default function RealEstateFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -435,7 +435,7 @@ export default function RealEstateFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -503,7 +503,7 @@ export default function RealEstateFinancingPage() {
                               handleInputChange("workStartDateType", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر نوع التاريخ" />
                             </SelectTrigger>
                             <SelectContent>
@@ -742,7 +742,7 @@ export default function RealEstateFinancingPage() {
                               handleInputChange("salaryBank", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -805,7 +805,7 @@ export default function RealEstateFinancingPage() {
                               )
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -871,7 +871,7 @@ export default function RealEstateFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر" />
                             </SelectTrigger>
                             <SelectContent>
@@ -896,7 +896,7 @@ export default function RealEstateFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر" />
                             </SelectTrigger>
                             <SelectContent>

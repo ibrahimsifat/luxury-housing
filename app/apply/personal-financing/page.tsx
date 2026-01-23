@@ -6,23 +6,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import {
-    Building,
-    Calendar,
-    CheckCircle,
-    CreditCard,
-    DollarSign,
-    Phone,
-    Send,
-    User,
+  Building,
+  Calendar,
+  CheckCircle,
+  CreditCard,
+  DollarSign,
+  Phone,
+  Send,
+  User,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -298,7 +298,7 @@ export default function PersonalFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -346,7 +346,7 @@ export default function PersonalFinancingPage() {
                               handleInputChange("birthDateType", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر نوع التاريخ" />
                             </SelectTrigger>
                             <SelectContent>
@@ -371,7 +371,7 @@ export default function PersonalFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -436,7 +436,7 @@ export default function PersonalFinancingPage() {
                               handleInputChange("workStartDateType", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر نوع التاريخ" />
                             </SelectTrigger>
                             <SelectContent>
@@ -540,7 +540,7 @@ export default function PersonalFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -593,7 +593,7 @@ export default function PersonalFinancingPage() {
                               handleInputChange("houseOwnership", value)
                             }
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="Please Select" />
                             </SelectTrigger>
                             <SelectContent>
@@ -639,7 +639,7 @@ export default function PersonalFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر" />
                             </SelectTrigger>
                             <SelectContent>
@@ -664,7 +664,7 @@ export default function PersonalFinancingPage() {
                             }
                             required
                           >
-                            <SelectTrigger className="border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
+                            <SelectTrigger className="w-full border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg px-4 py-3 text-lg font-medium">
                               <SelectValue placeholder="اختر" />
                             </SelectTrigger>
                             <SelectContent>
