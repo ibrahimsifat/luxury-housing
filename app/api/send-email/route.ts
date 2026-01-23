@@ -9,13 +9,14 @@ export async function POST(request: NextRequest) {
       recaptchaToken: body.recaptchaToken ? "[REDACTED]" : undefined,
     });
 
-    const { type, formType, data: nestedFormData } = body;
+    const { type, formType, data: nestedFormData, formData: alternateFormData } = body;
     const emailType = type || formType;
 
     // Handle both data formats:
     // 1. New format: { type: "contact-form", data: {...} }
-    // 2. Old format: { formType: "hero", name: "...", email: "...", ... }
-    const rawFormData = nestedFormData || body;
+    // 2. Alternate format: { type: "real-estate-financing", formData: {...} }
+    // 3. Old format: { formType: "hero", name: "...", email: "...", ... }
+    const rawFormData = nestedFormData || alternateFormData || body;
 
     // Clean up formData by removing metadata fields
     const {

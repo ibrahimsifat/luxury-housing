@@ -6,25 +6,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import {
-  Building,
-  Calendar,
-  CheckCircle,
-  CreditCard,
-  DollarSign,
-  Home,
-  MapPin,
-  Phone,
-  Send,
-  User,
+    Building,
+    Calendar,
+    CheckCircle,
+    CreditCard,
+    DollarSign,
+    Home,
+    MapPin,
+    Phone,
+    Send,
+    User,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -120,7 +120,10 @@ export default function RealEstateFinancingPage() {
         setIsSubmitted(true);
         toast.success("تم إرسال طلبك بنجاح! سنتواصل معك قريباً");
       } else {
-        throw new Error("Failed to submit form");
+        const errorData = await response.json();
+        const errorMessage = errorData.error || "فشل إرسال الطلب";
+        toast.error(`خطأ: ${errorMessage}`);
+        console.error("Server error:", errorData);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
