@@ -211,15 +211,14 @@ export type FormData =
   | RealEstateRefinancingFormData
   | RealEstateMortgageFormData;
 
-// Create SMTP transporter
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: "premium195.web-hosting.com",
-    port: 465, // SSL port
-    secure: true, // true for 465, false for other ports
+    host: process.env.SMTP_HOST || "premium195.web-hosting.com",
+    port: Number(process.env.SMTP_PORT) || 465, // SSL port
+    secure: process.env.SMTP_SECURE !== "false", // true for 465, false for other ports
     auth: {
-      user: "info@luxuryhousing.sa",
-      pass: process.env.SMTP_PASSWORD, // You'll need to set this in your environment variables
+      user: process.env.SMTP_USER || "info@luxuryhousing.sa",
+      pass: process.env.SMTP_PASSWORD || process.env.SMTP_PASS, // You'll need to set this in your environment variables
     },
     tls: {
       rejectUnauthorized: false, // For self-signed certificates
@@ -360,8 +359,8 @@ export async function sendEmailSMTP(type: EmailType, data: FormData) {
       }
 
       adminResult = await transporter.sendMail({
-        from: "Luxury Housing <info@luxuryhousing.sa>",
-        to: "info@luxuryhousing.sa",
+        from: `"${process.env.FROM_NAME || 'Luxury Housing'}" <${process.env.FROM_EMAIL || 'info@luxuryhousing.sa'}>`,
+        to: process.env.ADMIN_EMAIL || "info@luxuryhousing.sa",
         subject: subjects[type],
         html: htmlContent,
         text: textContent,
@@ -444,7 +443,7 @@ async function sendCustomerConfirmationSMTP(
     );
 
     await transporter.sendMail({
-      from: "Luxury Housing <info@luxuryhousing.sa>",
+      from: `"${process.env.FROM_NAME || 'Luxury Housing'}" <${process.env.FROM_EMAIL || 'info@luxuryhousing.sa'}>`,
       to: email,
       subject: subjects[type],
       html: htmlContent,
