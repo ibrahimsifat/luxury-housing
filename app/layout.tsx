@@ -190,6 +190,18 @@ fbq('track', 'PageView');`,
         <Suspense fallback={null}>
           <ClientLayout>{children}</ClientLayout>
         </Suspense>
+
+        {/* Saudi Business Center (SBC) e-authentication seal */}
+        <div
+          className="sbc-verify-seal"
+          data-token="MEFScllxdWFhZm9LdHdPNGFoOUdhQT09"
+          data-position="bottom-left"
+        />
+        <Script
+          id="sbc-seal"
+          src="https://eauthenticate.saudibusiness.gov.sa/EAuthSealApi/seal.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
